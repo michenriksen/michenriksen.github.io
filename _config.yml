@@ -112,7 +112,7 @@ defaults:
       # setting all post to not hidden by default,
       # can be overridden in the front matter for a specific post
       hidden: false
-      permalink: "/blog/:title"
+      permalink: "/blog/:title/"
 
 repository: michenriksen/michenriksen.github.io
 
