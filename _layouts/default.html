@@ -1,0 +1,56 @@
+---
+layout: compress
+---
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    {% if site.analytics-google %}
+    {% include analytics-google.html %}
+    {% endif %}
+
+    <meta charset="utf-8">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name=author content="{{ site.name }}">
+
+    {% if page.lang == "da_DK" %}
+        <title>{{ page.title }} | Michael Henriksen - Freelance Sikkerhedsenginiør & Konsulent</title>
+        {% seo title=false %}
+    {% else %}
+        {% seo %}
+    {% endif %}
+
+    {% include favicon.html %}
+
+    <link rel="canonical" href="{{ site.url }}{{ page.url | replace:'index.html','' }}">
+    <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ site.url }}{{ "/feed.xml" }}" />
+
+    <style>
+        {% capture scss_sheet %}{% include style.scss %}{% endcapture %}
+        {{ scss_sheet | scssify }}
+    </style>
+
+</head>
+
+<body>
+
+    <div class="wrapper-{% if site.width == "normal" %}normal{% elsif site.width == "large" %}large{% endif %}">
+        {% if page.tag %}
+        <div class="post">
+            {% else %}
+            {% if showHeader != true %}
+            <div class="page {{ page.title | downcase }}">
+                {% else %}
+                <div class="{{ page.title | downcase }}">
+                    {% endif %}
+                    {% endif %}
+
+                    {{ content }}
+                </div>
+            </div>
+
+            {% include icons.html %}
+</body>
+
+</html>

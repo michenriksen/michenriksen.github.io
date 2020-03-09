@@ -1,0 +1,64 @@
+.share
+    float: right
+    width: 40%
+    display: inline
+    text-align: right
+    position: relative
+    top: -10px
+
+    @media #{$mobile}
+        width: 100%
+        display: block
+        top: 0
+        text-align: left
+        float: none
+        margin-top: 5px
+
+    @media #{$tablet}
+        width: 100%
+        display: block
+        top: 0
+        text-align: left
+        float: none
+        margin-top: 5px
+
+    > .twitter,
+    > .facebook,
+    > .linkedin,
+    > .reddit
+        display: inline-block
+        vertical-align: middle
+        font-size: 13px
+        font-weight: 700
+        color: #fff
+        padding: 6px 10px
+        border-radius: 3px
+        margin-left: 5px
+        text-decoration: none
+
+        @media #{$mobile}
+            margin: 0 5px 10px 0
+
+        @media #{$tablet}
+            margin: 0 5px 10px 0
+
+        span
+            vertical-align: middle
+
+    > .twitter
+        background: #4fafed
+
+    > .facebook
+        background: #4361b3
+
+    > .linkedin
+        background: #0077b5
+
+    > .reddit
+        background: #ff4500
+
+    svg
+        width: 16px
+        height: 16px
+        margin: 3px
+        fill: #fff
