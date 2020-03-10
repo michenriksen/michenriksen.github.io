@@ -23,7 +23,7 @@ resume-url: https://google.com/?q=my+resume
 url: https://michenriksen.com
 # your url: http://USERNAME.github.io
 
-permalink: /:title
+permalink: /:title/
 
 # To enable google analytics, supply your token below
 analytics-google: 'UA-160093393-1'
@@ -115,16 +115,6 @@ defaults:
       permalink: "/blog/:title/"
 
 repository: michenriksen/michenriksen.github.io
-
-plugins:
-  - jekyll-seo-tag
-  - jekyll-gist
-  - jekyll-feed
-  - jemoji
-  - jekyll-admin
-  - jekyll-paginate-v2
-  - jekyll-fontawesome-svg
-
 
 jekyll-mentions:
     base_url: https://github.com
