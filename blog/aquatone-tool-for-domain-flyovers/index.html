@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-160093393-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-160093393-1');
+</script>
+
+    
+
+    <meta charset="utf-8">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name=author content="Michael Henriksen">
+
+    
+        <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>AQUATONE: A tool for domain flyovers | Michael Henriksen - Security engineer &amp; builder of tools</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="AQUATONE: A tool for domain flyovers" />
+<meta name="author" content="michenriksen" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The Lockheed U-2 reconnaissance aircraft was given the codename Aquatone." />
+<meta property="og:description" content="The Lockheed U-2 reconnaissance aircraft was given the codename Aquatone." />
+<link rel="canonical" href="https://michenriksen.com/blog/aquatone-tool-for-domain-flyovers/" />
+<meta property="og:url" content="https://michenriksen.com/blog/aquatone-tool-for-domain-flyovers/" />
+<meta property="og:site_name" content="Michael Henriksen - Security engineer &amp; builder of tools" />
+<meta property="og:image" content="https://michenriksen.com/assets/images/aquatone/u2.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-06-17T13:37:00+02:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://michenriksen.com/assets/images/aquatone/u2.jpg" />
+<meta property="twitter:title" content="AQUATONE: A tool for domain flyovers" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@michenriksen" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","image":"https://michenriksen.com/assets/images/aquatone/u2.jpg","headline":"AQUATONE: A tool for domain flyovers","dateModified":"2017-06-17T13:37:00+02:00","datePublished":"2017-06-17T13:37:00+02:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://michenriksen.com/blog/aquatone-tool-for-domain-flyovers/"},"author":{"@type":"Person","name":"michenriksen"},"description":"The Lockheed U-2 reconnaissance aircraft was given the codename Aquatone.","url":"https://michenriksen.com/blog/aquatone-tool-for-domain-flyovers/","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/images/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/images/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/images/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/images/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/images/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/images/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/images/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/images/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/assets/images/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/images/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="application-name" content="michenriksen.com"/>
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/images/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="canonical" href="https://michenriksen.com/blog/aquatone-tool-for-domain-flyovers/">
+    <link rel="alternate" type="application/rss+xml" title="Michael Henriksen - Security engineer & builder of tools" href="https://michenriksen.com/feed.xml" />
+
+    <style>
+        
+        @charset "UTF-8";
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+/* Document
+   ========================================================================== */
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+html {
+  line-height: 1.15;
+  /* 1 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */ }
+
+/* Sections
+   ========================================================================== */
+/**
+ * Remove the margin in all browsers.
+ */
+body {
+  margin: 0; }
+
+/**
+ * Render the `main` element consistently in IE.
+ */
+main {
+  display: block; }
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0; }
+
+/* Grouping content
+   ========================================================================== */
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr {
+  box-sizing: content-box;
+  /* 1 */
+  height: 0;
+  /* 1 */
+  overflow: visible;
+  /* 2 */ }
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+pre {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */ }
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+a {
+  background-color: transparent; }
+
+/**
+ * 1. Remove the bottom border in Chrome 57-
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+abbr[title] {
+  border-bottom: none;
+  /* 1 */
+  text-decoration: underline;
+  /* 2 */
+  text-decoration: underline dotted;
+  /* 2 */ }
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b,
+strong {
+  font-weight: bolder; }
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */ }
+
+/**
+ * Add the correct font size in all browsers.
+ */
+small {
+  font-size: 80%; }
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sub {
+  bottom: -0.25em; }
+
+sup {
+  top: -0.5em; }
+
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove the border on images inside links in IE 10.
+ */
+img {
+  border-style: none; }
+
+/* Forms
+   ========================================================================== */
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  line-height: 1.15;
+  /* 1 */
+  margin: 0;
+  /* 2 */ }
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+button,
+input {
+  /* 1 */
+  overflow: visible; }
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+button,
+select {
+  /* 1 */
+  text-transform: none; }
+
+/**
+ * Correct the inability to style clickable types in iOS and Safari.
+ */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button; }
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0; }
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText; }
+
+/**
+ * Correct the padding in Firefox.
+ */
+fieldset {
+  padding: 0.35em 0.75em 0.625em; }
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+legend {
+  box-sizing: border-box;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  display: table;
+  /* 1 */
+  max-width: 100%;
+  /* 1 */
+  padding: 0;
+  /* 3 */
+  white-space: normal;
+  /* 1 */ }
+
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+progress {
+  vertical-align: baseline; }
+
+/**
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+textarea {
+  overflow: auto; }
+
+/**
+ * 1. Add the correct box sizing in IE 10.
+ * 2. Remove the padding in IE 10.
+ */
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */ }
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto; }
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */ }
+
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */ }
+
+/* Interactive
+   ========================================================================== */
+/*
+ * Add the correct display in Edge, IE 10+, and Firefox.
+ */
+details {
+  display: block; }
+
+/*
+ * Add the correct display in all browsers.
+ */
+summary {
+  display: list-item; }
+
+/* Misc
+   ========================================================================== */
+/**
+ * Add the correct display in IE 10+.
+ */
+template {
+  display: none; }
+
+/**
+ * Add the correct display in IE 10.
+ */
+[hidden] {
+  display: none; }
+
+/* GitHub style for Pygments syntax highlighter, for use with Jekyll
+ * Courtesy of GitHub.com
+ */
+.highlight .c {
+  color: #999988;
+  font-style: italic; }
+.highlight .err {
+  color: #a61717;
+  background-color: #e3d2d2; }
+.highlight .k {
+  font-weight: bold; }
+.highlight .o {
+  font-weight: bold; }
+.highlight .cm {
+  color: #999988;
+  font-style: italic; }
+.highlight .cp {
+  color: #999999;
+  font-weight: bold; }
+.highlight .c1 {
+  color: #999988;
+  font-style: italic; }
+.highlight .cs {
+  color: #999999;
+  font-weight: bold;
+  font-style: italic; }
+.highlight .gd {
+  color: #000000;
+  background-color: #ffdddd; }
+.highlight .gd .x {
+  color: #000000;
+  background-color: #ffaaaa; }
+.highlight .ge {
+  font-style: italic; }
+.highlight .gr {
+  color: #aa0000; }
+.highlight .gh {
+  color: #999999; }
+.highlight .gi {
+  color: #000000;
+  background-color: #ddffdd; }
+.highlight .gi .x {
+  color: #000000;
+  background-color: #aaffaa; }
+.highlight .go {
+  color: #888888; }
+.highlight .gp {
+  color: #555555; }
+.highlight .gs {
+  font-weight: bold; }
+.highlight .gu {
+  color: #800080;
+  font-weight: bold; }
+.highlight .gt {
+  color: #aa0000; }
+.highlight .kc {
+  font-weight: bold; }
+.highlight .kd {
+  font-weight: bold; }
+.highlight .kn {
+  font-weight: bold; }
+.highlight .kp {
+  font-weight: bold; }
+.highlight .kr {
+  font-weight: bold; }
+.highlight .kt {
+  color: #445588;
+  font-weight: bold; }
+.highlight .m {
+  color: #009999; }
+.highlight .s {
+  color: #dd1144; }
+.highlight .n {
+  color: #333333; }
+.highlight .na {
+  color: teal; }
+.highlight .nb {
+  color: #0086b3; }
+.highlight .nc {
+  color: #445588;
+  font-weight: bold; }
+.highlight .no {
+  color: teal; }
+.highlight .ni {
+  color: purple; }
+.highlight .ne {
+  color: #990000;
+  font-weight: bold; }
+.highlight .nf {
+  color: #990000;
+  font-weight: bold; }
+.highlight .nn {
+  color: #555555; }
+.highlight .nt {
+  color: navy; }
+.highlight .nv {
+  color: teal; }
+.highlight .ow {
+  font-weight: bold; }
+.highlight .w {
+  color: #bbbbbb; }
+.highlight .mf {
+  color: #009999; }
+.highlight .mh {
+  color: #009999; }
+.highlight .mi {
+  color: #009999; }
+.highlight .mo {
+  color: #009999; }
+.highlight .sb {
+  color: #dd1144; }
+.highlight .sc {
+  color: #dd1144; }
+.highlight .sd {
+  color: #dd1144; }
+.highlight .s2 {
+  color: #dd1144; }
+.highlight .se {
+  color: #dd1144; }
+.highlight .sh {
+  color: #dd1144; }
+.highlight .si {
+  color: #dd1144; }
+.highlight .sx {
+  color: #dd1144; }
+.highlight .sr {
+  color: #009926; }
+.highlight .s1 {
+  color: #dd1144; }
+.highlight .ss {
+  color: #990073; }
+.highlight .bp {
+  color: #999999; }
+.highlight .vc {
+  color: teal; }
+.highlight .vg {
+  color: teal; }
+.highlight .vi {
+  color: teal; }
+.highlight .il {
+  color: #009999; }
+.highlight .gc {
+  color: #999;
+  background-color: #EAF2F5; }
+
+body, html {
+  font-size: 62.5%; }
+
+body {
+  font: 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #666; }
+
+h1, h2, h3, h4 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #222;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility; }
+
+h1 {
+  font-size: 3rem;
+  letter-spacing: -1px;
+  color: #222;
+  font-weight: 700; }
+
+h2 {
+  font-size: 2.2rem; }
+
+h3 {
+  font-size: 2rem; }
+
+h4 {
+  font-size: 1.6rem;
+  color: #666; }
+
+a {
+  color: #4175c3;
+  text-decoration: underline; }
+
+p {
+  line-height: 1.7;
+  color: #666;
+  font-weight: 300;
+  margin-bottom: 20px;
+  letter-spacing: 0.4px; }
+  @media only screen and (max-width: 400px) {
+    p {
+      letter-spacing: 0.2px; } }
+
+strong {
+  font-weight: 400;
+  color: #000; }
+
+ul li,
+ol li {
+  line-height: 2.4rem;
+  font-weight: 300;
+  color: #666; }
+
+img,
+pre,
+iframe {
+  max-width: 100%; }
+
+img,
+pre {
+  border-radius: 4px; }
+
+figcaption {
+  position: relative;
+  top: -20px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+  font-size: 1.3rem;
+  color: #aaa;
+  font-weight: 300; }
+  @media only screen and (max-width: 400px) {
+    figcaption {
+      font-size: 1.2rem; } }
+
+blockquote {
+  padding-left: 15px;
+  border-left: 3px solid #eee; }
+
+hr {
+  border: none;
+  height: 1px;
+  margin: 40px auto;
+  background: #eee;
+  width: 100%; }
+
+figure.highlight {
+  width: 100%;
+  margin: 0; }
+
+code,
+tt {
+  padding: 1px 0;
+  font-family: "Consolas", Liberation Mono, Menlo, Courier, monospace;
+  font-size: 12px;
+  line-height: 20px;
+  background: #fff;
+  border-radius: 2px; }
+
+pre {
+  box-sizing: border-box;
+  margin: 0 0 1.75em 0;
+  width: 100%;
+  padding: 5px 10px;
+  font-family: "Consolas", Liberation Mono, Menlo, Courier, monospace;
+  font-size: 1.2rem;
+  line-height: 2rem;
+  overflow: auto;
+  background: #fff;
+  border: 1px solid #ededed;
+  border-radius: 2px; }
+
+.wrapper-normal,
+.wrapper-large {
+  height: 100%;
+  width: 96%;
+  margin: 0 auto; }
+  @media only screen and (max-width: 400px) {
+    .wrapper-normal,
+    .wrapper-large {
+      width: 88%; } }
+  @media only screen and (min-width: 400px) and (max-width: 1050px) {
+    .wrapper-normal,
+    .wrapper-large {
+      width: 88%; } }
+
+.wrapper-normal {
+  max-width: 560px; }
+
+.wrapper-large {
+  max-width: 810px; }
+
+/* general helpers
+ */
+.text-center {
+  text-align: center; }
+
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table; }
+
+.clearfix:after {
+  clear: both; }
+
+/* animations
+ */
+.animated {
+  animation: fade-in-down 0.6s;
+  animation-delay: 0.3s;
+  animation-fill-mode: both; }
+
+@keyframes fade-in-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px); }
+  100% {
+    opacity: 1;
+    transform: translateY(0); } }
+.home,
+.blog,
+.projects {
+  margin-top: 125px; }
+  .home > .list,
+  .blog > .list,
+  .projects > .list {
+    border-top: 1px solid #ededed;
+    margin-top: 30px;
+    padding-top: 40px;
+    position: relative; }
+    .home > .list:before,
+    .blog > .list:before,
+    .projects > .list:before {
+      display: block;
+      content: " ";
+      width: 7px;
+      height: 7px;
+      border: #ededed 1px solid;
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      margin-left: -5px;
+      background: #FFF;
+      box-shadow: #FFF 0 0 0 5px;
+      border-radius: 3px; }
+
+.home > .list > .item,
+.blog > .list > .item,
+.projects > .list > .item {
+  display: block;
+  width: 95%;
+  margin: 0 auto; }
+.home > .list > .item > .url,
+.blog > .list > .item > .url,
+.projects > .list > .item > .url {
+  width: 100%;
+  display: block;
+  padding: 20px 0;
+  text-decoration: none; }
+.home > .list > .item > .url > .title,
+.blog > .list > .item > .url > .title,
+.projects > .list > .item > .url > .title {
+  margin: 0;
+  width: 75%;
+  font-weight: 500;
+  transition: all ease-in-out 0.2s; }
+.home > .list > .item:hover > .url > .title,
+.blog > .list > .item:hover > .url > .title,
+.projects > .list > .item:hover > .url > .title {
+  color: #4175c3; }
+.home > .list aside,
+.blog > .list aside,
+.projects > .list aside {
+  position: relative;
+  top: 2px;
+  margin: 0;
+  width: 25%;
+  float: right;
+  font-weight: 300;
+  color: #aaa;
+  text-align: right;
+  transition: all ease-in-out 0.2s; }
+.home > .list .item:hover .url aside,
+.blog > .list .item:hover .url aside,
+.projects > .list .item:hover .url aside {
+  color: #666; }
+
+.blog > .list > .item > .url > .title,
+.projects > .list > .item > .url > .title {
+  display: inline; }
+.blog > .list > .item > .url > .emoji,
+.projects > .list > .item > .url > .emoji {
+  display: inline;
+  position: relative;
+  top: -4px;
+  margin-right: 10px; }
+
+.page {
+  margin-top: 125px; }
+  .page > h1 {
+    text-align: center;
+    margin-bottom: 6rem; }
+
+.about img {
+  width: 50%;
+  margin: 0 auto;
+  display: block; }
+
+.post {
+  margin-top: 125px; }
+  .post > .title {
+    text-align: center;
+    margin-bottom: 3rem; }
+  .post > .date,
+  .post > .post-tags {
+    color: #aaa;
+    font-weight: 300;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    margin-bottom: 6rem;
+    letter-spacing: 1px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility; }
+  .post > .date {
+    margin-bottom: 2rem; }
+  .post > .post-tags > .item {
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 1.1rem;
+    background: #ededed;
+    color: #666;
+    letter-spacing: 1px;
+    margin: 3px 1px;
+    text-decoration: none;
+    display: inline-block; }
+  .post > h2,
+  .post > h3,
+  .post > h4 {
+    margin-top: 40px; }
+    .post > h2 a,
+    .post > h3 a,
+    .post > h4 a {
+      text-decoration: none; }
+  .post > .title-image {
+    max-height: 120px;
+    display: block;
+    margin: 0 auto; }
+  .post > .blog-navigation {
+    font-size: 1.4rem;
+    display: block;
+    width: auto;
+    overflow: hidden; }
+    .post > .blog-navigation a {
+      display: block;
+      width: 50%;
+      float: left;
+      margin: 1em 0; }
+    .post > .blog-navigation .next {
+      text-align: right; }
+
+.tags {
+  margin-top: 125px; }
+  .tags > .list {
+    border-top: 1px solid #ededed;
+    margin-top: 30px;
+    padding-top: 40px;
+    position: relative; }
+    .tags > .list:before {
+      display: block;
+      content: " ";
+      width: 7px;
+      height: 7px;
+      border: #ededed 1px solid;
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      margin-left: -5px;
+      background: #FFF;
+      box-shadow: #FFF 0 0 0 5px;
+      border-radius: 3px; }
+
+.tags > .list > .item {
+  font-weight: 300;
+  text-transform: uppercase;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  padding: 3px 9px;
+  border-radius: 3px;
+  font-size: 1.3rem;
+  background: #ededed;
+  color: #666;
+  letter-spacing: 1px;
+  margin: 0 0.5rem 1rem;
+  text-decoration: none;
+  display: inline-block; }
+
+.tag-list > .list {
+  padding: 0; }
+  .tag-list > .list > .item {
+    display: block;
+    width: 80%;
+    margin: 0 10%; }
+  .tag-list > .list > .item > .url {
+    width: 100%;
+    height: 100%;
+    display: block;
+    padding: 20px 0;
+    text-decoration: none; }
+  .tag-list > .list > .item > .url > .title {
+    margin: 0;
+    width: 75%;
+    font-weight: 400;
+    transition: all ease-in-out 0.2s;
+    font-size: 1.6rem; }
+  .tag-list > .list > .item:hover > .url > .title {
+    color: #4175c3; }
+  .tag-list > .list aside {
+    position: relative;
+    top: 2px;
+    margin: 0;
+    width: 25%;
+    float: right;
+    font-weight: 300;
+    color: #aaa;
+    text-align: right;
+    transition: all ease-in-out 0.2s;
+    font-size: 1.6rem; }
+  .tag-list > .list .item:hover .url aside {
+    color: #666; }
+
+.author {
+  padding: 3rem 0;
+  border-bottom: 1px solid #ededed;
+  border-top: 1px solid #ededed;
+  max-width: 100%;
+  margin: 4rem auto 0; }
+  .author > .toleft > .selfie {
+    width: 90%;
+    border-radius: 100%; }
+  .author > .toright > .name,
+  .author > .toright > .bio {
+    width: 60%;
+    display: inline-block; }
+  .author > .toright > .name {
+    font-size: 1.5rem;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    margin: 6px 0 0; }
+    @media only screen and (max-width: 400px) {
+      .author > .toright > .name {
+        width: 100%;
+        display: block; } }
+    @media only screen and (min-width: 400px) and (max-width: 1050px) {
+      .author > .toright > .name {
+        width: 100%;
+        display: block; } }
+  .author > .toright > .bio {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    color: #aaa;
+    font-size: 1.3rem;
+    text-align: justify;
+    line-height: 1.5;
+    margin: 0; }
+    @media only screen and (max-width: 400px) {
+      .author > .toright > .bio {
+        width: 100%;
+        display: block; } }
+    @media only screen and (min-width: 400px) and (max-width: 1050px) {
+      .author > .toright > .bio {
+        width: 100%;
+        display: block; } }
+  .author > .toleft {
+    width: 10%;
+    display: inline-block; }
+    @media only screen and (max-width: 400px) {
+      .author > .toleft {
+        width: 20%; } }
+    @media only screen and (min-width: 400px) and (max-width: 1050px) {
+      .author > .toleft {
+        width: 20%; } }
+  .author > .toright {
+    width: 89%;
+    display: inline-block;
+    vertical-align: top; }
+    @media only screen and (max-width: 400px) {
+      .author > .toright {
+        width: 78%; } }
+    @media only screen and (min-width: 400px) and (max-width: 1050px) {
+      .author > .toright {
+        width: 78%; } }
+
+.no-disqus {
+  border-bottom: none;
+  padding-bottom: 0; }
+
+.disqus {
+  margin: 0 auto;
+  max-width: 100%;
+  padding: 40px 0; }
+
+.footer-main {
+  border-top: 1px solid #ededed;
+  padding: 40px 0;
+  margin: 40px 0 0;
+  font-size: 1.3rem;
+  color: #aaa;
+  font-weight: 300;
+  text-align: center;
+  position: relative; }
+  .footer-main:before {
+    display: block;
+    content: " ";
+    width: 7px;
+    height: 7px;
+    border: #ededed 1px solid;
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    margin-left: -5px;
+    background: #FFF;
+    box-shadow: #FFF 0 0 0 5px;
+    border-radius: 3px; }
+  .footer-main > .copyright {
+    padding-left: 10px; }
+  .footer-main > .link {
+    display: inline;
+    vertical-align: middle; }
+    .footer-main > .link > .icon {
+      width: 12px !important;
+      height: 12px !important;
+      display: inline-block;
+      fill: #aaa !important;
+      transition: ease-in-out all 0.3s;
+      position: relative;
+      top: -2px;
+      margin: 0;
+      left: 2px; }
+      .footer-main > .link > .icon:hover {
+        fill: #4175c3 !important; }
+  .footer-main > .extra {
+    color: #aaa;
+    margin-top: 0;
+    font-size: 10px; }
+    .footer-main > .extra > .link {
+      color: #aaa;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: ease-in-out all 0.3s;
+      padding-bottom: 1px; }
+      .footer-main > .extra > .link:hover {
+        border-color: #aaa; }
+    .footer-main > .extra > .logo {
+      width: 70px;
+      height: 70px;
+      display: block;
+      margin: 30px auto 30px auto; }
+
+.header-home {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 99; }
+  .header-home > .link > .selfie {
+    width: 125px;
+    height: 125px;
+    margin-bottom: 25px;
+    border-radius: 100%;
+    transition: all 0.2s;
+    opacity: 1; }
+    .header-home > .link > .selfie:hover {
+      box-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.18), 0 0px 12px 0 rgba(0, 0, 0, 0.15);
+      opacity: 0.8; }
+  .header-home > .title {
+    font-size: 4rem;
+    margin: 0 0 13px; }
+  .header-home > .description {
+    font-size: 1.85rem;
+    font-weight: 400;
+    font-style: normal;
+    color: #666;
+    width: 70%;
+    margin: 0 auto 30px; }
+    .header-home > .description a {
+      font-weight: 200; }
+
+.nav > .list,
+.nav-home > .list {
+  list-style: none;
+  margin: 0;
+  padding: 0 13px 0; }
+  .nav > .list > .item,
+  .nav-home > .list > .item {
+    display: inline-block; }
+  .nav > .list > .item > .link,
+  .nav-home > .list > .item > .link {
+    display: inline-block;
+    font-weight: 300;
+    font-size: 1.4rem;
+    padding: 20px 10px;
+    text-decoration: none; }
+
+.nav {
+  position: absolute;
+  right: 0;
+  top: 0; }
+  .nav > .list {
+    padding: 0 13px 0; }
+    .nav > .list > .item > .link {
+      font-size: 1.4rem;
+      padding: 20px 10px; }
+    .nav > .list > .item .flag {
+      width: 20px;
+      vertical-align: middle;
+      position: relative;
+      top: -1px; }
+
+.nav-home {
+  margin-top: 40px;
+  text-align: center; }
+  .nav-home > .list {
+    padding: 0; }
+    .nav-home > .list > .item > .link {
+      font-size: 2rem;
+      padding: 7px 15px;
+      margin: 0;
+      border-radius: 4%;
+      transition: all 0.4s ease-in-out; }
+      .nav-home > .list > .item > .link:hover {
+        color: #666; }
+
+.evidence {
+  background-image: linear-gradient(to bottom, rgba(39, 243, 106, 0.15), rgba(39, 243, 106, 0.15));
+  color: #222; }
+
+.star > .url > .title {
+  width: auto !important;
+  display: inline;
+  background-image: linear-gradient(rgba(39, 243, 106, 0.15), rgba(39, 243, 106, 0.15)); }
+
+.twitter-tweet {
+  margin: 10px auto; }
+
+.icon {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  fill: #000;
+  text-align: center;
+  color: #000;
+  margin: 7px auto;
+  vertical-align: middle; }
+
+.caption {
+  position: relative;
+  top: 1rem;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+  font-size: 1.3rem; }
+
+.bigger-image {
+  min-width: 130%;
+  margin: 5rem 0 5rem -15%; }
+  @media only screen and (max-width: 400px) {
+    .bigger-image {
+      min-width: 114%;
+      margin: 2rem 0 2rem -7%; } }
+  @media only screen and (min-width: 400px) and (max-width: 1050px) {
+    .bigger-image {
+      min-width: 114%;
+      margin: 2rem 0 2rem -7%; } }
+
+.breaker {
+  height: 1px;
+  margin: 6rem auto;
+  width: 100%; }
+  .breaker:before {
+    content: "• • •";
+    width: 100%;
+    text-align: center;
+    display: block;
+    color: #aaa;
+    letter-spacing: 4px;
+    position: relative;
+    top: -8px; }
+
+.lost-container {
+  text-align: center; }
+
+.pagination {
+  width: 95%;
+  margin: 3rem auto 0;
+  text-align: center; }
+  .pagination > .page_number {
+    display: inline-block;
+    font-size: 1.3rem; }
+  .pagination > .previous,
+  .pagination > .next {
+    display: inline-block;
+    font-size: 1.8rem;
+    position: relative;
+    top: 1px;
+    padding: 1px 9px; }
+  .pagination > .hidden {
+    visibility: hidden; }
+
+.related {
+  margin: 10rem 0 0rem; }
+
+.share {
+  float: right;
+  width: 40%;
+  display: inline;
+  text-align: right;
+  position: relative;
+  top: -10px; }
+  @media only screen and (max-width: 400px) {
+    .share {
+      width: 100%;
+      display: block;
+      top: 0;
+      text-align: left;
+      float: none;
+      margin-top: 5px; } }
+  @media only screen and (min-width: 400px) and (max-width: 1050px) {
+    .share {
+      width: 100%;
+      display: block;
+      top: 0;
+      text-align: left;
+      float: none;
+      margin-top: 5px; } }
+  .share > .twitter,
+  .share > .facebook,
+  .share > .linkedin,
+  .share > .reddit {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 3px;
+    margin-left: 5px;
+    text-decoration: none; }
+    @media only screen and (max-width: 400px) {
+      .share > .twitter,
+      .share > .facebook,
+      .share > .linkedin,
+      .share > .reddit {
+        margin: 0 5px 10px 0; } }
+    @media only screen and (min-width: 400px) and (max-width: 1050px) {
+      .share > .twitter,
+      .share > .facebook,
+      .share > .linkedin,
+      .share > .reddit {
+        margin: 0 5px 10px 0; } }
+    .share > .twitter span,
+    .share > .facebook span,
+    .share > .linkedin span,
+    .share > .reddit span {
+      vertical-align: middle; }
+  .share > .twitter {
+    background: #4fafed; }
+  .share > .facebook {
+    background: #4361b3; }
+  .share > .linkedin {
+    background: #0077b5; }
+  .share > .reddit {
+    background: #ff4500; }
+  .share svg {
+    width: 16px;
+    height: 16px;
+    margin: 3px;
+    fill: #fff; }
+
+@media only screen and (min-width: 780px) {
+  .side-by-side {
+    width: 130%;
+    margin: 6rem 0 6rem -15%; } }
+@media only screen and (max-width: 780px) {
+  .side-by-side {
+    width: 100%;
+    margin: 4rem 0; } }
+.side-by-side > .toleft,
+.side-by-side > .toright {
+  display: inline-block;
+  width: 47.5%; }
+  @media only screen and (max-width: 780px) {
+    .side-by-side > .toleft img,
+    .side-by-side > .toright img {
+      text-align: center;
+      display: block;
+      margin: 0 auto; } }
+@media only screen and (min-width: 780px) {
+  .side-by-side > .toleft {
+    margin-right: 2%; } }
+@media only screen and (max-width: 780px) {
+  .side-by-side > .toleft {
+    width: 100%;
+    margin: 0 0 4rem 0; } }
+@media only screen and (min-width: 780px) {
+  .side-by-side > .toright {
+    margin-left: 2%;
+    vertical-align: top; } }
+@media only screen and (max-width: 780px) {
+  .side-by-side > .toright {
+    width: 100%;
+    margin: 0 0 4rem 0; } }
+.side-by-side > .toleft > p,
+.side-by-side > .toright > p {
+  margin: 0 0 4rem 0; }
+  @media only screen and (max-width: 780px) {
+    .side-by-side > .toleft > p,
+    .side-by-side > .toright > p {
+      margin: 0; } }
+
+.social-links {
+  margin-top: 20px;
+  margin-left: 15px; }
+  .social-links > .link {
+    margin: 0;
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    height: 35px;
+    width: 35px; }
+    .social-links > .link:hover > .icon {
+      fill: #4175c3; }
+    .social-links > .link:hover:before {
+      opacity: 1;
+      display: inline-block;
+      transform: translate3d(0, 0, 0);
+      white-space: nowrap; }
+    .social-links > .link:before {
+      content: attr(data-title);
+      display: none;
+      position: absolute;
+      bottom: -34px;
+      left: -6px;
+      margin: 0 auto;
+      font-size: 13px;
+      padding: 3px 10px;
+      background: #222;
+      color: #fff;
+      border-radius: 2px;
+      height: 22px;
+      line-height: 22px;
+      opacity: 0;
+      transition: opacity 150ms linear, transform 150ms linear, -webkit-transform 150ms linear;
+      transform: translate3d(0, -8px, 0);
+      z-index: 99; }
+    .social-links > .link:after {
+      content: "";
+      position: absolute;
+      top: 35px;
+      left: 13px;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 6px solid #222;
+      opacity: 0;
+      transition: opacity 150ms linear, transform 150ms linear, -webkit-transform 150ms linear;
+      transform: translate3d(0, -8px, 0);
+      z-index: 100; }
+    .social-links > .link:hover:after {
+      opacity: 1;
+      transform: translate3d(0, 0, 0); }
+  .social-links > .icon {
+    transition: all ease-in-out 0.2s; }
+
+.spoiler {
+  position: relative; }
+  .spoiler:before {
+    content: "";
+    background-color: #fafae0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50; }
+  .spoiler:hover:before {
+    display: none; }
+
+.work-callout h2 {
+  font-size: 2.7rem; }
+.work-callout a.get-in-touch {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  padding: 5px 15px 5px 15px;
+  border-radius: 3px;
+  text-decoration: none;
+  background: #4175c3; }
+  .work-callout a.get-in-touch span {
+    vertical-align: middle; }
+  .work-callout a.get-in-touch svg {
+    width: 18px;
+    height: 18px;
+    margin: 3px;
+    fill: #fff; }
+    @media only screen and (max-width: 400px) {
+      .work-callout a.get-in-touch svg {
+        margin: 0 5px 10px 0; } }
+  @media only screen and (max-width: 400px) and (min-width: 400px) and (max-width: 1050px) {
+    .work-callout a.get-in-touch svg {
+      margin: 0 5px 10px 0; } }
+
+.thumb-image {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  text-align: center; }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="wrapper-normal">
+        
+            
+            <div class="page aquatone: a tool for domain flyovers">
+                
+                    
+
+                    
+
+
+
+<nav class="nav">
+    <ul class="list">
+        
+            <li class="item">
+                <a class="link" href="https://michenriksen.com/">Home</a>
+            </li>
+        
+
+        
+            
+                <li class="item">
+                    <a class="link" href="https://michenriksen.com/blog">Blog</a>
+                </li>
+            
+        
+
+        
+            
+                <li class="item">
+                    <a class="link" href="https://michenriksen.com/projects">Projects</a>
+                </li>
+            
+        
+
+        
+
+        
+    </ul>
+</nav>
+
+
+
+
+
+<h1 class="title">AQUATONE: A tool for domain flyovers</h1>
+
+<span class="date">
+    <time datetime="17-06-2017">Saturday, June 17, 2017</time>
+     - <span class="reading-time" title="Estimated read time">
+    
+
+    
+        11 mins
+    
+</span>
+
+</span>
+
+
+
+<div class="thumb-image">
+  <a href="/assets/images/aquatone/u2.jpg"><img src="/assets/images/aquatone/u2.jpg" class="image" alt="" /></a>
+  <figcaption class="caption">The Lockheed U-2 reconnaissance aircraft was given the codename Aquatone.</figcaption>
+</div>
+
+<p><span class="evidence"><strong>Heads up! Aquatone has been totally rewritten in Go and is now quite a bit different. Read about the <a href="/blog/aquatone-now-in-go">new version</a>!</strong></span></p>
+
+<p>Knowing the attack surface of something is critical for both defending and attacking it. When it comes to domain names, a very common approach for uncovering the attack surface is to discover its subdomains. Subdomains will increase the number of potential target sites as well as uncover IP ranges to probe further.</p>
+
+<p>There are plenty of tools already for subdomain enumeration, e.g. <a href="http://tools.kali.org/information-gathering/fierce">Fierce</a>, <a href="https://github.com/TheRook/subbrute">SubBrute</a> and <a href="https://github.com/OJ/gobuster">Gobuster</a> however <a href="https://github.com/michenriksen/aquatone">AQUATONE</a> takes things a step further by not only doing classic brute force enumeration but also utilizing various open sources and internet services to dramatically increase the number of discovered subdomains. When subdomains have been discovered, AQUATONE can then be used to probe the hosts for common HTTP ports and gather response headers, HTML and screenshots to be compiled into a nice report for easy analysis.</p>
+
+<p>To make the tool as flexible as possible, AQUATONE is divided into three separate commands, so if you’re only interested in using it for subdomain discovery without any scanning or screenshotting, you can easily do that. Lets go over the three phases of an AQUATONE assessment:</p>
+
+<h2 id="phase-1-discovery">Phase 1: Discovery</h2>
+
+<p>To demonstrate the usage of AQUATONE, we will perform an assessment on the <code class="language-plaintext highlighter-rouge">corp.yahoo.com</code> domain. I have chosen this domain because Yahoo’s <a href="https://hackerone.com/yahoo">Bug Bounty program</a> includes all of <code class="language-plaintext highlighter-rouge">*.yahoo.com</code> in their scope, so it should be acceptable to run a tool like AQUATONE against it.</p>
+
+<p>Kicking off the <code class="language-plaintext highlighter-rouge">aquatone-discover</code> tool:</p>
+
+<div class="thumb-image">
+  <a href="/assets/images/aquatone/discover_start.png"><img src="/assets/images/aquatone/discover_start_thumbnail.png" class="image" alt="" /></a>
+  <figcaption class="caption">Starting aquatone-discover against `corp.yahoo.com`...</figcaption>
+</div>
+
+<p>The first thing <code class="language-plaintext highlighter-rouge">aquatone-discover</code> does is to identify the authoritative name servers for the target domain. Using these name servers for resolution ensures that the information is up to date and discovery is maximised.</p>
+
+<p>It also does a quick test to see if the target domain is configured to be a wildcard domain as such domains can produce a lot of false positives. If the domain turns out to be a wildcard, it will identify the possible wildcard responses and filter them out. <code class="language-plaintext highlighter-rouge">corp.yahoo.com</code> is luckily not configured to be wildcard.</p>
+
+<p>After name server and wildcard detection, it proceeds to ask each subdomain collector module for potential subdomains under the target domain. <code class="language-plaintext highlighter-rouge">aquatone-discover</code> ships with following collector modules:</p>
+
+<ul>
+  <li>Dictionary brute force</li>
+  <li><a href="http://dnsdb.org/">DNSDB.org</a></li>
+  <li><a href="https://www.google.com/transparencyreport/">Google Transparency Report</a></li>
+  <li><a href="https://hackertarget.com/find-dns-host-records/">HackerTarget</a></li>
+  <li><a href="http://searchdns.netcraft.com/">Netcraft</a></li>
+  <li><a href="https://www.shodan.io/">Shodan</a> (requires API key)</li>
+  <li><a href="https://www.threatcrowd.org/">ThreatCrowd</a></li>
+  <li><a href="http://www.virustotal.com/">VirusTotal</a> (requires API key)</li>
+</ul>
+
+<p>The collector modules returned a total of 12.282 potential subdomains that aquatone-discover attempts to resolve.</p>
+
+<div class="thumb-image">
+  <a href="/assets/images/aquatone/discover_progress.png"><img src="/assets/images/aquatone/discover_progress_thumbnail.png" class="image" alt="" /></a>
+  <figcaption class="caption">aquatone-discover resolving subdomains. Hitting Enter will output a progress report.</figcaption>
+</div>
+
+<p>After a while, aquatone-discover has run through the list and uncovered a total of 1.958 live subdomains. It also analyzed the IPs and printed a list of potential IP subnet ranges which can be used for further probing:</p>
+
+<div class="thumb-image">
+  <a href="/assets/images/aquatone/discover_finished.png"><img src="/assets/images/aquatone/discover_finished_thumbnail.png" class="image" alt="" /></a>
+  <figcaption class="caption">aquatone-discover uncovered a total of 1.958 live subdomains.</figcaption>
+</div>
+
+<p>It also wrote the discovered hosts to files in the aquatone assessment directory that is automatically created for the target domain. <code class="language-plaintext highlighter-rouge">hosts.txt</code> contains a comma-separated list of domains and their IP:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>224-si1.corp.yahoo.com,207.126.224.4
+224-si2.corp.yahoo.com,207.126.224.5
+227-si1.corp.yahoo.com,207.126.227.4
+227-si2.corp.yahoo.com,207.126.227.7
+232-si1.corp.yahoo.com,207.126.232.4
+232-si2.corp.yahoo.com,207.126.232.5
+351-si1.corp.yahoo.com,216.145.51.4
+351-si2.corp.yahoo.com,216.145.51.96
+998-dmz-foundry1.corp.yahoo.com,216.145.48.25
+998-dmz-foundry2.corp.yahoo.com,216.145.48.39
+aa-dc1.wpe.stg.test.corp.yahoo.com,98.137.139.80
+aa-dc2.wpe.stg.test.corp.yahoo.com,98.137.139.81
+aaa1-1-a-gci.corp.yahoo.com,216.145.50.84
+aaa1-2-a-gci.corp.yahoo.com,216.145.50.87
+aahost1.stg.test.corp.yahoo.com,98.137.139.82
+aahost2.stg.test.corp.yahoo.com,98.137.139.83
+aahost3.stg.test.corp.yahoo.com,98.137.139.84
+aahost4.stg.test.corp.yahoo.com,98.137.139.85
+aape01.stg.test.corp.yahoo.com,98.137.139.93
+aavm1.stg.test.corp.yahoo.com,98.137.139.87
+...
+</code></pre></div></div>
+
+<p>This file can be sliced and diced with common command line tools and loaded into other tools that you might use. <code class="language-plaintext highlighter-rouge">hosts.json</code> contains the same information in JSON format and is used by the other AQUATONE tools but can also be useful if you want to use the information with custom scripts.</p>
+
+<h2 id="phase-2-scanning">Phase 2: Scanning</h2>
+
+<p>Having discovered a bunch of subdomains on <code class="language-plaintext highlighter-rouge">corp.yahoo.com</code> is already quite useful. We could stop here and start poking around with other tools or manual browsing, but lets instead make <code class="language-plaintext highlighter-rouge">aquatone-scan</code> do the hard work for us of finding which hosts might serve web content:</p>
+
+<div class="thumb-image">
+  <a href="/assets/images/aquatone/scan.png"><img src="/assets/images/aquatone/scan_thumbnail.png" class="image" alt="" /></a>
+  <figcaption class="caption">aquatone-scan finding open ports on hosts.</figcaption>
+</div>
+
+<p>aquatone-scan found a bunch of open HTTP ports across the different hosts. By default, it will scan the following TCP ports: 80, 443, 8000, 8080 and 8443 which are all very common ports for web services. You can of course change this to your own list of ports with the <code class="language-plaintext highlighter-rouge">--ports</code> option, or specify one of the built-in list aliases:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">small</code>: 80, 443</li>
+  <li><code class="language-plaintext highlighter-rouge">medium</code>: 80, 443, 8000, 8080, 8443 (same as default)</li>
+  <li><code class="language-plaintext highlighter-rouge">large</code>: 80, 81, 443, 591, 2082, 2087, 2095, 2096, 3000, 8000, 8001, 8008, 8080, 8083, 8443, 8834, 8888</li>
+  <li><code class="language-plaintext highlighter-rouge">huge</code>: 80, 81, 300, 443, 591, 593, 832, 981, 1010, 1311, 2082, 2087, 2095, 2096, 2480, 3000, 3128, 3333, 4243, 4567, 4711, 4712, 4993, 5000, 5104, 5108, 5800, 6543, 7000, 7396, 7474, 8000, 8001, 8008, 8014, 8042, 8069, 8080, 8081, 8088, 8090, 8091, 8118, 8123, 8172, 8222, 8243, 8280, 8281, 8333, 8443, 8500, 8834, 8880, 8888, 8983, 9000, 9043, 9060, 9080, 9090, 9091, 9200, 9443, 9800, 9981, 12443, 16080, 18091, 18092, 20720, 28017</li>
+</ul>
+
+<p>Using a larger port list will of course let you discover more web services, but it will also increase the time it takes for aquatone-scan to finish.</p>
+
+<p>aquatone-scan created two new files in the assessment directory for <code class="language-plaintext highlighter-rouge">corp.yahoo.com</code>: <code class="language-plaintext highlighter-rouge">open_ports.txt</code> is a simple comma-separated list of hosts and their open ports:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>117.104.189.54,443
+124.108.98.253,443
+124.108.98.254,443
+203.83.249.10,443
+203.83.249.4,443
+203.83.249.5,443
+203.83.249.8,443
+203.83.249.9,443
+209.131.62.228,443
+209.131.62.229,443
+209.131.62.230,443
+209.131.62.231,443
+216.145.48.148,443
+216.145.48.149,443
+216.145.48.150,443
+216.145.48.151,443
+216.145.48.152,443
+216.145.48.153,443
+72.30.2.113,443,80
+77.238.184.150,80
+98.136.163.125,80,443
+98.136.205.152,443,80
+98.136.205.216,443
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">urls.txt</code> contains a list of URLs that can be used to request the web pages on the open ports:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://bomgar.corp.yahoo.com/
+http://bouncer.gh.corp.yahoo.com/
+http://buzz.corp.yahoo.com/
+http://cloud.corp.yahoo.com/
+http://fifa.corp.yahoo.com/
+http://gemini.corp.yahoo.com/
+http://guest.corp.yahoo.com/
+http://insights.corp.yahoo.com/
+http://ipv6.corp.yahoo.com/
+http://marketingcentral.corp.yahoo.com/
+http://messenger.corp.yahoo.com/
+http://request.corp.yahoo.com/
+http://sas.corp.yahoo.com/
+http://services.corp.yahoo.com/
+http://shop.corp.yahoo.com/
+http://si.corp.yahoo.com/
+http://wireless.corp.yahoo.com/
+https://bomgar.corp.yahoo.com/
+https://bouncer.gh.corp.yahoo.com/
+https://fast.corp.yahoo.com/
+...
+</code></pre></div></div>
+
+<p>These files are used for the next phase of the assessment but are also convenient for loading into other tools like <a href="https://github.com/ChrisTruncer/EyeWitness">EyeWitness</a> or slicing and dicing with <code class="language-plaintext highlighter-rouge">grep</code>, <code class="language-plaintext highlighter-rouge">cut</code>, <code class="language-plaintext highlighter-rouge">awk</code>, etc.</p>
+
+<h2 id="phase-3-gathering">Phase 3: Gathering</h2>
+
+<p>We now know about subdomains and open ports on <code class="language-plaintext highlighter-rouge">*.corp.yahoo.com</code>, it’s time to use <code class="language-plaintext highlighter-rouge">aquatone-gather</code> to collect HTTP responses and screenshots and compile it all into a nice report:</p>
+
+<div class="thumb-image">
+  <a href="/assets/images/aquatone/gather_start.png"><img src="/assets/images/aquatone/gather_start_thumbnail.png" class="image" alt="" /></a>
+  <figcaption class="caption">aquatone-gather crunching through the web pages.</figcaption>
+</div>
+
+<p>aquatone-gather loaded data from the files created by the previous AQUATONE tools and started requesting URLs to collect HTTP responses and screenshots. Behind the scenes, it uses <a href="https://github.com/segmentio/nightmare">Nightmare</a> for all the heavy lifting of requesting and screenshotting.</p>
+
+<p>Unfortunately Nightmare, and any other browser automation tool, is a bit flaky and will fail on some of the page processings as can be seen in the screenshot. I think the failure rate is acceptable, but something to be aware of.</p>
+
+<p>After a little while, it finishes processing all the web pages:</p>
+
+<div class="thumb-image">
+  <a href="/assets/images/aquatone/gather_finish.png"><img src="/assets/images/aquatone/gather_finish_thumbnail.png" class="image" alt="" /></a>
+  <figcaption class="caption">aquatone-gather finished processing web pages.</figcaption>
+</div>
+
+<p>It prints a short summary of successful vs. failed page processings and a list of generated report pages, but this is far from the only files that aquatone-gather generated. Navigating to the assessment folder, we can see three new folders: <code class="language-plaintext highlighter-rouge">headers</code>, <code class="language-plaintext highlighter-rouge">html</code>, <code class="language-plaintext highlighter-rouge">report</code> and <code class="language-plaintext highlighter-rouge">screenshots</code>.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">headers</code> folder contains text files with response headers from all the page visits:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~/aquatone/corp.yahoo.com/headers# cat bomgar_corp_yahoo_com__98_136_205_152__443.txt
+Cache-Control: no-cache
+Connection: Keep-Alive
+Content-Type: text/html; charset=utf-8
+Date: Wed, 14 Jun 2017 12:22:01 GMT
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Keep-Alive: timeout=15, max=100
+Pragma: no-cache
+Server: Bomgar
+Set-Cookie: ns_s=c9b9309296cf5babeb7e193125cb2cf0f3c7f13c; path=/; secure; HttpOnly
+Strict-Transport-Security: max-age=31536000
+Transfer-Encoding: chunked
+X-Ua-Compatible: IE=edge
+root@kali:~/aquatone/corp.yahoo.com/headers#
+</code></pre></div></div>
+
+<p>These files can be very useful with <code class="language-plaintext highlighter-rouge">grep</code> and other tools to quickly find information on server technology and other things that are interesting from a security point of view.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">html</code> folder contains HTML bodies from all the page visits:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~/aquatone/corp.yahoo.com/html# cat bomgar_corp_yahoo_com__98_136_205_152__443.html
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us"&gt;
+&lt;head&gt;
+	&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+	&lt;title&gt;Yahoo! Global Service Desk LiveChat&lt;/title&gt;
+	&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" /&gt;
+&lt;link href="/content/common.css" rel="stylesheet" type="text/css" /&gt;
+&lt;link href="/content/public.css" rel="stylesheet" type="text/css" /&gt;
+&lt;link href="/content/mobile.css" rel="stylesheet" type="text/css" /&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id="container"&gt;
+
+&lt;div id="header" class="contentBox"&gt;
+...
+&lt;div style="display: none"&gt;
+&lt;div style="margin: 1em;"&gt;
+	&lt;a href="http://www.bomgar.com" class="inverse" target="_blank"&gt;Secure Remote Desktop Access by Bomgar&lt;/a&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+root@kali:~/aquatone/corp.yahoo.com/html#
+</code></pre></div></div>
+
+<p>There are tons of things that these files can be used for. More on this later.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">screenshots</code> folder contains, as the name might suggest, PNG screenshots of all the page visits:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~/aquatone/corp.yahoo.com/screenshots# ls
+bomgar_corp_yahoo_com__98_136_205_152__443.png
+bomgar_corp_yahoo_com__98_136_205_152__80.png
+bouncer_gh_corp_yahoo_com__72_30_2_113__443.png
+bouncer_gh_corp_yahoo_com__72_30_2_113__80.png
+buzz_corp_yahoo_com__77_238_184_150__80.png
+cloud_corp_yahoo_com__77_238_184_150__80.png
+...
+si_corp_yahoo_com__77_238_184_150__80.png
+vpn1-1-gci_eglbp_corp_yahoo_com__203_83_249_4__443.png
+vpn1-1-ptn_corp_yahoo_com__216_145_48_151__443.png
+vpn1-1-ptn_eglbp_corp_yahoo_com__203_83_249_10__443.png
+vpn1-2-gci_sv6_corp_yahoo_com__209_131_62_228__443.png
+vpn-1-gci_hongkong_corp_yahoo_com__117_104_189_54__443.png
+vpn2-1-gci_eglbp_corp_yahoo_com__203_83_249_5__443.png
+vpn2-1-ptn_corp_yahoo_com__216_145_48_152__443.png
+vpn2-2-gci_sv6_corp_yahoo_com__209_131_62_229__443.png
+vpn-2-gci_sv6_corp_yahoo_com__209_131_62_230__443.png
+wireless_corp_yahoo_com__77_238_184_150__80.png
+root@kali:~/aquatone/corp.yahoo.com/screenshots#
+</code></pre></div></div>
+
+<p>You can of course browse these screenshots directly in the folder, but it’s probably more useful to analyse them by opening the generated HTML report page:</p>
+
+<div class="thumb-image">
+  <a href="/assets/images/aquatone/aquatone_report.gif"><img src="/assets/images/aquatone/aquatone_report_thumbnail.png" class="image" alt="" /></a>
+  <figcaption class="caption">Browsing the AQUATONE report (Gif).</figcaption>
+</div>
+
+<p>The report lines up the screenshots with response headers so that you quickly scan through the collected information for interesting pages. AQUATONE will highlight headers that may increase security with a green background and headers that may present a security issue with a red background. Before you go on a bug bounty spree with this, please remember that god strangles a puppy every time someone reports missing <code class="language-plaintext highlighter-rouge">X-Frame-Options</code>. ;)</p>
+
+<h2 id="cli-tricks">CLI tricks</h2>
+
+<p>The generated report is the final product of AQUATONE, but lots of useful stuff can be done with all the raw files that are generated in the assessment folder, so let’s wrap up this blog post with some examples of what you can do:</p>
+
+<h3 id="get-server-technology-stats">Get server technology stats</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~/aquatone/corp.yahoo.com/headers# cat * | grep 'Server:' | sort | uniq -c | sort -nr
+     13 Server: ATS
+      6 Server: Bomgar
+      1 Server: AkamaiGHost
+root@kali:~/aquatone/corp.yahoo.com/headers#
+</code></pre></div></div>
+
+<h3 id="find-more-subdomains">Find more subdomains</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~/aquatone/corp.yahoo.com/html# cat * | egrep -o '[a-z0-9\-\_\.]+\.corp\.yahoo\.com' | sort -u
+bomgar.corp.yahoo.com
+bouncer.by.corp.yahoo.com
+fast.corp.yahoo.com
+it.corp.yahoo.com
+request.corp.yahoo.com
+services.corp.yahoo.com
+root@kali:~/aquatone/corp.yahoo.com/html#
+</code></pre></div></div>
+
+<h3 id="find-html-comments">Find HTML comments</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~/aquatone/corp.yahoo.com/html# cat * | egrep -o '&lt;!--.*--&gt;'
+&lt;!--//--&gt;
+&lt;!-- Begin comScore Tag --&gt;
+&lt;!-- bouncer02.gh.bf1.yahoo.com Wed Jun 14 12:22:09 UTC 2017 --&gt;
+&lt;!-- bouncer12-os.gh.bf2.yahoo.com Wed Jun 14 12:22:29 UTC 2017 --&gt;
+&lt;!-- #doc4 --&gt;
+&lt;!-- .dw1 --&gt;
+&lt;!-- .dw4 --&gt;
+...
+&lt;!-- /.shmod --&gt;
+&lt;!-- SpaceID=0 timeout (ads1) --&gt;
+&lt;!-- src2.ops.ir2.yahoo.com Wed Jun 14 12:22:15 UTC 2017 --&gt;
+&lt;!-- src4.ops.ir2.yahoo.com Wed Jun 14 12:21:44 UTC 2017 --&gt;
+&lt;!-- src4.ops.ir2.yahoo.com Wed Jun 14 12:21:51 UTC 2017 --&gt;
+&lt;!-- src4.ops.ir2.yahoo.com Wed Jun 14 12:22:27 UTC 2017 --&gt;
+&lt;!-- src6.ops.ir2.yahoo.com Wed Jun 14 12:21:57 UTC 2017 --&gt;
+&lt;!-- src6.ops.ir2.yahoo.com Wed Jun 14 12:22:15 UTC 2017 --&gt;
+&lt;!-- src6.ops.ir2.yahoo.com Wed Jun 14 12:22:36 UTC 2017 --&gt;
+&lt;!-- URL: /::ProfilerTotal:557:1497442917838::Page Creation:40:1497442917838::user_ups:0:1497442917844::ydht_time:1:1497442917845::Maple Execution:518:1497442917878::Maple WS:41:1497442917879::SHAdModule:457:1497442917921::SHLeftNavigationModule:7:1497442918378::SHHeroModule:0:1497442918385::SHBrowseShoppingModule:5:1497442918385::SHSocialNewBrowseModule:0:1497442918390::SHCopyrightModule:1:1497442918391:: --&gt;
+&lt;!-- web23.shop.bf1.yahoo.com --&gt;
+&lt;!-- web23.shop.bf1.yahoo.com Wed Jun 14 12:21:57 UTC 2017 --&gt;
+</code></pre></div></div>
+
+<h3 id="find-pages-with-password-fields">Find pages with password fields</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~/aquatone/corp.yahoo.com/html# grep 'type="password"' *
+bouncer_gh_corp_yahoo_com__72_30_2_113__80.html: &lt;dd&gt;&lt;input class="input-large" name="pass_word" type="password" id="pass_word" maxlength="64"   autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" &gt;&lt;/dd&gt;
+fast_corp_yahoo_com__98_136_205_216__443.html: &lt;dd&gt;&lt;input class="input-large" name="pass_word" type="password" id="pass_word" maxlength="64"   autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" &gt;&lt;/dd&gt;
+root@kali:~/aquatone/corp.yahoo.com/html#
+</code></pre></div></div>
+
+<h3 id="get-hosts-listening-on-port-443">Get hosts listening on port 443</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~/aquatone/corp.yahoo.com# cat open_ports.txt | grep ',443' | cut -d "," -f 1
+117.104.189.54
+124.108.98.253
+124.108.98.254
+203.83.249.10
+203.83.249.4
+...
+216.145.48.153
+72.30.2.113
+98.136.163.125
+98.136.205.152
+98.136.205.216
+root@kali:~/aquatone/corp.yahoo.com#
+</code></pre></div></div>
+
+<h3 id="check-https-hosts-for-heartbleed">Check HTTPS hosts for Heartbleed</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:~/aquatone/corp.yahoo.com# grep https urls.txt | cut -d '/' -f 3 &gt; /tmp/targets.lst
+root@kali:~/aquatone/corp.yahoo.com# sslscan --targets=/tmp/targets.lst --no-ciphersuites --no-fallback --no-renegotiation --no-compression --no-check-certificate
+Version: 1.11.9-static
+OpenSSL 1.0.2l-dev  xx XXX xxxx
+
+Testing SSL server bomgar.corp.yahoo.com on port 443 using SNI name
+
+  Heartbleed:
+TLS 1.2 not vulnerable to heartbleed
+TLS 1.1 not vulnerable to heartbleed
+TLS 1.0 not vulnerable to heartbleed
+
+
+
+Testing SSL server bouncer.gh.corp.yahoo.com on port 443 using SNI name
+...
+Testing SSL server vpn2-2-gci.sv6.corp.yahoo.com on port 443 using SNI name
+
+  Heartbleed:
+TLS 1.2 not vulnerable to heartbleed
+TLS 1.1 not vulnerable to heartbleed
+TLS 1.0 not vulnerable to heartbleed
+
+root@kali:~/aquatone/corp.yahoo.com#
+</code></pre></div></div>
+
+<p>That’s it! I hope you will take AQUATONE on a test flight and let me know what you think. You can find installation instructions in the project <a href="https://github.com/michenriksen/aquatone#installation">README</a>.</p>
+
+
+
+
+
+
+
+<section class="author">
+    <div class="toleft">
+        <img class="selfie"
+            src="https://michenriksen.com/assets/images/profile.png"
+            alt="Michael Henriksen">
+    </div>
+
+    <div class="toright">
+        <h4 class="name">Michael Henriksen</h4>
+        <p class="bio">Security engineer & builder of tools</p>
+
+        <div class="share">
+            <!-- Note: Only use three share links if your site width is set to large -->
+            <!-- If site width is set to normal, you may choose any two share links -->
+            <a class="twitter"
+                href="https://twitter.com/intent/tweet?text=https://michenriksen.com/blog/aquatone-tool-for-domain-flyovers/ - AQUATONE: A tool for domain flyovers by @michenriksen">
+                <svg class="icon"><use xlink:href='#fab.fa-twitter'></use></svg>
+                <span class="icon-twitter">Tweet</span>
+            </a>
+
+            <!-- <a class="facebook" href="javascript:void(0)" onclick="window.open('https://facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;">
+                <svg class="icon"><use xlink:href='#fab.fa-facebook'></use></svg>
+                <span class="icon-facebook-rect">Share</span>
+            </a> -->
+
+            <a class="linkedin"
+                href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://michenriksen.com/blog/aquatone-tool-for-domain-flyovers/&amp;title=AQUATONE: A tool for domain flyovers&amp;summary=&amp;source=https://michenriksen.com"
+                target="_blank">
+                <svg class="icon"><use xlink:href='#fab.fa-linkedin'></use></svg>
+                <span class="icon-linkedin">Share</span>
+            </a>
+
+            <!-- <a class="reddit" href="https://reddit.com/submit?url=https://michenriksen.com/blog/aquatone-tool-for-domain-flyovers/&amp;title=AQUATONE: A tool for domain flyovers" target="_blank">
+                <svg class="icon"><use xlink:href='#fab.fa-reddit'></use></svg>
+                <span class="icon-reddit">Share</span>
+            </a> -->
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<footer class="footer-main">
+    <span class="copyright">
+        Michael Henriksen &copy; 2021
+    </span>
+
+    <a class="link" href="https://michenriksen.com/feed.xml" target="_blank">
+        <svg class="icon"><use xlink:href='#fas.fa-rss'></use></svg>
+    </a>
+
+    <p class="extra">
+        based on the <a class="link" href="https://github.com/sergiokopplin/indigo" rel="nofollow noreferrer">Indigo theme</a> by <a
+            class="link" href="https://github.com/sergiokopplin/indigo" rel="nofollow noreferrer">Kopplin</a>
+        <img src="/assets/images/logo-dark.png" class="logo" title="SPOILER ALERT: A solution to the 9 Dots Problem" alt="A solution to the 9 Dots Problem" />
+    </p>
+</footer>
+
+
+                </div>
+            </div>
+
+            <svg display="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <defs>
+                  <!--
+                  Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+                  License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+                  -->
+              <symbol id='fab.fa-twitter' viewBox='0 0 512 512'>
+            <title>twitter</title>
+            <path class='path1' d='M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z'></path>
+        </symbol>
+        <symbol id='fab.fa-facebook' viewBox='0 0 448 512'>
+            <title>facebook</title>
+            <path class='path1' d='M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z'></path>
+        </symbol>
+        <symbol id='fab.fa-linkedin' viewBox='0 0 448 512'>
+            <title>linkedin</title>
+            <path class='path1' d='M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z'></path>
+        </symbol>
+        <symbol id='fab.fa-reddit' viewBox='0 0 512 512'>
+            <title>reddit</title>
+            <path class='path1' d='M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6 0-2.2-2.2-6.1-2.2-8.3 0-2.5 2.5-2.5 6.4 0 8.6 22.8 22.8 87.3 22.8 110.2 0 2.5-2.2 2.5-6.1 0-8.6-2.2-2.2-6.1-2.2-8.3 0zm7.7-75c-13.6 0-24.6 11.1-24.6 24.9 0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.1 24.9-24.6 0-13.8-11-24.9-24.9-24.9z'></path>
+        </symbol>
+        <symbol id='fas.fa-rss' viewBox='0 0 448 512'>
+            <title>rss</title>
+            <path class='path1' d='M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z'></path>
+        </symbol>
+        </defs>
+              </svg>
+
+</body>
+
+</html>
+

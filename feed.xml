@@ -1,0 +1,1321 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://michenriksen.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://michenriksen.com/" rel="alternate" type="text/html" /><updated>2021-02-27T22:17:12+01:00</updated><id>https://michenriksen.com/feed.xml</id><title type="html">Michael Henriksen - Security engineer &amp;amp; builder of tools</title><subtitle>Security engineer with seven years of professional web application security experience. Currently working at GitLab.</subtitle><entry><title type="html">AQUATONE: Now in Go</title><link href="https://michenriksen.com/blog/aquatone-now-in-go/" rel="alternate" type="text/html" title="AQUATONE: Now in Go" /><published>2018-11-04T13:37:00+01:00</published><updated>2018-11-04T13:37:00+01:00</updated><id>https://michenriksen.com/blog/aquatone-now-in-go</id><content type="html" xml:base="https://michenriksen.com/blog/aquatone-now-in-go/">&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/aquatone/u22.png&quot;&gt;&lt;img src=&quot;/assets/images/aquatone/u22.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;The Lockheed U-2 reconnaissance aircraft was given the codename Aquatone.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I’m continuing my quest to move my open source tools from Ruby to Go. Earlier this year, I released the &lt;a href=&quot;/blog/gitrob-now-in-go/&quot;&gt;Go rewrite of Gitrob&lt;/a&gt; and now I’m happy to announce the release of a new and streamlined version of Aquatone!&lt;/p&gt;
+
+&lt;h2 id=&quot;whats-changed&quot;&gt;What’s Changed&lt;/h2&gt;
+
+&lt;p&gt;Quite a lot has changed in the new version. The two major themes of the rewrite is simplification and ease-of-use:&lt;/p&gt;
+
+&lt;h3 id=&quot;no-dns-enumeration&quot;&gt;No DNS enumeration&lt;/h3&gt;
+
+&lt;p&gt;Yes, Aquatone is now completely focused on screenshotting and reporting. I know a lot of people used Aquatone for its DNS enumeration capabilities and it was definitely very good at that when it was released. Now other tools are doing a much better job of this, so I decided to leave it out of the new Aquatone, and instead make it easy to use it with your tool of choice.&lt;/p&gt;
+
+&lt;h3 id=&quot;single-command&quot;&gt;Single command&lt;/h3&gt;
+
+&lt;p&gt;Because Aquatone is now focused on one thing, it is now a single &lt;em&gt;aquatone&lt;/em&gt; command. No more aquatone-discover, aquatone-scan and aquatone-gather.&lt;/p&gt;
+
+&lt;h3 id=&quot;screenshotting-with-chrome&quot;&gt;Screenshotting with Chrome&lt;/h3&gt;
+
+&lt;p&gt;The old version used &lt;a href=&quot;http://www.nightmarejs.org/&quot;&gt;Nightmare&lt;/a&gt; for taking screenshots. This was very unreliable and introduced a big dependency with Node.js. The new version uses either Google Chrome or Chromium in headless mode to take screenshots, which is much more reliable.&lt;/p&gt;
+
+&lt;h2 id=&quot;whats-new&quot;&gt;What’s New&lt;/h2&gt;
+
+&lt;h3 id=&quot;input-agnostic&quot;&gt;Input Agnostic&lt;/h3&gt;
+
+&lt;p&gt;Aquatone works by having input piped to it. It doesn’t care about what this data looks like as IPs, hostnames, domains and URLs will be extracted from the input with regular expression matching. The output of all your tools can be piped to Aquatone and it should work fine, but you can of course clean it up with the usual terminal commands if needed.&lt;/p&gt;
+
+&lt;h3 id=&quot;support-for-nmapmasscan-xml&quot;&gt;Support for Nmap/Masscan XML&lt;/h3&gt;
+
+&lt;p&gt;If you have an XML output file from either &lt;a href=&quot;https://nmap.org/&quot;&gt;Nmap&lt;/a&gt; or &lt;a href=&quot;https://github.com/robertdavidgraham/masscan&quot;&gt;Masscan&lt;/a&gt;, you can feed that to Aquatone too. Just add the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-nmap&lt;/code&gt; flag to let Aquatone know to parse it properly.&lt;/p&gt;
+
+&lt;h3 id=&quot;clustering-of-similar-sites&quot;&gt;Clustering of similar sites&lt;/h3&gt;
+
+&lt;p&gt;Sometimes it could be quite painful to scroll through the HTML report from the old Aquatone to find that unusual, vulnerable-looking page. The new Aquatone will now cluster pages with similar HTML structure together to make it much easier to digest the report and find the interesting stuff.&lt;/p&gt;
+
+&lt;h2 id=&quot;pictures&quot;&gt;Pictures&lt;/h2&gt;
+
+&lt;div class=&quot;side-by-side&quot;&gt;
+  &lt;div class=&quot;toleft&quot;&gt;
+    &lt;div class=&quot;thumb-image&quot;&gt;
+      &lt;a href=&quot;/assets/images/aquatone_1_3_2/start.png&quot;&gt;&lt;img src=&quot;/assets/images/aquatone_1_3_2/start_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+      &lt;figcaption class=&quot;caption&quot;&gt;Starting a scan of 500 random Yahoo subdomains.&lt;/figcaption&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;toright&quot;&gt;
+    &lt;div class=&quot;thumb-image&quot;&gt;
+      &lt;a href=&quot;/assets/images/aquatone_1_3_2/finish.png&quot;&gt;&lt;img src=&quot;/assets/images/aquatone_1_3_2/finish_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+      &lt;figcaption class=&quot;caption&quot;&gt;Finished scanning and screenshotting 500 hosts in less than 5 minutes.&lt;/figcaption&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;toleft&quot;&gt;
+    &lt;div class=&quot;thumb-image&quot;&gt;
+      &lt;a href=&quot;/assets/images/aquatone_1_3_2/masscan.png&quot;&gt;&lt;img src=&quot;/assets/images/aquatone_1_3_2/masscan_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+      &lt;figcaption class=&quot;caption&quot;&gt;Feeding Aquatone with a Masscan XML report.&lt;/figcaption&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;toright&quot;&gt;
+    &lt;div class=&quot;thumb-image&quot;&gt;
+      &lt;a href=&quot;/assets/images/aquatone_1_3_2/masscan_finish.png&quot;&gt;&lt;img src=&quot;/assets/images/aquatone_1_3_2/masscan_finish_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+      &lt;figcaption class=&quot;caption&quot;&gt;Processed 796 hosts from Masscan report in about 10 minutes.&lt;/figcaption&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;toleft&quot;&gt;
+    &lt;div class=&quot;thumb-image&quot;&gt;
+      &lt;a href=&quot;/assets/images/aquatone_1_3_2/masscan_report.png&quot;&gt;&lt;img src=&quot;/assets/images/aquatone_1_3_2/masscan_report_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+      &lt;figcaption class=&quot;caption&quot;&gt;Viewing report from Masscan results.&lt;/figcaption&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;toright&quot;&gt;
+    &lt;div class=&quot;thumb-image&quot;&gt;
+      &lt;a href=&quot;/assets/images/aquatone_1_3_2/report_details.png&quot;&gt;&lt;img src=&quot;/assets/images/aquatone_1_3_2/report_details_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+      &lt;figcaption class=&quot;caption&quot;&gt;Viewing HTTP response headers for a page.&lt;/figcaption&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;toleft&quot;&gt;
+    &lt;div class=&quot;thumb-image&quot;&gt;
+      &lt;a href=&quot;/assets/images/aquatone_1_3_2/report.png&quot;&gt;&lt;img src=&quot;/assets/images/aquatone_1_3_2/report_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+      &lt;figcaption class=&quot;caption&quot;&gt;Viewing report of 500 random Yahoo domains.&lt;/figcaption&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;toright&quot;&gt;
+    &lt;div class=&quot;thumb-image&quot;&gt;
+      &lt;a href=&quot;/assets/images/aquatone_1_3_2/report2.png&quot;&gt;&lt;img src=&quot;/assets/images/aquatone_1_3_2/report2_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+      &lt;figcaption class=&quot;caption&quot;&gt;Viewing report from Masscan results.&lt;/figcaption&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;installation&quot;&gt;Installation&lt;/h2&gt;
+
+&lt;p&gt;Installing Aquatone is super easy. Simply head over to the project on Github and &lt;a href=&quot;https://github.com/michenriksen/aquatone/releases&quot;&gt;download a pre-compiled binary&lt;/a&gt; for your operating system.&lt;/p&gt;
+
+&lt;p&gt;Read more about installation and setup in the project &lt;a href=&quot;https://github.com/michenriksen/aquatone#installation&quot;&gt;README&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Enjoy!&lt;/strong&gt;&lt;/p&gt;</content><author><name>michenriksen</name></author><category term="blog" /><summary type="html">The Lockheed U-2 reconnaissance aircraft was given the codename Aquatone.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://michenriksen.com/assets/images/aquatone/u22.png" /><media:content medium="image" url="https://michenriksen.com/assets/images/aquatone/u22.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Draw.io for threat modeling</title><link href="https://michenriksen.com/blog/drawio-for-threat-modeling/" rel="alternate" type="text/html" title="Draw.io for threat modeling" /><published>2018-10-05T13:37:00+02:00</published><updated>2018-10-05T13:37:00+02:00</updated><id>https://michenriksen.com/blog/drawio-for-threat-modeling</id><content type="html" xml:base="https://michenriksen.com/blog/drawio-for-threat-modeling/">&lt;p&gt;I’ve spent a good amount of time lately trying to find a good tool for threat model diagramming. I defined a couple of requirements and started assessing what was out there:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Support for Data Flow Diagrams (DFD) and Attack Trees:&lt;/strong&gt; I believe these are essential for threat modeling. Sequence Diagrams are a plus too.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Enjoyable and easy to use:&lt;/strong&gt; It must be easy to create diagrams and no weird bugs to make it clunky or cumbersome to work with. This is important, not only for my own sanity, but also for getting developers to adopt the practice. If you don’t provide them with a good tool, they probably won’t do it.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Free and cross-platform:&lt;/strong&gt; It must be free and work on Windows, Mac and Linux. If the tool only works on Windows or you have to juggle licenses, it makes it much harder to introduce threat modeling in an organization.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Not web or “Cloud” based:&lt;/strong&gt; It should feel like a proper desktop application and storage should be good old local files. Cloud (a.k.a. someone else’s computer) can be nice, but not for threat modeling. File based storage also makes it easy to check the diagrams into version control and make it live next to the code.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I checked out quite a lot of different tools but none of them fulfilled the requirements. Many didn’t have elements for DFDs and Attack Trees, &lt;a href=&quot;https://www.microsoft.com/en-us/download/details.aspx?id=49168&quot;&gt;Microsoft Threat Modeling Tool&lt;/a&gt; only runs on Windows, &lt;a href=&quot;https://threatmodeler.com/&quot;&gt;Threat Modeler&lt;/a&gt; is web based, &lt;a href=&quot;https://threatdragon.org/&quot;&gt;Threat Dragon&lt;/a&gt; felt awkward to work with, and &lt;a href=&quot;http://dia-installer.de/index.html.en&quot;&gt;Dia&lt;/a&gt; is old, clunky and buggy.&lt;/p&gt;
+
+&lt;p&gt;I was pretty dissapointed with what I found, so I scratched my own itch and started work on a new Electron based app which I hoped would be the perfect fit for me, and hopefully many others. Doing the initial research for this, I came across the &lt;a href=&quot;https://github.com/jgraph/mxgraph&quot;&gt;mxgraph&lt;/a&gt; project which seemed to be the perfect core diagramming component. Then I saw that it was used as part of a tool called &lt;a href=&quot;https://www.draw.io/&quot;&gt;draw.io&lt;/a&gt; and that luckily turned out to be the perfect fit, with a bit of configuration and customization…&lt;/p&gt;
+
+&lt;h2 id=&quot;dfd-and-attack-trees-in-drawio&quot;&gt;DFD and Attack Trees in draw.io&lt;/h2&gt;
+
+&lt;p&gt;Draw.io doesn’t come with dedicated libraries for DFDs and attack trees, but it has all the elements. They are just spread across several different libraries. After playing around with the tool for a bit, I discovered that it’s super easy to customize elements and adding them to custom libraries which can be exported for easy reuse. I created two new libraries with all you need for DFD and attack trees and &lt;a href=&quot;https://github.com/michenriksen/drawio-threatmodeling&quot;&gt;put them up on Github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;data-flow-diagrams&quot;&gt;Data Flow Diagrams&lt;/h2&gt;
+
+&lt;p&gt;These are the elements available in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dfd.xml&lt;/code&gt; library:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/drawio/dfd-elements.png&quot;&gt;&lt;img src=&quot;/assets/images/drawio/dfd-elements_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;All elements in the DFD library.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Apart from the classic DFD elements, the library also contains a note element, labels for assets, threat actors, security controls, and convenient tables for documenting them directly in the diagram.&lt;/p&gt;
+
+&lt;p&gt;To show you how it all works together, I’ve created a diagram of a simple, ficticious system:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/drawio/dfd.png&quot;&gt;&lt;img src=&quot;/assets/images/drawio/dfd_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;A DFD of a simple, ficticious system.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;attack-trees&quot;&gt;Attack Trees&lt;/h2&gt;
+
+&lt;p&gt;These are the elements available in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;attack-tree.xml&lt;/code&gt; library:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/drawio/attack-tree-elements.png&quot;&gt;&lt;img src=&quot;/assets/images/drawio/attack-tree-elements_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;All elements in the DFD library.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;To show you how these work together, I have recreated the classic &lt;em&gt;Open Safe&lt;/em&gt; attack tree:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/drawio/attack-tree.png&quot;&gt;&lt;img src=&quot;/assets/images/drawio/attack-tree_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;An attack tree exploring how to open a safe.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;getting-set-up&quot;&gt;Getting set up&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://about.draw.io/integrations/#integrations_offline&quot;&gt;Download&lt;/a&gt; and install draw.io for your operating system&lt;/li&gt;
+  &lt;li&gt;Clone or download the &lt;a href=&quot;https://github.com/michenriksen/drawio-threatmodeling&quot;&gt;Github repository&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Open draw.io application and create a new blank diagram&lt;/li&gt;
+  &lt;li&gt;Click the &lt;em&gt;File&lt;/em&gt; menu and then click &lt;em&gt;Open Library…&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;Navigate to where you put the Github repository and open one of the XML files&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Congratulations! You are now ready to threat model. To make draw.io even nicer, I can recommend turning on the &lt;em&gt;Minimal&lt;/em&gt; theme by clicking the &lt;em&gt;Extras&lt;/em&gt; menu and selecting the Minimal theme. This makes the UI cleaner and gives more space for actual diagramming.&lt;/p&gt;
+
+&lt;p&gt;I hope that you will find this helpful and make it easier and more joyful to threat model for you and your team.&lt;/p&gt;</content><author><name>michenriksen</name></author><category term="blog" /><summary type="html">I’ve spent a good amount of time lately trying to find a good tool for threat model diagramming. I defined a couple of requirements and started assessing what was out there:</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://michenriksen.com/assets/images/drawio/dfd.png" /><media:content medium="image" url="https://michenriksen.com/assets/images/drawio/dfd.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Gitrob: Now in Go</title><link href="https://michenriksen.com/blog/gitrob-now-in-go/" rel="alternate" type="text/html" title="Gitrob: Now in Go" /><published>2018-06-09T13:37:00+02:00</published><updated>2018-06-09T13:37:00+02:00</updated><id>https://michenriksen.com/blog/gitrob-now-in-go</id><content type="html" xml:base="https://michenriksen.com/blog/gitrob-now-in-go/">&lt;p&gt;I’m happy to announce that a new version of Gitrob has been released. This time it’s a complete rewrite from Ruby to the amazing &lt;a href=&quot;https://golang.org/&quot;&gt;Go programming language&lt;/a&gt;!&lt;/p&gt;
+
+&lt;p&gt;The old Ruby version of Gitrob got messy and was neglected by me because I got tired of the code. I decided it was time for a rethink and rewrite of the project. As I had been planning to pick up Go as my next programming language I thought it would be interesting to make a lean and mean Go implementation. This turned out to be a pretty amazing decision!&lt;/p&gt;
+
+&lt;h2 id=&quot;whats-new&quot;&gt;What’s new&lt;/h2&gt;
+
+&lt;h3 id=&quot;uncover-interesting-files-in-old-commits&quot;&gt;Uncover interesting files in old commits&lt;/h3&gt;
+
+&lt;p&gt;The new Gitrob drills deep into the commit history of a repository to surface files that might contain interesting or sensitive information. The default commit depth is 500 commits which strikes a good balance between speed and coverage, but it can of course be adjusted with a command line option. That old .bash_history file that was accidentally pushed and deleted 300 commits ago? Gitrob will find it.&lt;/p&gt;
+
+&lt;h3 id=&quot;no-more-postgresql-database&quot;&gt;No more PostgreSQL database&lt;/h3&gt;
+
+&lt;p&gt;There is no longer any need to install and set up a PostgreSQL server to use Gitrob. The new version simply serves up findings directly from memory, but can also be saved to special session files which can later be loaded again and shared with other people. The session files contain a simple JSON document which is also ideal for parsing and integration with other tools and systems.&lt;/p&gt;
+
+&lt;h3 id=&quot;no-more-ruby-dependency-hell&quot;&gt;No more Ruby dependency hell&lt;/h3&gt;
+
+&lt;p&gt;A big pain point for many users of the old Gitrob was trouble with dealing with Ruby and Ruby gems. Because the new version is written in Go, the whole tool is now a simple compiled binary that runs on Linux, Mac and Windows. No more fighting with RVM and native extensions that won’t compile!&lt;/p&gt;
+
+&lt;h3 id=&quot;new-sleek-web-ui&quot;&gt;New, sleek web UI&lt;/h3&gt;
+
+&lt;p&gt;The web UI for browsing and analysing Gitrob findings is now faster, prettier and more robust with &lt;a href=&quot;https://getbootstrap.com/&quot;&gt;Bootstrap&lt;/a&gt; and &lt;a href=&quot;http://backbonejs.org/&quot;&gt;Backbone.js&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;a-mascot&quot;&gt;A mascot!&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://twitter.com/KentGruber&quot;&gt;Kent Gruber&lt;/a&gt; was so generous to make me a Gopher mascot for Gitrob! The idea for a Gitrob Gopher was totally stolen from the &lt;a href=&quot;https://www.bettercap.org/&quot;&gt;Bettercap&lt;/a&gt;, but I hope it will help me maintain the project. :)&lt;/p&gt;
+
+&lt;h3 id=&quot;general-simplification&quot;&gt;General simplification&lt;/h3&gt;
+
+&lt;p&gt;A big reason why the old Gitrob got messy and bloated was because I tried to make the tool do too much. The purpose of the new Gitrob is to only find and present interesting files and nothing more. I hope that this will help keep the project more sane and healthy.&lt;/p&gt;
+
+&lt;h2 id=&quot;pictures&quot;&gt;Pictures&lt;/h2&gt;
+
+&lt;div class=&quot;side-by-side&quot;&gt;
+  &lt;div class=&quot;toleft&quot;&gt;
+    &lt;div class=&quot;thumb-image&quot;&gt;
+      &lt;a href=&quot;/assets/images/gitrob_2_0_0/start.png&quot;&gt;&lt;img src=&quot;/assets/images/gitrob_2_0_0/start_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+      &lt;figcaption class=&quot;caption&quot;&gt;Starting a new Gitrob assessment.&lt;/figcaption&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;toright&quot;&gt;
+    &lt;div class=&quot;thumb-image&quot;&gt;
+      &lt;a href=&quot;/assets/images/gitrob_2_0_0/stats.png&quot;&gt;&lt;img src=&quot;/assets/images/gitrob_2_0_0/stats_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+      &lt;figcaption class=&quot;caption&quot;&gt;Assessment stats and findings in Web UI.&lt;/figcaption&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;toleft&quot;&gt;
+    &lt;div class=&quot;thumb-image&quot;&gt;
+      &lt;a href=&quot;/assets/images/gitrob_2_0_0/finding.png&quot;&gt;&lt;img src=&quot;/assets/images/gitrob_2_0_0/finding_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+      &lt;figcaption class=&quot;caption&quot;&gt;Viewing a finding. Interesting things are highlighted.&lt;/figcaption&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;toright&quot;&gt;
+    &lt;div class=&quot;thumb-image&quot;&gt;
+      &lt;a href=&quot;/assets/images/gitrob_2_0_0/hexdump.png&quot;&gt;&lt;img src=&quot;/assets/images/gitrob_2_0_0/hexdump_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+      &lt;figcaption class=&quot;caption&quot;&gt;A hexdump view is supported for binary files.&lt;/figcaption&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;installation&quot;&gt;Installation&lt;/h2&gt;
+
+&lt;p&gt;Installing Gitrob is super easy. Simply head over to the project on Github and &lt;a href=&quot;https://github.com/michenriksen/gitrob/releases&quot;&gt;download a pre-compiled binary&lt;/a&gt; for your operating system. If you have Go set up, you can also get the latest version with &lt;em&gt;go get github.com/michenriksen/gitrob&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Read more about installation and setup in the project &lt;a href=&quot;https://github.com/michenriksen/gitrob#installation&quot;&gt;README&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;thanks&quot;&gt;Thanks&lt;/h2&gt;
+
+&lt;p&gt;Thanks to Simone ‘&lt;a href=&quot;https://twitter.com/evilsocket&quot;&gt;evilsocket&lt;/a&gt;’ Margaritelli for his amazing, open source Go projects. I have learned a lot by looking at his code and a lot of Gitrob’s code and structure is inspired by his projects.&lt;/p&gt;
+
+&lt;p&gt;I would also like to say thanks to &lt;a href=&quot;https://twitter.com/KentGruber&quot;&gt;Kent Gruber&lt;/a&gt; for being awesome and for spending time on making the Gitrob Gopher for me!&lt;/p&gt;
+
+&lt;p&gt;If you’re interested in coding and security, you should follow both of these fine people on Twitter!&lt;/p&gt;
+
+&lt;h2 id=&quot;helping-out&quot;&gt;Helping out&lt;/h2&gt;
+
+&lt;p&gt;I hope you will try out the new version of Gitrob and that you will find it useful! Should you find any bugs or other weirdness, then please &lt;a href=&quot;https://github.com/michenriksen/gitrob/issues/new&quot;&gt;open an issue&lt;/a&gt; on Github! As this is my first real project in Go, I have likely committed several Go crimes in the code and feedback is appreciated, but please go easy on me! ;)&lt;/p&gt;</content><author><name>michenriksen</name></author><category term="blog" /><summary type="html">I’m happy to announce that a new version of Gitrob has been released. This time it’s a complete rewrite from Ruby to the amazing Go programming language!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://michenriksen.com/assets/images/gitrob/gopher_full.png" /><media:content medium="image" url="https://michenriksen.com/assets/images/gitrob/gopher_full.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Subdomain takeover detection with AQUATONE</title><link href="https://michenriksen.com/blog/subdomain-takeover-detection-with-aquatone/" rel="alternate" type="text/html" title="Subdomain takeover detection with AQUATONE" /><published>2017-07-21T13:37:00+02:00</published><updated>2017-07-21T13:37:00+02:00</updated><id>https://michenriksen.com/blog/subdomain-takeover-detection-with-aquatone</id><content type="html" xml:base="https://michenriksen.com/blog/subdomain-takeover-detection-with-aquatone/">&lt;p&gt;&lt;span class=&quot;evidence&quot;&gt;&lt;strong&gt;Heads up! Aquatone has been totally rewritten in Go and is now quite a bit different. Read about the &lt;a href=&quot;/blog/aquatone-now-in-go&quot;&gt;new version&lt;/a&gt;!&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Hostile subdomain takeover is a very prevalent and potentially critical security issue. It’s a well-known attack vector and easy to exploit, and should therefore be taken seriously.&lt;/p&gt;
+
+&lt;p&gt;A subdomain takeover vulnerability typically happens when an organization assigns a subdomain to an external service, e.g. a support ticketing system like &lt;a href=&quot;https://zendesk.com/&quot;&gt;Zendesk&lt;/a&gt;, a cloud application platform like &lt;a href=&quot;https://www.heroku.com/&quot;&gt;Heroku&lt;/a&gt; or maybe a content delivery network like &lt;a href=&quot;https://www.fastly.com/&quot;&gt;Fastly&lt;/a&gt;. Maybe the organization is only assessing the service, or maybe they switch to a different service, but for some reason the organization later decides to delete their account on the service, but forget one important step: to remove the subdomain DNS configuration to the service.&lt;/p&gt;
+
+&lt;p&gt;Having a dangling subdomain pointing to an unused external service leaves it open for takeover and complete control of an attacker, as they simply need to sign up to the same service and claim the dangling subdomain. Now they control the content on the subdomain which they can use to launch phishing attacks, bypass security controls and other mischief.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://detectify.com/&quot;&gt;Detectify&lt;/a&gt; wrote a &lt;a href=&quot;https://labs.detectify.com/2014/10/21/hostile-subdomain-takeover-using-herokugithubdesk-more/&quot;&gt;blog post&lt;/a&gt; about subdomain takeover back in 2014, if you’re interested in knowing more about this attack vector.&lt;/p&gt;
+
+&lt;h2 id=&quot;detecting-subdomain-takeovers-with-aquatone&quot;&gt;Detecting subdomain takeovers with AQUATONE&lt;/h2&gt;
+
+&lt;p&gt;In case you don’t know, I recently released &lt;a href=&quot;/blog/aquatone-tool-for-domain-flyovers/&quot;&gt;AQUATONE&lt;/a&gt; which is a toolset for doing subdomain discovery, port scanning and screenshotting. Check out the &lt;a href=&quot;/blog/aquatone-tool-for-domain-flyovers/&quot;&gt;blog post&lt;/a&gt; for more information.&lt;/p&gt;
+
+&lt;p&gt;A new addition to the AQUATONE toolset is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;aquatone-takeover&lt;/code&gt; which can detect potential subdomain takeover issues across a bunch of popular external services:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/aquatone/takeover.png&quot;&gt;&lt;img src=&quot;/assets/images/aquatone/takeover_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Finding subdomains vulnerable to hostile takeover.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;To demonstrate the functionality of aquatone-takeover, I temporarily configured a couple of subdomains on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;michenriksen.com&lt;/code&gt; pointed at 3 different external services. aquatone-takeover detects all three as potentially vulnerable:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;assets.michenriksen.com&lt;/code&gt; is a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CNAME&lt;/code&gt; record pointing to an unclaimed &lt;a href=&quot;https://aws.amazon.com/s3/&quot;&gt;Amazon S3&lt;/a&gt; bucket.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;store.michenriksen.com&lt;/code&gt; is a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CNAME&lt;/code&gt; record pointing to &lt;a href=&quot;https://www.shopify.com/&quot;&gt;Shopify&lt;/a&gt;, a popular ecommerce platform, and the subdomain has not been registered with any account.&lt;/li&gt;
+  &lt;li&gt;Finally, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;help.michenriksen.com&lt;/code&gt; is a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CNAME&lt;/code&gt; record pointing at a non-existant account on &lt;a href=&quot;https://www.desk.com/&quot;&gt;Desk&lt;/a&gt;, a popular support ticketing system.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These are not the only external services that aquatone-takeover can detect, it finds subdomain takeover vulnerabilities across - at the time of writing - a total of 25 services:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://aws.amazon.com/s3/&quot;&gt;Amazon S3&lt;/a&gt; (Cloud storage)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.zendesk.com/&quot;&gt;Campaign Monitor&lt;/a&gt; (Email marketing)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cargocollective.com/&quot;&gt;Cargo&lt;/a&gt; (Web publishing platform)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://aws.amazon.com/cloudfront/&quot;&gt;Cloudfront&lt;/a&gt; (Content delivery network)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.desk.com/&quot;&gt;Desk&lt;/a&gt; (Customer service and helpdesk ticket software)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.fastly.com/&quot;&gt;Fastly&lt;/a&gt; (Content delivery network)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://feed.press/&quot;&gt;FeedPress&lt;/a&gt; (Feed analytics and Podcast hosting)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://freshdesk.com/&quot;&gt;Freshdesk&lt;/a&gt; (Customer support software and ticketing system)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://ghost.org/&quot;&gt;Ghost&lt;/a&gt; (Publishing platform)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://pages.github.com/&quot;&gt;GitHub Pages&lt;/a&gt; (GitHub static website hosting)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.helpscout.net/&quot;&gt;Help Scout&lt;/a&gt; (Customer service software and education platform)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://helpjuice.com/&quot;&gt;Helpjuice&lt;/a&gt; (Knowledge base software)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.heroku.com/&quot;&gt;Heroku&lt;/a&gt; (Cloud application platform)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://instapage.com/&quot;&gt;Instapage&lt;/a&gt; (Landing page platform)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.pingdom.com/&quot;&gt;Pingdom&lt;/a&gt; (Website and performance monitoring)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.shopify.com/&quot;&gt;Shopify&lt;/a&gt; (Ecommerce platform)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.statuspage.io/&quot;&gt;StatusPage&lt;/a&gt; (Status page hosting)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.surveygizmo.com/&quot;&gt;SurveyGizmo&lt;/a&gt; (Online survey software)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.teamwork.com/&quot;&gt;Teamwork&lt;/a&gt; (Project management, help desk and chat software)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://tictail.com/&quot;&gt;Tictail&lt;/a&gt; (Social shopping platform)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.tumblr.com/&quot;&gt;Tumblr&lt;/a&gt; (Microblogging and social networking platform)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://unbounce.com/&quot;&gt;Unbounce&lt;/a&gt; (Landing page builder and conversion marketing platform)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.uservoice.com/&quot;&gt;UserVoice&lt;/a&gt; (Product management software)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wpengine.com/&quot;&gt;WPEngine&lt;/a&gt; (WordPress blog hosting)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.zendesk.com/&quot;&gt;Zendesk&lt;/a&gt; (Customer service software and support ticket system)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I hope to expand this list with many more services, so please let me know if you have any ideas or go ahead and contribute more detector modules on &lt;a href=&quot;https://github.com/michenriksen/aquatone&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Give aquatone-takeover a try! You can install the AQUATONE toolset with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gem install aquatone&lt;/code&gt; or get the latest version with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gem update aquatone&lt;/code&gt; if you already have it installed.&lt;/p&gt;
+
+&lt;p&gt;Here’s a small list of articles and reports on subdomain takeover issues across the web:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.grahamcluley.com/hacker-defaces-donald-trump-fundraising-site-via-subdomain-takeover-attack/&quot;&gt;Hacker defaces Donald Trump fundraising site via subdomain takeover attack&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://hackernoon.com/subdomain-takeover-of-blog-snapchat-com-60860de02fe7&quot;&gt;Subdomain takeover of blog.snapchat.com&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://hackerone.com/reports/207576&quot;&gt;Subdomain takeover on s3.shopify.com&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://hackerone.com/reports/186766&quot;&gt;Subdomain takeover on happymondays.starbucks.com due to non-used AWS S3 DNS record&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.arneswinnen.net/2017/06/authentication-bypass-on-ubers-sso-via-subdomain-takeover/&quot;&gt;Authentication bypass on Uber’s Single Sign-On via subdomain takeover&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Happy hunting!&lt;/strong&gt;&lt;/p&gt;</content><author><name>michenriksen</name></author><category term="blog" /><summary type="html">Heads up! Aquatone has been totally rewritten in Go and is now quite a bit different. Read about the new version!</summary></entry><entry><title type="html">Geolocating Miriam Steimer</title><link href="https://michenriksen.com/blog/geolocating-miriam-steimer/" rel="alternate" type="text/html" title="Geolocating Miriam Steimer" /><published>2017-06-18T13:37:00+02:00</published><updated>2017-06-18T13:37:00+02:00</updated><id>https://michenriksen.com/blog/geolocating-miriam-steimer</id><content type="html" xml:base="https://michenriksen.com/blog/geolocating-miriam-steimer/">&lt;p&gt;If you have been following my blog, you might know that one of my weird hobbies is to determine the location of where pictures were taken. My previous post on &lt;a href=&quot;/blog/geolocating-maks-czuperski/&quot;&gt;Geolocating Maks Czuperski&lt;/a&gt; caught quite a lot of buzz, so I thought I would write up how I solved another recent geolocation challenge, as it seems like you don’t necessarily need to catch the &lt;a href=&quot;https://www.bellingcat.com/news/uk-and-europe/2015/10/08/mh17-the-open-source-evidence/&quot;&gt;Russian Ministry of Defense lying&lt;/a&gt; about passenger planes being shot out of the sky for people to be interested in this sort of stuff.&lt;/p&gt;
+
+&lt;p&gt;It all started when I saw a Retweet from &lt;a href=&quot;https://twitter.com/trbrtc/status/869518189738299394&quot;&gt;Christiaan Triebert&lt;/a&gt; on my Twitter feed:&lt;/p&gt;
+
+&lt;blockquote class=&quot;twitter-tweet tw-align-center&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/trbrtc&quot;&gt;@trbrtc&lt;/a&gt; where are we? &lt;a href=&quot;https://twitter.com/hashtag/geolocation?src=hash&quot;&gt;#geolocation&lt;/a&gt; &lt;a href=&quot;https://twitter.com/hashtag/itsagame?src=hash&quot;&gt;#itsagame&lt;/a&gt; &lt;a href=&quot;https://t.co/g8JDCgw9Af&quot;&gt;pic.twitter.com/g8JDCgw9Af&lt;/a&gt;&lt;/p&gt;&amp;mdash; miriam steimer (@miriamsteimer) &lt;a href=&quot;https://twitter.com/miriamsteimer/status/869506933933387777&quot;&gt;May 30, 2017&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;The tweet from &lt;a href=&quot;https://twitter.com/miriamsteimer&quot;&gt;Miriam Steimer&lt;/a&gt; seemed to challenge Christiaan Triebert to find out where they were to come join them for lunch. It didn’t exactly look like a challenge meant for everyone but I couldn’t ignore it, and so I decided to give it a go…&lt;/p&gt;
+
+&lt;p&gt;Right-clicking on the image and &lt;em&gt;Copy Image Address&lt;/em&gt; gave me a pretty high resolution version of the image where I could pick out details easier.&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/geolocation2/wherearewe.jpg&quot;&gt;&lt;img src=&quot;/assets/images/geolocation2/wherearewe_thumbnail.jpg&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;The picture from Miriam Steimer's tweet.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;My first idea was to comb the picture for any easy-wins such as the name of the place on the yellow parasols in the background, the napkins on the table or perhaps on the cutlery or plates, but no luck there. It did make me a bit hungry though…&lt;/p&gt;
+
+&lt;p&gt;One detail that I noticed was something that looked like a typical employee badge hidden under the phone on the middle table:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/geolocation2/wherearewe_zoom_badge.jpg&quot;&gt;&lt;img src=&quot;/assets/images/geolocation2/wherearewe_zoom_badge_thumbnail.jpg&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;A possible employee badge under the phone.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The badge made me think that maybe they were having lunch at a work cafeteria or similar, so time to figure out where Miriam works…&lt;/p&gt;
+
+&lt;p&gt;Figuring out where she works was pretty straight-forward as her Twitter profile bio says she is a journalist working for &lt;a href=&quot;https://www.zdf.de/&quot;&gt;ZDF&lt;/a&gt; and that she is located in Mainz, Germany.&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/geolocation2/miriam_steimer_profile.png&quot;&gt;&lt;img src=&quot;/assets/images/geolocation2/miriam_steimer_profile.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Miriam's Twitter profile.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;With a bit of Googling, I learned that ZDF has a big broadcasting center in Mainz with pretty interesting architecture:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/geolocation2/maps_zdf_sendezentrum.png&quot;&gt;&lt;img src=&quot;/assets/images/geolocation2/maps_zdf_sendezentrum_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Google Maps view of the &lt;em&gt;ZDF Sendezentrum&lt;/em&gt; in Mainz.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I went back to the picture from Miriam’s tweet to see if I could find anything that I could use to confirm that the picture was taken somewhere at the ZDF broadcasting center. After a bit of staring, I noticed that a building facade with something that looks like shiny metallic plates is visible in the background. This could be useful for determining the location more precisely.&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/geolocation2/wherearewe_background.jpg&quot;&gt;&lt;img src=&quot;/assets/images/geolocation2/wherearewe_background_thumbnail.jpg&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;A building facade in the background.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Scrolling through the Google Image search results for ZDF sendezentrum made me come across a &lt;a href=&quot;http://www.jobundfit.de/uploads/pics/Cafeteria_SZ_1_Ausgabelinie.jpg&quot;&gt;picture&lt;/a&gt; of something that looked very much like a cafeteria:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/geolocation2/casino_cafeteria.jpg&quot;&gt;&lt;img src=&quot;/assets/images/geolocation2/casino_cafeteria.jpg&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Casino Cafeteria.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The picture was found on a &lt;a href=&quot;http://www.jobundfit.de/qualitaetsstandard/zertifizierung/praxispaten/zdf-casino-mainz.html&quot;&gt;web page&lt;/a&gt; about &lt;em&gt;ZDF-Casino GmbH&lt;/em&gt; catering company getting the &lt;em&gt;JOB &amp;amp; Fit&lt;/em&gt; certification. Doing another Google Image search for &lt;em&gt;ZDF sendezentrum casino&lt;/em&gt; I came across another valuable &lt;a href=&quot;http://www.stepmap.de/landkarte/sendezentrum-zdf-1267042.png&quot;&gt;image&lt;/a&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/geolocation2/sendezentrum_map.png&quot;&gt;&lt;img src=&quot;/assets/images/geolocation2/sendezentrum_map_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;A map of the ZDF Sendezentrum with the Casino building.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Knowing that the name of the ZDF cafeteria is called Casino and having a map of the area was good and all, but I still needed to find a building with the facade that is visible in the picture. I scrolled through some more Google Image search results and came across another &lt;a href=&quot;http://realschule-plus-langenlonsheim.com/s/cc_images/cache_2477728153.JPG&quot;&gt;picture&lt;/a&gt; that caught my attention:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/geolocation2/sendezentrum_entrance.png&quot;&gt;&lt;img src=&quot;/assets/images/geolocation2/sendezentrum_entrance_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Entrance to the ZDF Sendezentrum with directions and an interesting building in the background.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The picture showed what looks like the entrance to the ZDF Sendezentrum with directions to the &lt;em&gt;Kasinogebäude&lt;/em&gt; and more importantly, a building in the background with what looks like the same kind of shiny metallic plates.&lt;/p&gt;
+
+&lt;p&gt;I wrote a quick tweet to Miriam and Christiaan to figure out if I was going in the right direction:&lt;/p&gt;
+
+&lt;blockquote class=&quot;twitter-tweet tw-align-center&quot; data-conversation=&quot;none&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Hey, random twitterer here, looks like it could be somewhere near the &amp;quot;Kasinogebäude&amp;quot;?&lt;/p&gt;&amp;mdash; Michael Henriksen (@michenriksen) &lt;a href=&quot;https://twitter.com/michenriksen/status/869559591419478016&quot;&gt;May 30, 2017&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;After a while, Christiaan replied:&lt;/p&gt;
+
+&lt;blockquote class=&quot;twitter-tweet tw-align-center&quot; data-conversation=&quot;none&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Correct! Should not be hard to find the exact location now — good luck ;-)&lt;/p&gt;&amp;mdash; Christiaan Triebert (@trbrtc) &lt;a href=&quot;https://twitter.com/trbrtc/status/869563326073888768&quot;&gt;May 30, 2017&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;Perfect! I used the map picture I found earlier to align my Google Maps view and tweeted my guess:&lt;/p&gt;
+
+&lt;blockquote class=&quot;twitter-tweet tw-align-center&quot; data-conversation=&quot;none&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Somewhere in the red square, perhaps? &lt;a href=&quot;https://t.co/c3HH84PPbs&quot;&gt;pic.twitter.com/c3HH84PPbs&lt;/a&gt;&lt;/p&gt;&amp;mdash; Michael Henriksen (@michenriksen) &lt;a href=&quot;https://twitter.com/michenriksen/status/869567449733234690&quot;&gt;May 30, 2017&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;Christiaan replied again with their exact location:&lt;/p&gt;
+
+&lt;blockquote class=&quot;twitter-tweet tw-align-center&quot; data-conversation=&quot;none&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Nice, very close, just a few more meters northward! &lt;a href=&quot;https://t.co/qo9zk86IAH&quot;&gt;pic.twitter.com/qo9zk86IAH&lt;/a&gt;&lt;/p&gt;&amp;mdash; Christiaan Triebert (@trbrtc) &lt;a href=&quot;https://twitter.com/trbrtc/status/869584650490040320&quot;&gt;May 30, 2017&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;My guess was a bit off as Christiaan’s very nice breakdown shows, but I think I was close enough to call it a win. The lesson learned was to remember to always look at a place from all angles in Google Maps. Had I done that, I would have seen the yellow parasols hiding among the trees in the green area.&lt;/p&gt;
+
+&lt;p&gt;Christiaan later challenged me with another picture which I also solved, but I won’t go over how I did it, I will leave it as a challenge for you to find out. Maybe you can figure out how I did it. Let me know how you solved it. :)&lt;/p&gt;
+
+&lt;blockquote class=&quot;twitter-tweet tw-align-center&quot; data-conversation=&quot;none&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;If you feel like it, try this one. It is near (1-50km radius) of the other photo, to give a hint. &lt;a href=&quot;https://t.co/Kutw2sK6wP&quot;&gt;pic.twitter.com/Kutw2sK6wP&lt;/a&gt;&lt;/p&gt;&amp;mdash; Christiaan Triebert (@trbrtc) &lt;a href=&quot;https://twitter.com/trbrtc/status/869587705251983361&quot;&gt;May 30, 2017&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;If you enjoyed this post, maybe you are also interested in reading my previous post about how I &lt;a href=&quot;/blog/geolocating-maks-czuperski/&quot;&gt;Geolocated Maks Czuperski&lt;/a&gt;. If you would like to try out geolocation yourself, I would recommend keeping an eye on the &lt;a href=&quot;https://twitter.com/search?f=tweets&amp;amp;vertical=default&amp;amp;q=%23DigitalSherlocks&amp;amp;src=typd&quot;&gt;#DigitalSherlocks&lt;/a&gt; hashtag on Twitter as people often tweet these sorts of challenges using that hashtag.&lt;/p&gt;
+
+&lt;script async=&quot;&quot; src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;</content><author><name>michenriksen</name></author><category term="blog" /><summary type="html">If you have been following my blog, you might know that one of my weird hobbies is to determine the location of where pictures were taken. My previous post on Geolocating Maks Czuperski caught quite a lot of buzz, so I thought I would write up how I solved another recent geolocation challenge, as it seems like you don’t necessarily need to catch the Russian Ministry of Defense lying about passenger planes being shot out of the sky for people to be interested in this sort of stuff.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://michenriksen.com/assets/images/geolocation2/wherearewe_zoom_badge.jpg" /><media:content medium="image" url="https://michenriksen.com/assets/images/geolocation2/wherearewe_zoom_badge.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">AQUATONE: A tool for domain flyovers</title><link href="https://michenriksen.com/blog/aquatone-tool-for-domain-flyovers/" rel="alternate" type="text/html" title="AQUATONE: A tool for domain flyovers" /><published>2017-06-17T13:37:00+02:00</published><updated>2017-06-17T13:37:00+02:00</updated><id>https://michenriksen.com/blog/aquatone-tool-for-domain-flyovers</id><content type="html" xml:base="https://michenriksen.com/blog/aquatone-tool-for-domain-flyovers/">&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/aquatone/u2.jpg&quot;&gt;&lt;img src=&quot;/assets/images/aquatone/u2.jpg&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;The Lockheed U-2 reconnaissance aircraft was given the codename Aquatone.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;span class=&quot;evidence&quot;&gt;&lt;strong&gt;Heads up! Aquatone has been totally rewritten in Go and is now quite a bit different. Read about the &lt;a href=&quot;/blog/aquatone-now-in-go&quot;&gt;new version&lt;/a&gt;!&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Knowing the attack surface of something is critical for both defending and attacking it. When it comes to domain names, a very common approach for uncovering the attack surface is to discover its subdomains. Subdomains will increase the number of potential target sites as well as uncover IP ranges to probe further.&lt;/p&gt;
+
+&lt;p&gt;There are plenty of tools already for subdomain enumeration, e.g. &lt;a href=&quot;http://tools.kali.org/information-gathering/fierce&quot;&gt;Fierce&lt;/a&gt;, &lt;a href=&quot;https://github.com/TheRook/subbrute&quot;&gt;SubBrute&lt;/a&gt; and &lt;a href=&quot;https://github.com/OJ/gobuster&quot;&gt;Gobuster&lt;/a&gt; however &lt;a href=&quot;https://github.com/michenriksen/aquatone&quot;&gt;AQUATONE&lt;/a&gt; takes things a step further by not only doing classic brute force enumeration but also utilizing various open sources and internet services to dramatically increase the number of discovered subdomains. When subdomains have been discovered, AQUATONE can then be used to probe the hosts for common HTTP ports and gather response headers, HTML and screenshots to be compiled into a nice report for easy analysis.&lt;/p&gt;
+
+&lt;p&gt;To make the tool as flexible as possible, AQUATONE is divided into three separate commands, so if you’re only interested in using it for subdomain discovery without any scanning or screenshotting, you can easily do that. Lets go over the three phases of an AQUATONE assessment:&lt;/p&gt;
+
+&lt;h2 id=&quot;phase-1-discovery&quot;&gt;Phase 1: Discovery&lt;/h2&gt;
+
+&lt;p&gt;To demonstrate the usage of AQUATONE, we will perform an assessment on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;corp.yahoo.com&lt;/code&gt; domain. I have chosen this domain because Yahoo’s &lt;a href=&quot;https://hackerone.com/yahoo&quot;&gt;Bug Bounty program&lt;/a&gt; includes all of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*.yahoo.com&lt;/code&gt; in their scope, so it should be acceptable to run a tool like AQUATONE against it.&lt;/p&gt;
+
+&lt;p&gt;Kicking off the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;aquatone-discover&lt;/code&gt; tool:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/aquatone/discover_start.png&quot;&gt;&lt;img src=&quot;/assets/images/aquatone/discover_start_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Starting aquatone-discover against `corp.yahoo.com`...&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The first thing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;aquatone-discover&lt;/code&gt; does is to identify the authoritative name servers for the target domain. Using these name servers for resolution ensures that the information is up to date and discovery is maximised.&lt;/p&gt;
+
+&lt;p&gt;It also does a quick test to see if the target domain is configured to be a wildcard domain as such domains can produce a lot of false positives. If the domain turns out to be a wildcard, it will identify the possible wildcard responses and filter them out. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;corp.yahoo.com&lt;/code&gt; is luckily not configured to be wildcard.&lt;/p&gt;
+
+&lt;p&gt;After name server and wildcard detection, it proceeds to ask each subdomain collector module for potential subdomains under the target domain. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;aquatone-discover&lt;/code&gt; ships with following collector modules:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Dictionary brute force&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://dnsdb.org/&quot;&gt;DNSDB.org&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.google.com/transparencyreport/&quot;&gt;Google Transparency Report&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://hackertarget.com/find-dns-host-records/&quot;&gt;HackerTarget&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://searchdns.netcraft.com/&quot;&gt;Netcraft&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.shodan.io/&quot;&gt;Shodan&lt;/a&gt; (requires API key)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.threatcrowd.org/&quot;&gt;ThreatCrowd&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.virustotal.com/&quot;&gt;VirusTotal&lt;/a&gt; (requires API key)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The collector modules returned a total of 12.282 potential subdomains that aquatone-discover attempts to resolve.&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/aquatone/discover_progress.png&quot;&gt;&lt;img src=&quot;/assets/images/aquatone/discover_progress_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;aquatone-discover resolving subdomains. Hitting Enter will output a progress report.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;After a while, aquatone-discover has run through the list and uncovered a total of 1.958 live subdomains. It also analyzed the IPs and printed a list of potential IP subnet ranges which can be used for further probing:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/aquatone/discover_finished.png&quot;&gt;&lt;img src=&quot;/assets/images/aquatone/discover_finished_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;aquatone-discover uncovered a total of 1.958 live subdomains.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;It also wrote the discovered hosts to files in the aquatone assessment directory that is automatically created for the target domain. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hosts.txt&lt;/code&gt; contains a comma-separated list of domains and their IP:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;224-si1.corp.yahoo.com,207.126.224.4
+224-si2.corp.yahoo.com,207.126.224.5
+227-si1.corp.yahoo.com,207.126.227.4
+227-si2.corp.yahoo.com,207.126.227.7
+232-si1.corp.yahoo.com,207.126.232.4
+232-si2.corp.yahoo.com,207.126.232.5
+351-si1.corp.yahoo.com,216.145.51.4
+351-si2.corp.yahoo.com,216.145.51.96
+998-dmz-foundry1.corp.yahoo.com,216.145.48.25
+998-dmz-foundry2.corp.yahoo.com,216.145.48.39
+aa-dc1.wpe.stg.test.corp.yahoo.com,98.137.139.80
+aa-dc2.wpe.stg.test.corp.yahoo.com,98.137.139.81
+aaa1-1-a-gci.corp.yahoo.com,216.145.50.84
+aaa1-2-a-gci.corp.yahoo.com,216.145.50.87
+aahost1.stg.test.corp.yahoo.com,98.137.139.82
+aahost2.stg.test.corp.yahoo.com,98.137.139.83
+aahost3.stg.test.corp.yahoo.com,98.137.139.84
+aahost4.stg.test.corp.yahoo.com,98.137.139.85
+aape01.stg.test.corp.yahoo.com,98.137.139.93
+aavm1.stg.test.corp.yahoo.com,98.137.139.87
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This file can be sliced and diced with common command line tools and loaded into other tools that you might use. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hosts.json&lt;/code&gt; contains the same information in JSON format and is used by the other AQUATONE tools but can also be useful if you want to use the information with custom scripts.&lt;/p&gt;
+
+&lt;h2 id=&quot;phase-2-scanning&quot;&gt;Phase 2: Scanning&lt;/h2&gt;
+
+&lt;p&gt;Having discovered a bunch of subdomains on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;corp.yahoo.com&lt;/code&gt; is already quite useful. We could stop here and start poking around with other tools or manual browsing, but lets instead make &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;aquatone-scan&lt;/code&gt; do the hard work for us of finding which hosts might serve web content:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/aquatone/scan.png&quot;&gt;&lt;img src=&quot;/assets/images/aquatone/scan_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;aquatone-scan finding open ports on hosts.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;aquatone-scan found a bunch of open HTTP ports across the different hosts. By default, it will scan the following TCP ports: 80, 443, 8000, 8080 and 8443 which are all very common ports for web services. You can of course change this to your own list of ports with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--ports&lt;/code&gt; option, or specify one of the built-in list aliases:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;small&lt;/code&gt;: 80, 443&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;medium&lt;/code&gt;: 80, 443, 8000, 8080, 8443 (same as default)&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;large&lt;/code&gt;: 80, 81, 443, 591, 2082, 2087, 2095, 2096, 3000, 8000, 8001, 8008, 8080, 8083, 8443, 8834, 8888&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;huge&lt;/code&gt;: 80, 81, 300, 443, 591, 593, 832, 981, 1010, 1311, 2082, 2087, 2095, 2096, 2480, 3000, 3128, 3333, 4243, 4567, 4711, 4712, 4993, 5000, 5104, 5108, 5800, 6543, 7000, 7396, 7474, 8000, 8001, 8008, 8014, 8042, 8069, 8080, 8081, 8088, 8090, 8091, 8118, 8123, 8172, 8222, 8243, 8280, 8281, 8333, 8443, 8500, 8834, 8880, 8888, 8983, 9000, 9043, 9060, 9080, 9090, 9091, 9200, 9443, 9800, 9981, 12443, 16080, 18091, 18092, 20720, 28017&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Using a larger port list will of course let you discover more web services, but it will also increase the time it takes for aquatone-scan to finish.&lt;/p&gt;
+
+&lt;p&gt;aquatone-scan created two new files in the assessment directory for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;corp.yahoo.com&lt;/code&gt;: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;open_ports.txt&lt;/code&gt; is a simple comma-separated list of hosts and their open ports:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;117.104.189.54,443
+124.108.98.253,443
+124.108.98.254,443
+203.83.249.10,443
+203.83.249.4,443
+203.83.249.5,443
+203.83.249.8,443
+203.83.249.9,443
+209.131.62.228,443
+209.131.62.229,443
+209.131.62.230,443
+209.131.62.231,443
+216.145.48.148,443
+216.145.48.149,443
+216.145.48.150,443
+216.145.48.151,443
+216.145.48.152,443
+216.145.48.153,443
+72.30.2.113,443,80
+77.238.184.150,80
+98.136.163.125,80,443
+98.136.205.152,443,80
+98.136.205.216,443
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;urls.txt&lt;/code&gt; contains a list of URLs that can be used to request the web pages on the open ports:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://bomgar.corp.yahoo.com/
+http://bouncer.gh.corp.yahoo.com/
+http://buzz.corp.yahoo.com/
+http://cloud.corp.yahoo.com/
+http://fifa.corp.yahoo.com/
+http://gemini.corp.yahoo.com/
+http://guest.corp.yahoo.com/
+http://insights.corp.yahoo.com/
+http://ipv6.corp.yahoo.com/
+http://marketingcentral.corp.yahoo.com/
+http://messenger.corp.yahoo.com/
+http://request.corp.yahoo.com/
+http://sas.corp.yahoo.com/
+http://services.corp.yahoo.com/
+http://shop.corp.yahoo.com/
+http://si.corp.yahoo.com/
+http://wireless.corp.yahoo.com/
+https://bomgar.corp.yahoo.com/
+https://bouncer.gh.corp.yahoo.com/
+https://fast.corp.yahoo.com/
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;These files are used for the next phase of the assessment but are also convenient for loading into other tools like &lt;a href=&quot;https://github.com/ChrisTruncer/EyeWitness&quot;&gt;EyeWitness&lt;/a&gt; or slicing and dicing with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cut&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;awk&lt;/code&gt;, etc.&lt;/p&gt;
+
+&lt;h2 id=&quot;phase-3-gathering&quot;&gt;Phase 3: Gathering&lt;/h2&gt;
+
+&lt;p&gt;We now know about subdomains and open ports on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*.corp.yahoo.com&lt;/code&gt;, it’s time to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;aquatone-gather&lt;/code&gt; to collect HTTP responses and screenshots and compile it all into a nice report:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/aquatone/gather_start.png&quot;&gt;&lt;img src=&quot;/assets/images/aquatone/gather_start_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;aquatone-gather crunching through the web pages.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;aquatone-gather loaded data from the files created by the previous AQUATONE tools and started requesting URLs to collect HTTP responses and screenshots. Behind the scenes, it uses &lt;a href=&quot;https://github.com/segmentio/nightmare&quot;&gt;Nightmare&lt;/a&gt; for all the heavy lifting of requesting and screenshotting.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately Nightmare, and any other browser automation tool, is a bit flaky and will fail on some of the page processings as can be seen in the screenshot. I think the failure rate is acceptable, but something to be aware of.&lt;/p&gt;
+
+&lt;p&gt;After a little while, it finishes processing all the web pages:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/aquatone/gather_finish.png&quot;&gt;&lt;img src=&quot;/assets/images/aquatone/gather_finish_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;aquatone-gather finished processing web pages.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;It prints a short summary of successful vs. failed page processings and a list of generated report pages, but this is far from the only files that aquatone-gather generated. Navigating to the assessment folder, we can see three new folders: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;headers&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;html&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;report&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;screenshots&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;headers&lt;/code&gt; folder contains text files with response headers from all the page visits:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~/aquatone/corp.yahoo.com/headers# cat bomgar_corp_yahoo_com__98_136_205_152__443.txt
+Cache-Control: no-cache
+Connection: Keep-Alive
+Content-Type: text/html; charset=utf-8
+Date: Wed, 14 Jun 2017 12:22:01 GMT
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Keep-Alive: timeout=15, max=100
+Pragma: no-cache
+Server: Bomgar
+Set-Cookie: ns_s=c9b9309296cf5babeb7e193125cb2cf0f3c7f13c; path=/; secure; HttpOnly
+Strict-Transport-Security: max-age=31536000
+Transfer-Encoding: chunked
+X-Ua-Compatible: IE=edge
+root@kali:~/aquatone/corp.yahoo.com/headers#
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;These files can be very useful with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep&lt;/code&gt; and other tools to quickly find information on server technology and other things that are interesting from a security point of view.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;html&lt;/code&gt; folder contains HTML bodies from all the page visits:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~/aquatone/corp.yahoo.com/html# cat bomgar_corp_yahoo_com__98_136_205_152__443.html
+&amp;lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot; &quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&amp;gt;
+&amp;lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en-us&quot;&amp;gt;
+&amp;lt;head&amp;gt;
+	&amp;lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&amp;gt;
+	&amp;lt;title&amp;gt;Yahoo! Global Service Desk LiveChat&amp;lt;/title&amp;gt;
+	&amp;lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0&quot; /&amp;gt;
+&amp;lt;link href=&quot;/content/common.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&amp;gt;
+&amp;lt;link href=&quot;/content/public.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&amp;gt;
+&amp;lt;link href=&quot;/content/mobile.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&amp;gt;
+
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+&amp;lt;div id=&quot;container&quot;&amp;gt;
+
+&amp;lt;div id=&quot;header&quot; class=&quot;contentBox&quot;&amp;gt;
+...
+&amp;lt;div style=&quot;display: none&quot;&amp;gt;
+&amp;lt;div style=&quot;margin: 1em;&quot;&amp;gt;
+	&amp;lt;a href=&quot;http://www.bomgar.com&quot; class=&quot;inverse&quot; target=&quot;_blank&quot;&amp;gt;Secure Remote Desktop Access by Bomgar&amp;lt;/a&amp;gt;
+
+&amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&amp;lt;/div&amp;gt;
+
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+root@kali:~/aquatone/corp.yahoo.com/html#
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;There are tons of things that these files can be used for. More on this later.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;screenshots&lt;/code&gt; folder contains, as the name might suggest, PNG screenshots of all the page visits:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~/aquatone/corp.yahoo.com/screenshots# ls
+bomgar_corp_yahoo_com__98_136_205_152__443.png
+bomgar_corp_yahoo_com__98_136_205_152__80.png
+bouncer_gh_corp_yahoo_com__72_30_2_113__443.png
+bouncer_gh_corp_yahoo_com__72_30_2_113__80.png
+buzz_corp_yahoo_com__77_238_184_150__80.png
+cloud_corp_yahoo_com__77_238_184_150__80.png
+...
+si_corp_yahoo_com__77_238_184_150__80.png
+vpn1-1-gci_eglbp_corp_yahoo_com__203_83_249_4__443.png
+vpn1-1-ptn_corp_yahoo_com__216_145_48_151__443.png
+vpn1-1-ptn_eglbp_corp_yahoo_com__203_83_249_10__443.png
+vpn1-2-gci_sv6_corp_yahoo_com__209_131_62_228__443.png
+vpn-1-gci_hongkong_corp_yahoo_com__117_104_189_54__443.png
+vpn2-1-gci_eglbp_corp_yahoo_com__203_83_249_5__443.png
+vpn2-1-ptn_corp_yahoo_com__216_145_48_152__443.png
+vpn2-2-gci_sv6_corp_yahoo_com__209_131_62_229__443.png
+vpn-2-gci_sv6_corp_yahoo_com__209_131_62_230__443.png
+wireless_corp_yahoo_com__77_238_184_150__80.png
+root@kali:~/aquatone/corp.yahoo.com/screenshots#
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can of course browse these screenshots directly in the folder, but it’s probably more useful to analyse them by opening the generated HTML report page:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/aquatone/aquatone_report.gif&quot;&gt;&lt;img src=&quot;/assets/images/aquatone/aquatone_report_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Browsing the AQUATONE report (Gif).&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The report lines up the screenshots with response headers so that you quickly scan through the collected information for interesting pages. AQUATONE will highlight headers that may increase security with a green background and headers that may present a security issue with a red background. Before you go on a bug bounty spree with this, please remember that god strangles a puppy every time someone reports missing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;X-Frame-Options&lt;/code&gt;. ;)&lt;/p&gt;
+
+&lt;h2 id=&quot;cli-tricks&quot;&gt;CLI tricks&lt;/h2&gt;
+
+&lt;p&gt;The generated report is the final product of AQUATONE, but lots of useful stuff can be done with all the raw files that are generated in the assessment folder, so let’s wrap up this blog post with some examples of what you can do:&lt;/p&gt;
+
+&lt;h3 id=&quot;get-server-technology-stats&quot;&gt;Get server technology stats&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~/aquatone/corp.yahoo.com/headers# cat * | grep 'Server:' | sort | uniq -c | sort -nr
+     13 Server: ATS
+      6 Server: Bomgar
+      1 Server: AkamaiGHost
+root@kali:~/aquatone/corp.yahoo.com/headers#
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;find-more-subdomains&quot;&gt;Find more subdomains&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~/aquatone/corp.yahoo.com/html# cat * | egrep -o '[a-z0-9\-\_\.]+\.corp\.yahoo\.com' | sort -u
+bomgar.corp.yahoo.com
+bouncer.by.corp.yahoo.com
+fast.corp.yahoo.com
+it.corp.yahoo.com
+request.corp.yahoo.com
+services.corp.yahoo.com
+root@kali:~/aquatone/corp.yahoo.com/html#
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;find-html-comments&quot;&gt;Find HTML comments&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~/aquatone/corp.yahoo.com/html# cat * | egrep -o '&amp;lt;!--.*--&amp;gt;'
+&amp;lt;!--//--&amp;gt;
+&amp;lt;!-- Begin comScore Tag --&amp;gt;
+&amp;lt;!-- bouncer02.gh.bf1.yahoo.com Wed Jun 14 12:22:09 UTC 2017 --&amp;gt;
+&amp;lt;!-- bouncer12-os.gh.bf2.yahoo.com Wed Jun 14 12:22:29 UTC 2017 --&amp;gt;
+&amp;lt;!-- #doc4 --&amp;gt;
+&amp;lt;!-- .dw1 --&amp;gt;
+&amp;lt;!-- .dw4 --&amp;gt;
+...
+&amp;lt;!-- /.shmod --&amp;gt;
+&amp;lt;!-- SpaceID=0 timeout (ads1) --&amp;gt;
+&amp;lt;!-- src2.ops.ir2.yahoo.com Wed Jun 14 12:22:15 UTC 2017 --&amp;gt;
+&amp;lt;!-- src4.ops.ir2.yahoo.com Wed Jun 14 12:21:44 UTC 2017 --&amp;gt;
+&amp;lt;!-- src4.ops.ir2.yahoo.com Wed Jun 14 12:21:51 UTC 2017 --&amp;gt;
+&amp;lt;!-- src4.ops.ir2.yahoo.com Wed Jun 14 12:22:27 UTC 2017 --&amp;gt;
+&amp;lt;!-- src6.ops.ir2.yahoo.com Wed Jun 14 12:21:57 UTC 2017 --&amp;gt;
+&amp;lt;!-- src6.ops.ir2.yahoo.com Wed Jun 14 12:22:15 UTC 2017 --&amp;gt;
+&amp;lt;!-- src6.ops.ir2.yahoo.com Wed Jun 14 12:22:36 UTC 2017 --&amp;gt;
+&amp;lt;!-- URL: /::ProfilerTotal:557:1497442917838::Page Creation:40:1497442917838::user_ups:0:1497442917844::ydht_time:1:1497442917845::Maple Execution:518:1497442917878::Maple WS:41:1497442917879::SHAdModule:457:1497442917921::SHLeftNavigationModule:7:1497442918378::SHHeroModule:0:1497442918385::SHBrowseShoppingModule:5:1497442918385::SHSocialNewBrowseModule:0:1497442918390::SHCopyrightModule:1:1497442918391:: --&amp;gt;
+&amp;lt;!-- web23.shop.bf1.yahoo.com --&amp;gt;
+&amp;lt;!-- web23.shop.bf1.yahoo.com Wed Jun 14 12:21:57 UTC 2017 --&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;find-pages-with-password-fields&quot;&gt;Find pages with password fields&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~/aquatone/corp.yahoo.com/html# grep 'type=&quot;password&quot;' *
+bouncer_gh_corp_yahoo_com__72_30_2_113__80.html: &amp;lt;dd&amp;gt;&amp;lt;input class=&quot;input-large&quot; name=&quot;pass_word&quot; type=&quot;password&quot; id=&quot;pass_word&quot; maxlength=&quot;64&quot;   autocomplete=&quot;off&quot; autocorrect=&quot;off&quot; autocapitalize=&quot;off&quot; spellcheck=&quot;false&quot; &amp;gt;&amp;lt;/dd&amp;gt;
+fast_corp_yahoo_com__98_136_205_216__443.html: &amp;lt;dd&amp;gt;&amp;lt;input class=&quot;input-large&quot; name=&quot;pass_word&quot; type=&quot;password&quot; id=&quot;pass_word&quot; maxlength=&quot;64&quot;   autocomplete=&quot;off&quot; autocorrect=&quot;off&quot; autocapitalize=&quot;off&quot; spellcheck=&quot;false&quot; &amp;gt;&amp;lt;/dd&amp;gt;
+root@kali:~/aquatone/corp.yahoo.com/html#
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;get-hosts-listening-on-port-443&quot;&gt;Get hosts listening on port 443&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~/aquatone/corp.yahoo.com# cat open_ports.txt | grep ',443' | cut -d &quot;,&quot; -f 1
+117.104.189.54
+124.108.98.253
+124.108.98.254
+203.83.249.10
+203.83.249.4
+...
+216.145.48.153
+72.30.2.113
+98.136.163.125
+98.136.205.152
+98.136.205.216
+root@kali:~/aquatone/corp.yahoo.com#
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;check-https-hosts-for-heartbleed&quot;&gt;Check HTTPS hosts for Heartbleed&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@kali:~/aquatone/corp.yahoo.com# grep https urls.txt | cut -d '/' -f 3 &amp;gt; /tmp/targets.lst
+root@kali:~/aquatone/corp.yahoo.com# sslscan --targets=/tmp/targets.lst --no-ciphersuites --no-fallback --no-renegotiation --no-compression --no-check-certificate
+Version: 1.11.9-static
+OpenSSL 1.0.2l-dev  xx XXX xxxx
+
+Testing SSL server bomgar.corp.yahoo.com on port 443 using SNI name
+
+  Heartbleed:
+TLS 1.2 not vulnerable to heartbleed
+TLS 1.1 not vulnerable to heartbleed
+TLS 1.0 not vulnerable to heartbleed
+
+
+
+Testing SSL server bouncer.gh.corp.yahoo.com on port 443 using SNI name
+...
+Testing SSL server vpn2-2-gci.sv6.corp.yahoo.com on port 443 using SNI name
+
+  Heartbleed:
+TLS 1.2 not vulnerable to heartbleed
+TLS 1.1 not vulnerable to heartbleed
+TLS 1.0 not vulnerable to heartbleed
+
+root@kali:~/aquatone/corp.yahoo.com#
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;That’s it! I hope you will take AQUATONE on a test flight and let me know what you think. You can find installation instructions in the project &lt;a href=&quot;https://github.com/michenriksen/aquatone#installation&quot;&gt;README&lt;/a&gt;.&lt;/p&gt;</content><author><name>michenriksen</name></author><category term="blog" /><summary type="html">The Lockheed U-2 reconnaissance aircraft was given the codename Aquatone.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://michenriksen.com/assets/images/aquatone/u2.jpg" /><media:content medium="image" url="https://michenriksen.com/assets/images/aquatone/u2.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Geolocating Maks Czuperski</title><link href="https://michenriksen.com/blog/geolocating-maks-czuperski/" rel="alternate" type="text/html" title="Geolocating Maks Czuperski" /><published>2017-01-18T13:37:00+01:00</published><updated>2017-01-18T13:37:00+01:00</updated><id>https://michenriksen.com/blog/geolocating-maks-czuperski</id><content type="html" xml:base="https://michenriksen.com/blog/geolocating-maks-czuperski/">&lt;p&gt;The other day while checking my Twitter feed, I came across an interesting retweet from &lt;a href=&quot;https://twitter.com/EliotHiggins&quot;&gt;Elliot Higgins&lt;/a&gt;, the founder of &lt;a href=&quot;https://www.bellingcat.com/&quot;&gt;Bellingcat&lt;/a&gt;:&lt;/p&gt;
+
+&lt;blockquote class=&quot;twitter-tweet tw-align-center&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/hashtag/DigitalSherlocks?src=hash&quot;&gt;#DigitalSherlocks&lt;/a&gt; out there!—Where am I? &lt;a href=&quot;https://t.co/4eXw7BuMj8&quot;&gt;pic.twitter.com/4eXw7BuMj8&lt;/a&gt;&lt;/p&gt;&amp;mdash; Maks Czuperski (@MaksCzuperski) &lt;a href=&quot;https://twitter.com/MaksCzuperski/status/819510013148463105&quot;&gt;January 12, 2017&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;This looked like a fun challenge and being the OSINT geek that I am, I couldn’t let it pass. Here is how I geolocated Maks Czuperski:&lt;/p&gt;
+
+&lt;p&gt;First thing was of course to get a copy of the image. Right-click and &lt;em&gt;Copy Image Address&lt;/em&gt; gave me a good 2048x1536px version where details could be picked out.&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/geolocation/whereami.png&quot;&gt;&lt;img src=&quot;/assets/images/geolocation/whereami_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;The picture from Maks Czuperski's tweet.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The location did not look familiar to me and there were no famous buildings in the background, readable street signs or other easy wins to quickly figure out the location. The building across the plaza did have a kind of interesting shape and colors, so the first thing I tried was to cut out a piece of the picture with part of the building clearly visible without obstructions, and upload it to Google’s reverse image search. It is quite impressive, and almost eerie, what Google can recognize in images. This time however, I had no luck. I also tried with a crop of the walkway pattern in the lower area of the picture, but no luck there either.&lt;/p&gt;
+
+&lt;p&gt;Next step was to zoom in on the image and comb it for any details that could give me a hint to its location. This was when I spotted the store signs in the lower right corner of the image:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/geolocation/whereami_zoom.png&quot;&gt;&lt;img src=&quot;/assets/images/geolocation/whereami_zoom_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;An Expert store is visible in the image.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I was lucky to know that Expert is an electronics store from my time living in Denmark and, assuming that Expert only has stores in Denmark, I wondered if it could be somewhere in Copenhagen perhaps. A quick Google search led me to the company’s &lt;a href=&quot;https://en.wikipedia.org/wiki/Expert_(company)&quot;&gt;Wikipedia article&lt;/a&gt; which stated that Expert operates in several countries a part from Denmark:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Norway&lt;/li&gt;
+  &lt;li&gt;Denmark&lt;/li&gt;
+  &lt;li&gt;Sweden&lt;/li&gt;
+  &lt;li&gt;Faroe Islands&lt;/li&gt;
+  &lt;li&gt;Åland Islands&lt;/li&gt;
+  &lt;li&gt;Finland&lt;/li&gt;
+  &lt;li&gt;Estonia&lt;/li&gt;
+  &lt;li&gt;Belgium&lt;/li&gt;
+  &lt;li&gt;Germany&lt;/li&gt;
+  &lt;li&gt;Greece&lt;/li&gt;
+  &lt;li&gt;Ireland&lt;/li&gt;
+  &lt;li&gt;France&lt;/li&gt;
+  &lt;li&gt;Austria&lt;/li&gt;
+  &lt;li&gt;Czech Republic&lt;/li&gt;
+  &lt;li&gt;Iceland&lt;/li&gt;
+  &lt;li&gt;Italy&lt;/li&gt;
+  &lt;li&gt;The Netherlands&lt;/li&gt;
+  &lt;li&gt;Portugal&lt;/li&gt;
+  &lt;li&gt;Spain&lt;/li&gt;
+  &lt;li&gt;Slovakia&lt;/li&gt;
+  &lt;li&gt;Australia/New Zealand&lt;/li&gt;
+  &lt;li&gt;Croatia&lt;/li&gt;
+  &lt;li&gt;Hungary&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This made the list of potential places quite a bit bigger, but at least it was narrowed down to a handful of countries. I combed through the picture once more to find any other details I could pair with this information and pretty quickly spotted a sign for a place called “Gold Mountain” right next to the Expert shop:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/geolocation/whereami_gold_mountain.png&quot;&gt;&lt;img src=&quot;/assets/images/geolocation/whereami_gold_mountain_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;A place called Gold Mountain next to Expert.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I had never heard of Gold Mountain before, and it was my hope that this would be a bit more unique than Expert. I made the assumption that he was most likely in a capital city, or at least a bigger city, in one of the countries where Expert operates. My plan was now to perform a search for &lt;em&gt;Gold Mountain&lt;/em&gt; combined with the capital city name for each country in the list:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/geolocation/google_gold_mountain.png&quot;&gt;&lt;img src=&quot;/assets/images/geolocation/google_gold_mountain_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Googling for &lt;em&gt;Gold Mountain&lt;/em&gt; in Oslo.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Bingo! I was lucky that the capital for the first country in the list yielded a result that looked like the right place. The Google Streetview image to the right of the search results looked like it had the funnily shaped building in the background, and sure enough, clicking on it &lt;a href=&quot;https://encrypted.google.com/maps/uv?hl=en&amp;amp;pb=!1s0x46416e87584d4a15:0xec11d10f5cae7d6c!2m19!2m2!1i80!2i80!3m1!2i20!16m13!1b1!2m2!1m1!1e1!2m2!1m1!1e3!2m2!1m1!1e5!2m2!1m1!1e4!3m1!7e115!4s/maps/place/%2522golden%2Bmountain%2522%2Boslo/@59.9130538,10.7342323,3a,75y,315.79h,90t/data%3D*213m4*211e1*213m2*211sg-lA7LDc3hCsqgBfS2QtPQ*212e0*214m2*213m1*211s0x0:0xec11d10f5cae7d6c?hl%3Den!5s%22golden+mountain%22+oslo+-+Google+Search&amp;amp;imagekey=!1e2!2sg-lA7LDc3hCsqgBfS2QtPQ&amp;amp;sa=X&amp;amp;ved=0ahUKEwjzu6bc8MvRAhXGAxoKHTyXDIUQpx8IbjAK&quot;&gt;landed me&lt;/a&gt; straight on the plaza in the picture!&lt;/p&gt;
+
+&lt;p&gt;I pretty quickly determined the direction that the picture was taken from and tweeted at Maks Czuperski:&lt;/p&gt;
+
+&lt;blockquote class=&quot;twitter-tweet tw-align-center&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/MaksCzuperski&quot;&gt;@MaksCzuperski&lt;/a&gt; &lt;a href=&quot;https://twitter.com/EliotHiggins&quot;&gt;@EliotHiggins&lt;/a&gt; Somewhere here? &lt;a href=&quot;https://t.co/FplgM8BPop&quot;&gt;pic.twitter.com/FplgM8BPop&lt;/a&gt;&lt;/p&gt;&amp;mdash; Michael Henriksen (@michenriksen) &lt;a href=&quot;https://twitter.com/michenriksen/status/819517437259476992&quot;&gt;January 12, 2017&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;After a while he replied and asked me to be more precise. I tried to narrow it down further:&lt;/p&gt;
+
+&lt;blockquote class=&quot;twitter-tweet tw-align-center&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;&lt;a href=&quot;https://twitter.com/MaksCzuperski&quot;&gt;@MaksCzuperski&lt;/a&gt; &lt;a href=&quot;https://twitter.com/EliotHiggins&quot;&gt;@EliotHiggins&lt;/a&gt; My guess would be one of these top windows. It&amp;#39;s Fridtjof Nansens Plass in Oslo. &lt;a href=&quot;https://t.co/y1TmuzmoyU&quot;&gt;pic.twitter.com/y1TmuzmoyU&lt;/a&gt;&lt;/p&gt;&amp;mdash; Michael Henriksen (@michenriksen) &lt;a href=&quot;https://twitter.com/michenriksen/status/819527342745878528&quot;&gt;January 12, 2017&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;I managed to narrow it down to a couple of windows where the picture could have been taken from, which I think was pretty cool. It was a super fun exercise and I wish someone would arrange daily or weekly geolocation challenges like this!&lt;/p&gt;
+
+&lt;p&gt;If you find this sort of stuff interesting, you should definitely check out &lt;a href=&quot;https://www.bellingcat.com/&quot;&gt;Bellingcat&lt;/a&gt;’s articles and guides. In case you haven’t heard of them, here’s a short description of what they are about, from their own website:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Bellingcat uses open source and social media investigation to investigate a variety of subjects, from Mexican drug lords to conflicts being fought across the world. Bellingcat brings together contributors who specialise in open source and social media investigation, and creates guides and case studies so others may learn to do the same.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;As a little bonus to my investigation, I later came across the following tweet:&lt;/p&gt;
+
+&lt;blockquote class=&quot;twitter-tweet tw-align-center&quot; data-lang=&quot;en&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Thanks, &lt;a href=&quot;https://twitter.com/MaksCzuperski&quot;&gt;@MaksCzuperski&lt;/a&gt; for more insight on social media and the engagement age. &lt;a href=&quot;https://twitter.com/Atlantkomite&quot;&gt;@Atlantkomite&lt;/a&gt; &lt;a href=&quot;https://t.co/9eTyvf0NSN&quot;&gt;pic.twitter.com/9eTyvf0NSN&lt;/a&gt;&lt;/p&gt;&amp;mdash; Marita I. Wangberg (@FD_Marita) &lt;a href=&quot;https://twitter.com/FD_Marita/status/819497169413607424&quot;&gt;January 12, 2017&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;The picture shows Maks Czuperski doing a presentation on geolocation stuff at the Norwegian Atlantic Committee. He apparently used his geolocation challenge tweet as part of his presentation, to demonstrate how quickly someone could find him. Pretty cool!&lt;/p&gt;
+
+&lt;script async=&quot;&quot; src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;</content><author><name>michenriksen</name></author><category term="blog" /><summary type="html">The other day while checking my Twitter feed, I came across an interesting retweet from Elliot Higgins, the founder of Bellingcat:</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://michenriksen.com/assets/images/geolocation/whereami_gold_mountain.png" /><media:content medium="image" url="https://michenriksen.com/assets/images/geolocation/whereami_gold_mountain.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Detecting online investigations</title><link href="https://michenriksen.com/blog/detecting-online-investigations/" rel="alternate" type="text/html" title="Detecting online investigations" /><published>2016-11-14T13:37:00+01:00</published><updated>2016-11-14T13:37:00+01:00</updated><id>https://michenriksen.com/blog/detecting-online-investigations</id><content type="html" xml:base="https://michenriksen.com/blog/detecting-online-investigations/">&lt;p&gt;I recently purchased a license for &lt;a href=&quot;https://www.hunch.ly/&quot;&gt;Hunchly&lt;/a&gt;, an awesome tool for performing online investigations and general research on the web. The tool seems to be very popular among criminal investigators, journalists and OSINT geeks like me.&lt;/p&gt;
+
+&lt;p&gt;For those who don’t know, Hunchly is a tool that integrates directly into your browser through an extension to record and store local copies of every website you visit during an investigation. This is very convenient when doing OSINT investigations as you never loose anything, even if it gets deleted at a later time, and it makes it easy to trace your steps to how you found a particular piece of information.&lt;/p&gt;
+
+&lt;p&gt;Another great feature of Hunchly is the ability to associate so-called &lt;em&gt;selectors&lt;/em&gt; to cases. Selectors are basically specific strings of interest that Hunchly will then keep track of, and notify you whenever these selectors are found on websites you visit. Selectors would normally be things like names, email addresses, phone numbers, domains and anything else that is relevant to the person or subject you are investigating.&lt;/p&gt;
+
+&lt;p&gt;Hunchly can be configured to automatically highlight these selectors on websites when they are encountered. It is not enabled by default, but I’m sure it’s a very common setting to enable as it makes it very easy to spot the relevant parts when browsing:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/hunchly/hunchly_selectors.png&quot;&gt;&lt;img src=&quot;/assets/images/hunchly/hunchly_selectors_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Highlighted selectors on the michenriksen.com frontpage.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The above screenshot shows how my website’s frontpage looks like when Hunchly is configured with the selectors: &lt;em&gt;Michael Henriksen&lt;/em&gt;, &lt;em&gt;SoundCloud&lt;/em&gt; and &lt;em&gt;Gitrob&lt;/em&gt;. All occurrences of these strings are highlighted with a yellow background.&lt;/p&gt;
+
+&lt;p&gt;Since Hunchly is highlighting the selectors by modifying the HTML before it’s displayed in the browser, I started thinking about how a tech-savvy criminal, or anyone doing activities that would cause people to investigate them, such as an activist, could exploit this feature to detect the fact that someone is actively investigating them, and even get a sense of what the investigator knows and what they are interested in.&lt;/p&gt;
+
+&lt;p&gt;This is how Hunchly highlights selector strings:&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;mark&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;data-markjs=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hunchly&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;selector text&lt;span class=&quot;nt&quot;&gt;&amp;lt;/mark&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Hunchly wraps the selectors in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;mark&amp;gt;&lt;/code&gt; tags with a unique class of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hunchly&lt;/code&gt; which can be used to very accurately determine that Hunchly is being used on a website.&lt;/p&gt;
+
+&lt;p&gt;Using a bit of Javascript, it is fairly easy for anyone worried about being investigated to detect it. Here is a small Proof Of Concept:&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;charset=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;utf-8&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;viewport&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;width=device-width&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;Detecting Hunchly&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;canary&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    John Doe johndoe@gmail.com 888444333
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/javascript&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;setTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;selectors&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;querySelectorAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;#canary mark.hunchly&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;selectors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;No Hunchly selectors found in canary&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Found &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;selectors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; Hunchly selector(s) in canary&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;selectors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;forEach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Investigator is interested in: &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;textContent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Hi there, investigator!&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;On &lt;strong&gt;line 9 - 11&lt;/strong&gt; a &amp;lt;div&amp;gt; element is defined with an ID of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;canary&lt;/code&gt;. This element would contain potential selectors that an investigator is likely to have entered into Hunchly. This should obviously not contain actual sensitive information that would help an investigator, but already publicly known information such as a name, public email address, etc. which is very likely for an investigator to have entered into Hunchly. It could also contain misinformation (e.g. a fake phone number) that has been planted on other websites. This would give the person under investigation an idea of where the investigator has already been, and what the investigator thinks they know about their target.&lt;/p&gt;
+
+&lt;p&gt;On &lt;strong&gt;line 14&lt;/strong&gt; the Javascript is looking for any &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;mark&amp;gt;&lt;/code&gt; tags with a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hunchly&lt;/code&gt; class within the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;#canary&lt;/code&gt; div element. If no elements are found, it simply logs &lt;em&gt;No Hunchly selectors found in canary&lt;/em&gt; to the console.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Line 18 - 22&lt;/strong&gt; is what is being executed if a Hunchly selector highlight is found within the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;#canary&lt;/code&gt; element. It logs the total amount of selectors detected and then loops over each selector to log the text that was highlighted. It finishes off with popping up an alert box with &lt;em&gt;Hi there, investigator!&lt;/em&gt; as the message.&lt;/p&gt;
+
+&lt;p&gt;Instead of simply logging the information to the console, the script could easily be modified to call out to a backend script with Ajax or do something more aggressive like triggering a browser exploit, loading a &lt;a href=&quot;http://beefproject.com/&quot;&gt;BeEF&lt;/a&gt; hook, redirecting them to Goatse or anything else to mess with the investigator. I’m sure you can come up with other fun things to do…&lt;/p&gt;
+
+&lt;p&gt;Before I finish this post, I want emphasize that this is not meant as a diss to Hunchly, I think it’s an excellent tool and would recommend it to anyone doing OSINT stuff. I simply felt like pointing out a potential problem with Hunchly’s selector highlight feature, so if you are looking into someone who might be crazy enough to do stuff like this, you might want to turn that feature off. I don’t know if this is the reason it is disabled as default, or if there is another reason. Anyways, check out &lt;a href=&quot;https://www.hunch.ly/&quot;&gt;Hunchly&lt;/a&gt; website or watch this &lt;a href=&quot;https://www.youtube.com/watch?v=wA1ec0dPYhw&quot;&gt;excellent video tutorial&lt;/a&gt; if you want to know more about the tool.&lt;/p&gt;</content><author><name>michenriksen</name></author><category term="blog" /><summary type="html">I recently purchased a license for Hunchly, an awesome tool for performing online investigations and general research on the web. The tool seems to be very popular among criminal investigators, journalists and OSINT geeks like me.</summary></entry><entry><title type="html">Birdwatcher: Data analysis and OSINT framework for Twitter</title><link href="https://michenriksen.com/blog/birdwatcher-twitter-osint-framework/" rel="alternate" type="text/html" title="Birdwatcher: Data analysis and OSINT framework for Twitter" /><published>2016-10-14T13:37:00+02:00</published><updated>2016-10-14T13:37:00+02:00</updated><id>https://michenriksen.com/blog/birdwatcher-twitter-osint-framework</id><content type="html" xml:base="https://michenriksen.com/blog/birdwatcher-twitter-osint-framework/">&lt;p&gt;Yes, here again with another tool release. This time it’s an &lt;a href=&quot;https://en.wikipedia.org/wiki/Open-source_intelligence&quot;&gt;OSINT&lt;/a&gt; framework for a different social network — &lt;a href=&quot;https://twitter.com/&quot;&gt;Twitter.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/start.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/start_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Birdwatcher framework.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/michenriksen/birdwatcher&quot;&gt;Birdwatcher&lt;/a&gt; started out as a collection of small scripts to generate a classic weighted word cloud of Tweets from a group of users. As I thought about what else I could do with data from Twitter I decided to rewrite the scripts into a full-fledged, module based, console framework with a ton more functionality.&lt;/p&gt;
+
+&lt;p&gt;If you have any experience working with other frameworks such as &lt;a href=&quot;https://www.metasploit.com/&quot;&gt;Metasploit&lt;/a&gt; or &lt;a href=&quot;https://bitbucket.org/LaNMaSteR53/recon-ng&quot;&gt;Recon-ng&lt;/a&gt;, you will feel right at home with Birdwatcher as it’s heavily inspired by these frameworks and has many of the same concepts and commands.&lt;/p&gt;
+
+&lt;p&gt;This blog post won’t go over how to set up Birdwatcher, but you can have a look at the &lt;a href=&quot;https://github.com/michenriksen/birdwatcher#birdwatcher&quot;&gt;README&lt;/a&gt; to find out how to &lt;a href=&quot;https://github.com/michenriksen/birdwatcher#installation&quot;&gt;install&lt;/a&gt; and &lt;a href=&quot;https://github.com/michenriksen/birdwatcher#configuration&quot;&gt;configure&lt;/a&gt; the framework.&lt;/p&gt;
+
+&lt;h2 id=&quot;workspaces&quot;&gt;Workspaces&lt;/h2&gt;
+
+&lt;p&gt;Just like Metasploit and Recon-ng, Birdwatcher supports the concept of Workspaces. Workspaces enable you to segment and manage users and data stored in the underlying database. You can use workspaces to create logical separation between different users. For example, you may want to create a workspace for a company, a department or for a specific topic.&lt;/p&gt;
+
+&lt;p&gt;The command prompt will always show the currently active workspace inside the square brackets. Birdwatcher will always have a default workspace which might be all you need if you intend to use Birdwatcher on a single group of users. If you plan to use it on several different groups, it is recommended to create a workspace for each of them, to prevent cross contamination.&lt;/p&gt;
+
+&lt;h2 id=&quot;commands&quot;&gt;Commands&lt;/h2&gt;
+
+&lt;p&gt;The core of the Birdwatcher framework is its commands and one of the most important ones is the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;help&lt;/code&gt; command:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/help.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/help_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Executing the help command.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The help command simply lists all available commands with short descriptions of what they do.&lt;/p&gt;
+
+&lt;h2 id=&quot;modules&quot;&gt;Modules&lt;/h2&gt;
+
+&lt;p&gt;Again, just like Metasploit and Recon-ng, Birdwatcher ships with a bunch of modules that either enrich the raw Twitter data harvested by the commands or somehow present the data in interesting and useful ways. Here are some of the things the modules can currently do:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Retrieve user’s Klout score, Tweet topics and influence graph&lt;/li&gt;
+  &lt;li&gt;Generate weighted word clouds based on user’s Tweets&lt;/li&gt;
+  &lt;li&gt;Listing the most shared URLs&lt;/li&gt;
+  &lt;li&gt;Generate graphical social graphs between users&lt;/li&gt;
+  &lt;li&gt;Crawl shared URLs to retrieve HTTP status codes, content types and page titles&lt;/li&gt;
+  &lt;li&gt;Generate KML files with geo-enabled Tweets to be viewed in Google Earth&lt;/li&gt;
+  &lt;li&gt;Generate Punchcard-style plots of when users are most engaged with Twitter&lt;/li&gt;
+  &lt;li&gt;Calculate the sentiment score of Tweets (positive, neutral or negative)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Birdwatcher’s code is designed to make it pretty simple for anyone with a bit of Ruby knowledge to extend Birdwatcher with new modules. How to create one is out of scope for this blog post, but have a look at this &lt;a href=&quot;https://github.com/michenriksen/birdwatcher/wiki/Creating-a-Birdwatcher-Module&quot;&gt;Wiki article&lt;/a&gt; if you are interested in finding out more.&lt;/p&gt;
+
+&lt;h2 id=&quot;lovely-horse&quot;&gt;LOVELY HORSE&lt;/h2&gt;
+
+&lt;p&gt;If you have been following the news around the Snowden documents, you might have heard of a program by the UK intelligence agency GCHQ called &lt;a href=&quot;http://www.mirror.co.uk/news/technology-science/technology/gchqs-lovely-horse-tool-helped-5133474&quot;&gt;LOVELY HORSE&lt;/a&gt;. The program was made to simply monitor a smaller group of security related Twitter accounts to keep taps on what was being said and possibly more.&lt;/p&gt;
+
+&lt;p&gt;To demonstrate the capabilities and usage of Birdwatcher, I thought it would be fun to go through how we can create our own LOVELY HORSE program…&lt;/p&gt;
+
+&lt;h3 id=&quot;creating-a-new-workspace&quot;&gt;Creating a new workspace&lt;/h3&gt;
+
+&lt;p&gt;Instead of using the default workspace, let’s create a dedicated one for our lovely horses to keep things neat and tidy:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/workspace.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/workspace_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Creating a new workspace.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;workspace add&lt;/code&gt; command created our new workspace and automatically made it the currently active one, as can be seen in the square brackets of the command prompt.&lt;/p&gt;
+
+&lt;h3 id=&quot;adding-users-to-the-workspace&quot;&gt;Adding users to the workspace&lt;/h3&gt;
+
+&lt;p&gt;Now that we have our workspace we need to add some users to it so we have something to work with. The &lt;a href=&quot;https://s3.amazonaws.com/s3.documentcloud.org/documents/1588722/lovely-horse.pdf&quot;&gt;leaked PDF&lt;/a&gt; contains a list of 37 Twitter accounts that we will use for this example:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0xcharlie
+alexsotirov
+anon_central
+anon_operations
+anonops
+anonymousirc
+bradarkin
+CeRTFi
+danchodanchev
+daveaitel
+dinodaizovi
+diocyde
+egyp7
+GoVCeRT_NL
+halvarflake
+hdmoore
+hernano
+JaNeTCSiRT
+kevinmitnick
+lennyzeltser
+lulzsec
+mdowd
+mikko
+msftsecresponse
+operationleaks
+owasp
+pusscat
+Shadowserver
+snowfl0w
+taosecurity
+taviso
+teamcymru
+thegrugq
+TheHackersNews
+tinman2k
+VuPeN
+WTFuzz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;One way to add the users would be to execute &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;user add 0xcharlie alexsotirov ... WTFuzz&lt;/code&gt; but that would be a lot of typing and I don’t really like that. Instead we can make use of our first module to easily import them into the workspace. We copy the usernames and save them to a file and load the User Importer module:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/module_info.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/module_info_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;The User Importer module.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;use&lt;/code&gt; command loads a module by its path. The path is determined simply by how the module files are placed in the directory stucture. Modules live inside at least one directory which can be seen as a namespace of the type of object they are working on. In this case the User Importer lives in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;users/&lt;/code&gt; namespace which makes pretty good sense. When a module is loaded it is also indicated in the command prompt with another set of square brackets with the module’s path in red text.&lt;/p&gt;
+
+&lt;p&gt;After loading the module we type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;show info&lt;/code&gt; to get a bit more information on what the module does. All modules have additional information that can be seen with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;show info&lt;/code&gt; command.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;show&lt;/code&gt; command can also display any options a module might have:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/module_options.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/module_options.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Options for the User Importer module.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The module is very basic and only has one option called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FILE&lt;/code&gt; which tells the module which file to read usernames from. The table tells us that the option is required to set and that the current value is empty. Let’s configure the module and run it:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/user_import.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/user_import_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Importing users.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The module fetched basic user information from the Twitter API and saved them to the underlying database. We can see the users in the current workspace at any time with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;user list&lt;/code&gt; command:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/user_list.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/user_list_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Paging through users in the workspace.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;fetching-tweets&quot;&gt;Fetching Tweets&lt;/h3&gt;
+
+&lt;p&gt;Now that we have imported our lovely horses we can fetch their Tweets from the Twitter API and have them saved to the database for analysis:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/status_fetch.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/status_fetch_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Fetching Tweets from users.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;status fetch&lt;/code&gt; command will fetch up to 1.000 Tweets from each user and save them to the database. The command also extracts entities such as URLs, Mentions and Hashtags to save them to separate database tables. The command might take a bit of time to finish the first time because of all the Tweets it needs to fetch and process, however on any subsequent runs, it only fetches and processes any Tweets the users might have posted since the last run.&lt;/p&gt;
+
+&lt;p&gt;Now that we have fetched the Tweets we can page through them with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;status list&lt;/code&gt; command:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/status_list.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/status_list_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Listing Tweets from users.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;status search&lt;/code&gt; command we can find Tweets containing a specific word or phrase, for example &lt;em&gt;lovelyhorse&lt;/em&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/status_search.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/status_search_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Searching for Tweets mentioning &lt;em&gt;lovelyhorse&lt;/em&gt;.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;crawling-urls&quot;&gt;Crawling URLs&lt;/h3&gt;
+
+&lt;p&gt;After the Tweets have been fetched and processed we also have a pretty large collection of URLs that might point to interesting or valuable information. Right now we only know the URLs that were shared which can pretty hard to process. To get a better idea of which links might be interesting we can use the URL Crawler module:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/url_crawl_info.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/url_crawl_info_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Loading the URL Crawler module.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;As the module information says, it enriches the collected URLs with their HTTP status codes, content types and potentially page titles if the URL points to a HTML page with a title. The module also follows redirects so in case the URL is somehow obfuscated or shortened we can know the actual destination too.&lt;/p&gt;
+
+&lt;p&gt;The module also warns us that it might not be safe to blindly visit all the shared URLs as it could be pointing at places you don’t want to request with your own IP. Let’s check the module’s options to see what we can do:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/url_crawl_options.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/url_crawl_options_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Viewing options for the URL Crawler module.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This module has a bit more options than the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;users/import&lt;/code&gt; module. None of them are required but the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PROXY_ADDR&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PROXY_PORT&lt;/code&gt; are definitely a good idea to configure. The options will instruct the module to request all URLs through a HTTP proxy to hide the origin of the request for your own safety and OPSEC. I personally have &lt;a href=&quot;https://www.torproject.org/&quot;&gt;Tor&lt;/a&gt; installed and its SOCKS proxy exposed as an HTTP proxy with Polipo. Check out this &lt;a href=&quot;https://www.marcus-povey.co.uk/2016/03/24/using-tor-as-a-http-proxy/&quot;&gt;blog post&lt;/a&gt; if you want to know how it’s done.&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/url_crawl.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/url_crawl_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Crawling URLs for more information.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We configure the module to use a proxy and run it. It will steadily crunch through the URLs but it might take a while to finish, depending on your connection speed, proxy, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;THREADS&lt;/code&gt; setting and the amount of URLs to crawl. The first time you run this module it can take quite a long time as it needs to process a lot of URLs.&lt;/p&gt;
+
+&lt;h3 id=&quot;getting-klout-information&quot;&gt;Getting Klout information&lt;/h3&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://klout.com/s/developers/v2&quot;&gt;Klout API&lt;/a&gt; can give us a lot of valuable information on users such as their ]&lt;a href=&quot;https://klout.com/corp/score&quot;&gt;Klout score&lt;/a&gt; which can be used to find users with the most reach and influence, the general topics they are Tweeting about, and an influence graph which can tell us who each user is influencing and who they are being influenced by.&lt;/p&gt;
+
+&lt;p&gt;The first module we need to run is the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;users/klout_id&lt;/code&gt; module. This module simply retrieves each user’s Klout ID which is needed for all the other Klout related modules:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/klout_id.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/klout_id_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Retrieving user's Klout ID.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Next we run the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;users/klout_topics&lt;/code&gt; module which retrieves the general topics that each user is Tweeting about such as Technology, Hacking, Marketing, Information Security, etc. Each topic will be saved in a table and referenced through a join table to users, to make it easy to retrieve users who Tweet, or don’t Tweet, about a specific topic:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/klout_topics.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/klout_topics_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Retrieving user's Klout topics.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;If we want to know about how influential each user is, we can use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;users/klout_score&lt;/code&gt; module to retrieve their Klout score. The score is calculated by Klout and is explained here, but the higher the score the more influential the user is:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/klout_score.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/klout_score_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Retrieving user's Klout scores.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;From the output we can see that mikko is the most influential followed by hdmoore and thegrugq. The klout score will of course also be saved to the database to make querying based on Klout scores possible.&lt;/p&gt;
+
+&lt;p&gt;Lastly we will run the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;users/klout_influence&lt;/code&gt; module to retrieve information about who our users are being influenced by and who they are influencing:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/klout_influence.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/klout_influence.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Retrieving user's Klout influence.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;making-a-word-cloud&quot;&gt;Making a word cloud&lt;/h3&gt;
+
+&lt;p&gt;A great way to get a quick sense of what the users are talking about is to use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;statuses/word_cloud&lt;/code&gt; module. The module can generate a classic weighted word cloud based on Tweets from all users, or a smaller selection, within a window of time. The module has quite a lot of options for customization:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/word_cloud_options.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/word_cloud_options_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Viewing options for the Word Cloud module.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We configure the module with a file destination for the generated image and set &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;INCLUDE_PAGE_TITLES&lt;/code&gt; to true in order to mix in the page titles we previously retrived with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;urls/crawl&lt;/code&gt; module. This gives an even better idea of the topics our users have been talking about over the last seven days:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/word_cloud.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/word_cloud_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Generating a word cloud from Tweets.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The result is a pretty word cloud that tells us what has been on our lovely horse’s mind over the last seven days:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/word_cloud_result.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/word_cloud_result_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;The result of the word cloud module.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;generating-an-influence-graph&quot;&gt;Generating an influence graph&lt;/h3&gt;
+
+&lt;p&gt;The raw influence data we retrieved earlier with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;users/klout_influence&lt;/code&gt; can be visualized and examined with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;users/influence_graph&lt;/code&gt; module:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/influence_graph.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/influence_graph_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;The influence graph visualized.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Another type of graph we can generate is a social graph that doesn’t use Klout’s influence data but instead finds social connections by analyzing each user’s Tweets for mentions of other users:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/social_graph.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/social_graph_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Calculating the social graph between users.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The resulting graph is a bit different from the influence graph and shows a very tightly coupled cluster between some users. The edge weight between users is calculated simply by counting how many times they mention each other in Tweets. The thicker the line, the stronger the connection between two users:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/social_graph_result.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/social_graph_result_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;The social graph visualized.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;plotting-a-users-twitter-engagement&quot;&gt;Plotting a user’s Twitter engagement&lt;/h3&gt;
+
+&lt;p&gt;Another question you might ask is at what day and time a user is most engaged with Twitter. This might be useful for finding the time where a user is most likely to engage with you on Twitter. We can use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;users/activity_plot&lt;/code&gt; module to get an idea of this:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/activity_plot.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/activity_plot_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Generating an activity plot for &lt;em&gt;halvarflake&lt;/em&gt;.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The resulting plot tells us that halvarflake is generally very engaged with Twitter on Fridays at around 8AM and Tuesdays &amp;amp; Wednesdays at around 7PM:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/activity_plot_result.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/activity_plot_result_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;&lt;em&gt;halvarflake&lt;/em&gt;'s activity plot.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;listing-shared-urls&quot;&gt;Listing shared URLs&lt;/h3&gt;
+
+&lt;p&gt;The last module I want to demonstrate in this blog post is the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;urls/most_shared&lt;/code&gt; module. The module will simply list URLs shared within a specific window of time ordered from most to least shared. If a URL has been shared by several users it is a pretty good indicator that it has interesting information:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/birdwatcher/most_shared.png&quot;&gt;&lt;img src=&quot;/assets/images/birdwatcher/most_shared_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Paging through the shared URLs.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Because we ran the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;urls/crawl&lt;/code&gt; module earlier we also see page title, content type and HTTP code which is very convenient. Because I used Tor as an HTTP proxy we also ran into a CloudFlare CAPTCHA wall.&lt;/p&gt;
+
+&lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping up&lt;/h2&gt;
+
+&lt;p&gt;This concludes my first post on Birdwatcher. I hope you enjoyed it and hope you will include it in your OSINT toolbox. Feel free to file any bugs on &lt;a href=&quot;https://github.com/michenriksen/birdwatcher/issues/new&quot;&gt;GitHub&lt;/a&gt; or give me ideas for new modules.&lt;/p&gt;</content><author><name>michenriksen</name></author><category term="blog" /><summary type="html">Yes, here again with another tool release. This time it’s an OSINT framework for a different social network — Twitter.com.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://michenriksen.com/assets/images/birdwatcher/workspace.png" /><media:content medium="image" url="https://michenriksen.com/assets/images/birdwatcher/workspace.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">A new version of Gitrob is out</title><link href="https://michenriksen.com/blog/new-version-of-gitrob-is-out/" rel="alternate" type="text/html" title="A new version of Gitrob is out" /><published>2016-03-12T13:37:00+01:00</published><updated>2016-03-12T13:37:00+01:00</updated><id>https://michenriksen.com/blog/new-version-of-gitrob-is-out</id><content type="html" xml:base="https://michenriksen.com/blog/new-version-of-gitrob-is-out/">&lt;p&gt;&lt;span class=&quot;evidence&quot;&gt;&lt;strong&gt;Heads up! Gitrob has been totally rewritten in Go and is now much leaner and meaner. Read this blog post to get a general idea of the tool, and then read about the &lt;a href=&quot;/blog/gitrob-now-in-go&quot;&gt;new version&lt;/a&gt;!&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;It’s been more than a year since I released the initial version of Gitrob. I haven’t had a whole lot of time to expand on it, but now a new and improved version is finally here with a bunch of new features requested by users.&lt;/p&gt;
+
+&lt;p&gt;For those who don’t know, Gitrob is a command line tool which can help organizations and security professionals find sensitive information lingering in publicly available files on GitHub. The tool will iterate over all public organization and member repositories and match filenames against a range of patterns for files that typically contain sensitive or dangerous information. Head over to &lt;a href=&quot;/blog/gitrob-putting-the-open-source-in-osint/&quot;&gt;my previous post&lt;/a&gt; for more details and screenshots, but be sure to come back here to learn about the new features!&lt;/p&gt;
+
+&lt;p&gt;The attention the tool has received has been way over my expectations and I want to thank everyone who has helped spread the word about it. With over 1100 Stars on GitHub, a place in &lt;a href=&quot;https://www.thoughtworks.com/radar/tools&quot;&gt;ThoughtWorks’ Tech Radar&lt;/a&gt; and a mention in &lt;a href=&quot;http://www.amazon.com/The-Hacker-Playbook-Practical-Penetration/dp/1512214566&quot;&gt;The Hacker Playbook 2&lt;/a&gt;, I will strive to maintain and build upon the tool more frequently from now on.&lt;/p&gt;
+
+&lt;h2 id=&quot;new-features&quot;&gt;New features&lt;/h2&gt;
+
+&lt;h3 id=&quot;analyze-arbitrary-amount-of-organizations-and-users&quot;&gt;Analyze arbitrary amount of organizations and users&lt;/h3&gt;
+
+&lt;p&gt;The old version of Gitrob only allowed to analyze a single GitHub organization at a time, but the new version allows to mix any number of organizations and users in a single assessment. This is great if a company has multiple organizations or if you have identified GitHub users who work for the target company but don’t have their membership publicly visible.&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/gitrob_1_0_0/analyze.png&quot;&gt;&lt;img src=&quot;/assets/images/gitrob_1_0_0/analyze_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Analyzing an organization and a user in one assessment.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;create-and-delete-assessments-in-web-interface&quot;&gt;Create and delete assessments in web interface&lt;/h3&gt;
+
+&lt;p&gt;The new version has an improved web application which allows users to run a new assessment directly from the web interface. This is very convenient if Gitrob runs on a server accessible to multiple users as they no longer require command line access to manage assessments.&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/gitrob_1_0_0/new_assessment.png&quot;&gt;&lt;img src=&quot;/assets/images/gitrob_1_0_0/new_assessment_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Creating a new assessments from the web interface.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;github-enterprise-support&quot;&gt;GitHub Enterprise support&lt;/h3&gt;
+
+&lt;p&gt;The new version makes it possible to run Gitrob against custom GitHub Enterprise installations by simply providing the location when creating a new assessment. &lt;strong&gt;Note:&lt;/strong&gt; I unfortunately don’t have access to a GitHub Enterprise installation, so I would appreciate if anyone could verify if this works and report any bugs!&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/gitrob_1_0_0/new_assessment_enterprise.png&quot;&gt;&lt;img src=&quot;/assets/images/gitrob_1_0_0/new_assessment_enterprise_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Assessment against a custom GitHub Enterprise installation.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;compare-assessments-for-continuous-monitoring&quot;&gt;Compare assessments for continuous monitoring&lt;/h3&gt;
+
+&lt;p&gt;In the old version it wasn’t really easy to continuously monitor an organization, but the new version makes it possible to compare two assessments to quickly identify new or modified files, users and repositories.&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/gitrob_1_0_0/comparison.gif&quot;&gt;&lt;img src=&quot;/assets/images/gitrob_1_0_0/comparison_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Comparing two assessments (Gif).&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;highlighting-of-interesting-values-and-detection-of-test-files&quot;&gt;Highlighting of interesting values and detection of test files&lt;/h3&gt;
+
+&lt;p&gt;In the small improvements category, the new version detects and highlights interesting values such as IP addresses, domains, tokens and email addresses when viewing a file’s content. The new version will also attempt to determine if a file is likely test or mock related and make them less visible so they can easily be skipped.&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/gitrob_1_0_0/highlighting.gif&quot;&gt;&lt;img src=&quot;/assets/images/gitrob_1_0_0/highlighting_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Highlighting of interesting values and dimming of test related files (Gif).&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;under-the-hood&quot;&gt;Under the hood&lt;/h2&gt;
+
+&lt;p&gt;Apart from the new features, Gitrob v1.0.0 is pretty much a complete rewrite of the first version and some components have been switched out with better and more stable components. Gitrob now uses &lt;a href=&quot;https://rubygems.org/gems/sequel&quot;&gt;Sequel&lt;/a&gt; for database communication, &lt;a href=&quot;https://rubygems.org/gems/github_api&quot;&gt;github_api&lt;/a&gt; for GitHub API interaction and &lt;a href=&quot;https://rubygems.org/gems/thor&quot;&gt;Thor&lt;/a&gt; for the command line interface. The switch to Thor also means that the interface is a little different from the old version: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gitrob -o acme&lt;/code&gt; is now &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gitrob analyze acme&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;new-file-signatures&quot;&gt;New file signatures&lt;/h2&gt;
+
+&lt;p&gt;The new version also ships with a bunch of new signatures for files that might contain sensitive information:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SSH configuration files (Might contain usernames and SSH hostnames)&lt;/li&gt;
+  &lt;li&gt;PostgreSQL password files (Contains PostgreSQL database credentials)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://aws.amazon.com/cli/&quot;&gt;AWS CLI&lt;/a&gt; credential files (Contains Amazon Web Services credentials)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://dayoneapp.com/&quot;&gt;Day One&lt;/a&gt; journal files (Might contain sensitive and personal information)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://maebert.github.io/jrnl/&quot;&gt;jrnl&lt;/a&gt; journal files (Might contain sensitive and personal information)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/pearkes/tugboat&quot;&gt;Tugboat&lt;/a&gt; configuration files (Might contain &lt;a href=&quot;https://www.digitalocean.com/&quot;&gt;DigitalOcean&lt;/a&gt; credentials)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://git-scm.com/docs/git-credential-store&quot;&gt;git-credential-store&lt;/a&gt; configuration files (Contains Git credentials)&lt;/li&gt;
+  &lt;li&gt;Git configuration files (Contains names, email addresses and occasionally access tokens)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.chef.io/chef/&quot;&gt;Chef&lt;/a&gt; Knife configuration files (Might contain references to Chef servers)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.chef.io/chef/&quot;&gt;Chef&lt;/a&gt; private keys (Gives access to Chef servers)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cpanel.com/&quot;&gt;cPanel&lt;/a&gt; backup ProFTPd credential files (Might contain FTP server credentials)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://robomongo.org/&quot;&gt;Robomongo&lt;/a&gt; configuration files (Might contain MongoDB database credentials)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://filezilla-project.org/&quot;&gt;FileZilla&lt;/a&gt; configuration files (Might contain FTP server credentials)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://filezilla-project.org/&quot;&gt;FileZilla&lt;/a&gt; recent servers files (Might contain FTP server credentials)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.ventrilo.com/&quot;&gt;Ventrilo&lt;/a&gt; server configuration files (Might contain server credentials)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker&lt;/a&gt; configuration files (Might contain credentials for public or private Docker registries)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.npmjs.com/&quot;&gt;NPM&lt;/a&gt; configuration files (Might contain credentials for NPM registries)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Check out &lt;a href=&quot;https://github.com/michenriksen/gitrob/blob/master/core/signatures.go#L163&quot;&gt;signatures file&lt;/a&gt; for the full list of file signatures.&lt;/p&gt;
+
+&lt;p&gt;If you have a good idea for a new signature, please don’t hesitate to make a Pull Request or simply create an Issue with details and I will look into it!&lt;/p&gt;
+
+&lt;p&gt;I am very excited about this release and I hope you are too. Hurry up and run Gitrob against your organization before someone else does! Installation and setup instructions can be found in the &lt;a href=&quot;https://github.com/michenriksen/gitrob&quot;&gt;README on GitHub&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Have fun and be responsible!&lt;/strong&gt;&lt;/p&gt;</content><author><name>michenriksen</name></author><category term="blog" /><summary type="html">Heads up! Gitrob has been totally rewritten in Go and is now much leaner and meaner. Read this blog post to get a general idea of the tool, and then read about the new version!</summary></entry></feed>

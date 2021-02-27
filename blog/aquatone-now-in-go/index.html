@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-160093393-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-160093393-1');
+</script>
+
+    
+
+    <meta charset="utf-8">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name=author content="Michael Henriksen">
+
+    
+        <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>AQUATONE: Now in Go | Michael Henriksen - Security engineer &amp; builder of tools</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="AQUATONE: Now in Go" />
+<meta name="author" content="michenriksen" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The Lockheed U-2 reconnaissance aircraft was given the codename Aquatone." />
+<meta property="og:description" content="The Lockheed U-2 reconnaissance aircraft was given the codename Aquatone." />
+<link rel="canonical" href="https://michenriksen.com/blog/aquatone-now-in-go/" />
+<meta property="og:url" content="https://michenriksen.com/blog/aquatone-now-in-go/" />
+<meta property="og:site_name" content="Michael Henriksen - Security engineer &amp; builder of tools" />
+<meta property="og:image" content="https://michenriksen.com/assets/images/aquatone/u22.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-11-04T13:37:00+01:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://michenriksen.com/assets/images/aquatone/u22.png" />
+<meta property="twitter:title" content="AQUATONE: Now in Go" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@michenriksen" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","image":"https://michenriksen.com/assets/images/aquatone/u22.png","headline":"AQUATONE: Now in Go","dateModified":"2018-11-04T13:37:00+01:00","datePublished":"2018-11-04T13:37:00+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://michenriksen.com/blog/aquatone-now-in-go/"},"author":{"@type":"Person","name":"michenriksen"},"description":"The Lockheed U-2 reconnaissance aircraft was given the codename Aquatone.","url":"https://michenriksen.com/blog/aquatone-now-in-go/","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/images/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/assets/images/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/images/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/assets/images/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/images/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/assets/images/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/images/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/assets/images/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/assets/images/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/images/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="application-name" content="michenriksen.com"/>
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/assets/images/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+    <link rel="canonical" href="https://michenriksen.com/blog/aquatone-now-in-go/">
+    <link rel="alternate" type="application/rss+xml" title="Michael Henriksen - Security engineer & builder of tools" href="https://michenriksen.com/feed.xml" />
+
+    <style>
+        
+        @charset "UTF-8";
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+/* Document
+   ========================================================================== */
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+html {
+  line-height: 1.15;
+  /* 1 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */ }
+
+/* Sections
+   ========================================================================== */
+/**
+ * Remove the margin in all browsers.
+ */
+body {
+  margin: 0; }
+
+/**
+ * Render the `main` element consistently in IE.
+ */
+main {
+  display: block; }
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0; }
+
+/* Grouping content
+   ========================================================================== */
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr {
+  box-sizing: content-box;
+  /* 1 */
+  height: 0;
+  /* 1 */
+  overflow: visible;
+  /* 2 */ }
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+pre {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */ }
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+a {
+  background-color: transparent; }
+
+/**
+ * 1. Remove the bottom border in Chrome 57-
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+abbr[title] {
+  border-bottom: none;
+  /* 1 */
+  text-decoration: underline;
+  /* 2 */
+  text-decoration: underline dotted;
+  /* 2 */ }
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b,
+strong {
+  font-weight: bolder; }
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */ }
+
+/**
+ * Add the correct font size in all browsers.
+ */
+small {
+  font-size: 80%; }
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sub {
+  bottom: -0.25em; }
+
+sup {
+  top: -0.5em; }
+
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove the border on images inside links in IE 10.
+ */
+img {
+  border-style: none; }
+
+/* Forms
+   ========================================================================== */
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  line-height: 1.15;
+  /* 1 */
+  margin: 0;
+  /* 2 */ }
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+button,
+input {
+  /* 1 */
+  overflow: visible; }
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+button,
+select {
+  /* 1 */
+  text-transform: none; }
+
+/**
+ * Correct the inability to style clickable types in iOS and Safari.
+ */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button; }
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0; }
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText; }
+
+/**
+ * Correct the padding in Firefox.
+ */
+fieldset {
+  padding: 0.35em 0.75em 0.625em; }
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+legend {
+  box-sizing: border-box;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  display: table;
+  /* 1 */
+  max-width: 100%;
+  /* 1 */
+  padding: 0;
+  /* 3 */
+  white-space: normal;
+  /* 1 */ }
+
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+progress {
+  vertical-align: baseline; }
+
+/**
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+textarea {
+  overflow: auto; }
+
+/**
+ * 1. Add the correct box sizing in IE 10.
+ * 2. Remove the padding in IE 10.
+ */
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */ }
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto; }
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */ }
+
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */ }
+
+/* Interactive
+   ========================================================================== */
+/*
+ * Add the correct display in Edge, IE 10+, and Firefox.
+ */
+details {
+  display: block; }
+
+/*
+ * Add the correct display in all browsers.
+ */
+summary {
+  display: list-item; }
+
+/* Misc
+   ========================================================================== */
+/**
+ * Add the correct display in IE 10+.
+ */
+template {
+  display: none; }
+
+/**
+ * Add the correct display in IE 10.
+ */
+[hidden] {
+  display: none; }
+
+/* GitHub style for Pygments syntax highlighter, for use with Jekyll
+ * Courtesy of GitHub.com
+ */
+.highlight .c {
+  color: #999988;
+  font-style: italic; }
+.highlight .err {
+  color: #a61717;
+  background-color: #e3d2d2; }
+.highlight .k {
+  font-weight: bold; }
+.highlight .o {
+  font-weight: bold; }
+.highlight .cm {
+  color: #999988;
+  font-style: italic; }
+.highlight .cp {
+  color: #999999;
+  font-weight: bold; }
+.highlight .c1 {
+  color: #999988;
+  font-style: italic; }
+.highlight .cs {
+  color: #999999;
+  font-weight: bold;
+  font-style: italic; }
+.highlight .gd {
+  color: #000000;
+  background-color: #ffdddd; }
+.highlight .gd .x {
+  color: #000000;
+  background-color: #ffaaaa; }
+.highlight .ge {
+  font-style: italic; }
+.highlight .gr {
+  color: #aa0000; }
+.highlight .gh {
+  color: #999999; }
+.highlight .gi {
+  color: #000000;
+  background-color: #ddffdd; }
+.highlight .gi .x {
+  color: #000000;
+  background-color: #aaffaa; }
+.highlight .go {
+  color: #888888; }
+.highlight .gp {
+  color: #555555; }
+.highlight .gs {
+  font-weight: bold; }
+.highlight .gu {
+  color: #800080;
+  font-weight: bold; }
+.highlight .gt {
+  color: #aa0000; }
+.highlight .kc {
+  font-weight: bold; }
+.highlight .kd {
+  font-weight: bold; }
+.highlight .kn {
+  font-weight: bold; }
+.highlight .kp {
+  font-weight: bold; }
+.highlight .kr {
+  font-weight: bold; }
+.highlight .kt {
+  color: #445588;
+  font-weight: bold; }
+.highlight .m {
+  color: #009999; }
+.highlight .s {
+  color: #dd1144; }
+.highlight .n {
+  color: #333333; }
+.highlight .na {
+  color: teal; }
+.highlight .nb {
+  color: #0086b3; }
+.highlight .nc {
+  color: #445588;
+  font-weight: bold; }
+.highlight .no {
+  color: teal; }
+.highlight .ni {
+  color: purple; }
+.highlight .ne {
+  color: #990000;
+  font-weight: bold; }
+.highlight .nf {
+  color: #990000;
+  font-weight: bold; }
+.highlight .nn {
+  color: #555555; }
+.highlight .nt {
+  color: navy; }
+.highlight .nv {
+  color: teal; }
+.highlight .ow {
+  font-weight: bold; }
+.highlight .w {
+  color: #bbbbbb; }
+.highlight .mf {
+  color: #009999; }
+.highlight .mh {
+  color: #009999; }
+.highlight .mi {
+  color: #009999; }
+.highlight .mo {
+  color: #009999; }
+.highlight .sb {
+  color: #dd1144; }
+.highlight .sc {
+  color: #dd1144; }
+.highlight .sd {
+  color: #dd1144; }
+.highlight .s2 {
+  color: #dd1144; }
+.highlight .se {
+  color: #dd1144; }
+.highlight .sh {
+  color: #dd1144; }
+.highlight .si {
+  color: #dd1144; }
+.highlight .sx {
+  color: #dd1144; }
+.highlight .sr {
+  color: #009926; }
+.highlight .s1 {
+  color: #dd1144; }
+.highlight .ss {
+  color: #990073; }
+.highlight .bp {
+  color: #999999; }
+.highlight .vc {
+  color: teal; }
+.highlight .vg {
+  color: teal; }
+.highlight .vi {
+  color: teal; }
+.highlight .il {
+  color: #009999; }
+.highlight .gc {
+  color: #999;
+  background-color: #EAF2F5; }
+
+body, html {
+  font-size: 62.5%; }
+
+body {
+  font: 16px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #666; }
+
+h1, h2, h3, h4 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #222;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility; }
+
+h1 {
+  font-size: 3rem;
+  letter-spacing: -1px;
+  color: #222;
+  font-weight: 700; }
+
+h2 {
+  font-size: 2.2rem; }
+
+h3 {
+  font-size: 2rem; }
+
+h4 {
+  font-size: 1.6rem;
+  color: #666; }
+
+a {
+  color: #4175c3;
+  text-decoration: underline; }
+
+p {
+  line-height: 1.7;
+  color: #666;
+  font-weight: 300;
+  margin-bottom: 20px;
+  letter-spacing: 0.4px; }
+  @media only screen and (max-width: 400px) {
+    p {
+      letter-spacing: 0.2px; } }
+
+strong {
+  font-weight: 400;
+  color: #000; }
+
+ul li,
+ol li {
+  line-height: 2.4rem;
+  font-weight: 300;
+  color: #666; }
+
+img,
+pre,
+iframe {
+  max-width: 100%; }
+
+img,
+pre {
+  border-radius: 4px; }
+
+figcaption {
+  position: relative;
+  top: -20px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+  font-size: 1.3rem;
+  color: #aaa;
+  font-weight: 300; }
+  @media only screen and (max-width: 400px) {
+    figcaption {
+      font-size: 1.2rem; } }
+
+blockquote {
+  padding-left: 15px;
+  border-left: 3px solid #eee; }
+
+hr {
+  border: none;
+  height: 1px;
+  margin: 40px auto;
+  background: #eee;
+  width: 100%; }
+
+figure.highlight {
+  width: 100%;
+  margin: 0; }
+
+code,
+tt {
+  padding: 1px 0;
+  font-family: "Consolas", Liberation Mono, Menlo, Courier, monospace;
+  font-size: 12px;
+  line-height: 20px;
+  background: #fff;
+  border-radius: 2px; }
+
+pre {
+  box-sizing: border-box;
+  margin: 0 0 1.75em 0;
+  width: 100%;
+  padding: 5px 10px;
+  font-family: "Consolas", Liberation Mono, Menlo, Courier, monospace;
+  font-size: 1.2rem;
+  line-height: 2rem;
+  overflow: auto;
+  background: #fff;
+  border: 1px solid #ededed;
+  border-radius: 2px; }
+
+.wrapper-normal,
+.wrapper-large {
+  height: 100%;
+  width: 96%;
+  margin: 0 auto; }
+  @media only screen and (max-width: 400px) {
+    .wrapper-normal,
+    .wrapper-large {
+      width: 88%; } }
+  @media only screen and (min-width: 400px) and (max-width: 1050px) {
+    .wrapper-normal,
+    .wrapper-large {
+      width: 88%; } }
+
+.wrapper-normal {
+  max-width: 560px; }
+
+.wrapper-large {
+  max-width: 810px; }
+
+/* general helpers
+ */
+.text-center {
+  text-align: center; }
+
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table; }
+
+.clearfix:after {
+  clear: both; }
+
+/* animations
+ */
+.animated {
+  animation: fade-in-down 0.6s;
+  animation-delay: 0.3s;
+  animation-fill-mode: both; }
+
+@keyframes fade-in-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px); }
+  100% {
+    opacity: 1;
+    transform: translateY(0); } }
+.home,
+.blog,
+.projects {
+  margin-top: 125px; }
+  .home > .list,
+  .blog > .list,
+  .projects > .list {
+    border-top: 1px solid #ededed;
+    margin-top: 30px;
+    padding-top: 40px;
+    position: relative; }
+    .home > .list:before,
+    .blog > .list:before,
+    .projects > .list:before {
+      display: block;
+      content: " ";
+      width: 7px;
+      height: 7px;
+      border: #ededed 1px solid;
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      margin-left: -5px;
+      background: #FFF;
+      box-shadow: #FFF 0 0 0 5px;
+      border-radius: 3px; }
+
+.home > .list > .item,
+.blog > .list > .item,
+.projects > .list > .item {
+  display: block;
+  width: 95%;
+  margin: 0 auto; }
+.home > .list > .item > .url,
+.blog > .list > .item > .url,
+.projects > .list > .item > .url {
+  width: 100%;
+  display: block;
+  padding: 20px 0;
+  text-decoration: none; }
+.home > .list > .item > .url > .title,
+.blog > .list > .item > .url > .title,
+.projects > .list > .item > .url > .title {
+  margin: 0;
+  width: 75%;
+  font-weight: 500;
+  transition: all ease-in-out 0.2s; }
+.home > .list > .item:hover > .url > .title,
+.blog > .list > .item:hover > .url > .title,
+.projects > .list > .item:hover > .url > .title {
+  color: #4175c3; }
+.home > .list aside,
+.blog > .list aside,
+.projects > .list aside {
+  position: relative;
+  top: 2px;
+  margin: 0;
+  width: 25%;
+  float: right;
+  font-weight: 300;
+  color: #aaa;
+  text-align: right;
+  transition: all ease-in-out 0.2s; }
+.home > .list .item:hover .url aside,
+.blog > .list .item:hover .url aside,
+.projects > .list .item:hover .url aside {
+  color: #666; }
+
+.blog > .list > .item > .url > .title,
+.projects > .list > .item > .url > .title {
+  display: inline; }
+.blog > .list > .item > .url > .emoji,
+.projects > .list > .item > .url > .emoji {
+  display: inline;
+  position: relative;
+  top: -4px;
+  margin-right: 10px; }
+
+.page {
+  margin-top: 125px; }
+  .page > h1 {
+    text-align: center;
+    margin-bottom: 6rem; }
+
+.about img {
+  width: 50%;
+  margin: 0 auto;
+  display: block; }
+
+.post {
+  margin-top: 125px; }
+  .post > .title {
+    text-align: center;
+    margin-bottom: 3rem; }
+  .post > .date,
+  .post > .post-tags {
+    color: #aaa;
+    font-weight: 300;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    margin-bottom: 6rem;
+    letter-spacing: 1px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility; }
+  .post > .date {
+    margin-bottom: 2rem; }
+  .post > .post-tags > .item {
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 1.1rem;
+    background: #ededed;
+    color: #666;
+    letter-spacing: 1px;
+    margin: 3px 1px;
+    text-decoration: none;
+    display: inline-block; }
+  .post > h2,
+  .post > h3,
+  .post > h4 {
+    margin-top: 40px; }
+    .post > h2 a,
+    .post > h3 a,
+    .post > h4 a {
+      text-decoration: none; }
+  .post > .title-image {
+    max-height: 120px;
+    display: block;
+    margin: 0 auto; }
+  .post > .blog-navigation {
+    font-size: 1.4rem;
+    display: block;
+    width: auto;
+    overflow: hidden; }
+    .post > .blog-navigation a {
+      display: block;
+      width: 50%;
+      float: left;
+      margin: 1em 0; }
+    .post > .blog-navigation .next {
+      text-align: right; }
+
+.tags {
+  margin-top: 125px; }
+  .tags > .list {
+    border-top: 1px solid #ededed;
+    margin-top: 30px;
+    padding-top: 40px;
+    position: relative; }
+    .tags > .list:before {
+      display: block;
+      content: " ";
+      width: 7px;
+      height: 7px;
+      border: #ededed 1px solid;
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      margin-left: -5px;
+      background: #FFF;
+      box-shadow: #FFF 0 0 0 5px;
+      border-radius: 3px; }
+
+.tags > .list > .item {
+  font-weight: 300;
+  text-transform: uppercase;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  padding: 3px 9px;
+  border-radius: 3px;
+  font-size: 1.3rem;
+  background: #ededed;
+  color: #666;
+  letter-spacing: 1px;
+  margin: 0 0.5rem 1rem;
+  text-decoration: none;
+  display: inline-block; }
+
+.tag-list > .list {
+  padding: 0; }
+  .tag-list > .list > .item {
+    display: block;
+    width: 80%;
+    margin: 0 10%; }
+  .tag-list > .list > .item > .url {
+    width: 100%;
+    height: 100%;
+    display: block;
+    padding: 20px 0;
+    text-decoration: none; }
+  .tag-list > .list > .item > .url > .title {
+    margin: 0;
+    width: 75%;
+    font-weight: 400;
+    transition: all ease-in-out 0.2s;
+    font-size: 1.6rem; }
+  .tag-list > .list > .item:hover > .url > .title {
+    color: #4175c3; }
+  .tag-list > .list aside {
+    position: relative;
+    top: 2px;
+    margin: 0;
+    width: 25%;
+    float: right;
+    font-weight: 300;
+    color: #aaa;
+    text-align: right;
+    transition: all ease-in-out 0.2s;
+    font-size: 1.6rem; }
+  .tag-list > .list .item:hover .url aside {
+    color: #666; }
+
+.author {
+  padding: 3rem 0;
+  border-bottom: 1px solid #ededed;
+  border-top: 1px solid #ededed;
+  max-width: 100%;
+  margin: 4rem auto 0; }
+  .author > .toleft > .selfie {
+    width: 90%;
+    border-radius: 100%; }
+  .author > .toright > .name,
+  .author > .toright > .bio {
+    width: 60%;
+    display: inline-block; }
+  .author > .toright > .name {
+    font-size: 1.5rem;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    margin: 6px 0 0; }
+    @media only screen and (max-width: 400px) {
+      .author > .toright > .name {
+        width: 100%;
+        display: block; } }
+    @media only screen and (min-width: 400px) and (max-width: 1050px) {
+      .author > .toright > .name {
+        width: 100%;
+        display: block; } }
+  .author > .toright > .bio {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    color: #aaa;
+    font-size: 1.3rem;
+    text-align: justify;
+    line-height: 1.5;
+    margin: 0; }
+    @media only screen and (max-width: 400px) {
+      .author > .toright > .bio {
+        width: 100%;
+        display: block; } }
+    @media only screen and (min-width: 400px) and (max-width: 1050px) {
+      .author > .toright > .bio {
+        width: 100%;
+        display: block; } }
+  .author > .toleft {
+    width: 10%;
+    display: inline-block; }
+    @media only screen and (max-width: 400px) {
+      .author > .toleft {
+        width: 20%; } }
+    @media only screen and (min-width: 400px) and (max-width: 1050px) {
+      .author > .toleft {
+        width: 20%; } }
+  .author > .toright {
+    width: 89%;
+    display: inline-block;
+    vertical-align: top; }
+    @media only screen and (max-width: 400px) {
+      .author > .toright {
+        width: 78%; } }
+    @media only screen and (min-width: 400px) and (max-width: 1050px) {
+      .author > .toright {
+        width: 78%; } }
+
+.no-disqus {
+  border-bottom: none;
+  padding-bottom: 0; }
+
+.disqus {
+  margin: 0 auto;
+  max-width: 100%;
+  padding: 40px 0; }
+
+.footer-main {
+  border-top: 1px solid #ededed;
+  padding: 40px 0;
+  margin: 40px 0 0;
+  font-size: 1.3rem;
+  color: #aaa;
+  font-weight: 300;
+  text-align: center;
+  position: relative; }
+  .footer-main:before {
+    display: block;
+    content: " ";
+    width: 7px;
+    height: 7px;
+    border: #ededed 1px solid;
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    margin-left: -5px;
+    background: #FFF;
+    box-shadow: #FFF 0 0 0 5px;
+    border-radius: 3px; }
+  .footer-main > .copyright {
+    padding-left: 10px; }
+  .footer-main > .link {
+    display: inline;
+    vertical-align: middle; }
+    .footer-main > .link > .icon {
+      width: 12px !important;
+      height: 12px !important;
+      display: inline-block;
+      fill: #aaa !important;
+      transition: ease-in-out all 0.3s;
+      position: relative;
+      top: -2px;
+      margin: 0;
+      left: 2px; }
+      .footer-main > .link > .icon:hover {
+        fill: #4175c3 !important; }
+  .footer-main > .extra {
+    color: #aaa;
+    margin-top: 0;
+    font-size: 10px; }
+    .footer-main > .extra > .link {
+      color: #aaa;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: ease-in-out all 0.3s;
+      padding-bottom: 1px; }
+      .footer-main > .extra > .link:hover {
+        border-color: #aaa; }
+    .footer-main > .extra > .logo {
+      width: 70px;
+      height: 70px;
+      display: block;
+      margin: 30px auto 30px auto; }
+
+.header-home {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 99; }
+  .header-home > .link > .selfie {
+    width: 125px;
+    height: 125px;
+    margin-bottom: 25px;
+    border-radius: 100%;
+    transition: all 0.2s;
+    opacity: 1; }
+    .header-home > .link > .selfie:hover {
+      box-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.18), 0 0px 12px 0 rgba(0, 0, 0, 0.15);
+      opacity: 0.8; }
+  .header-home > .title {
+    font-size: 4rem;
+    margin: 0 0 13px; }
+  .header-home > .description {
+    font-size: 1.85rem;
+    font-weight: 400;
+    font-style: normal;
+    color: #666;
+    width: 70%;
+    margin: 0 auto 30px; }
+    .header-home > .description a {
+      font-weight: 200; }
+
+.nav > .list,
+.nav-home > .list {
+  list-style: none;
+  margin: 0;
+  padding: 0 13px 0; }
+  .nav > .list > .item,
+  .nav-home > .list > .item {
+    display: inline-block; }
+  .nav > .list > .item > .link,
+  .nav-home > .list > .item > .link {
+    display: inline-block;
+    font-weight: 300;
+    font-size: 1.4rem;
+    padding: 20px 10px;
+    text-decoration: none; }
+
+.nav {
+  position: absolute;
+  right: 0;
+  top: 0; }
+  .nav > .list {
+    padding: 0 13px 0; }
+    .nav > .list > .item > .link {
+      font-size: 1.4rem;
+      padding: 20px 10px; }
+    .nav > .list > .item .flag {
+      width: 20px;
+      vertical-align: middle;
+      position: relative;
+      top: -1px; }
+
+.nav-home {
+  margin-top: 40px;
+  text-align: center; }
+  .nav-home > .list {
+    padding: 0; }
+    .nav-home > .list > .item > .link {
+      font-size: 2rem;
+      padding: 7px 15px;
+      margin: 0;
+      border-radius: 4%;
+      transition: all 0.4s ease-in-out; }
+      .nav-home > .list > .item > .link:hover {
+        color: #666; }
+
+.evidence {
+  background-image: linear-gradient(to bottom, rgba(39, 243, 106, 0.15), rgba(39, 243, 106, 0.15));
+  color: #222; }
+
+.star > .url > .title {
+  width: auto !important;
+  display: inline;
+  background-image: linear-gradient(rgba(39, 243, 106, 0.15), rgba(39, 243, 106, 0.15)); }
+
+.twitter-tweet {
+  margin: 10px auto; }
+
+.icon {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  fill: #000;
+  text-align: center;
+  color: #000;
+  margin: 7px auto;
+  vertical-align: middle; }
+
+.caption {
+  position: relative;
+  top: 1rem;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+  font-size: 1.3rem; }
+
+.bigger-image {
+  min-width: 130%;
+  margin: 5rem 0 5rem -15%; }
+  @media only screen and (max-width: 400px) {
+    .bigger-image {
+      min-width: 114%;
+      margin: 2rem 0 2rem -7%; } }
+  @media only screen and (min-width: 400px) and (max-width: 1050px) {
+    .bigger-image {
+      min-width: 114%;
+      margin: 2rem 0 2rem -7%; } }
+
+.breaker {
+  height: 1px;
+  margin: 6rem auto;
+  width: 100%; }
+  .breaker:before {
+    content: "• • •";
+    width: 100%;
+    text-align: center;
+    display: block;
+    color: #aaa;
+    letter-spacing: 4px;
+    position: relative;
+    top: -8px; }
+
+.lost-container {
+  text-align: center; }
+
+.pagination {
+  width: 95%;
+  margin: 3rem auto 0;
+  text-align: center; }
+  .pagination > .page_number {
+    display: inline-block;
+    font-size: 1.3rem; }
+  .pagination > .previous,
+  .pagination > .next {
+    display: inline-block;
+    font-size: 1.8rem;
+    position: relative;
+    top: 1px;
+    padding: 1px 9px; }
+  .pagination > .hidden {
+    visibility: hidden; }
+
+.related {
+  margin: 10rem 0 0rem; }
+
+.share {
+  float: right;
+  width: 40%;
+  display: inline;
+  text-align: right;
+  position: relative;
+  top: -10px; }
+  @media only screen and (max-width: 400px) {
+    .share {
+      width: 100%;
+      display: block;
+      top: 0;
+      text-align: left;
+      float: none;
+      margin-top: 5px; } }
+  @media only screen and (min-width: 400px) and (max-width: 1050px) {
+    .share {
+      width: 100%;
+      display: block;
+      top: 0;
+      text-align: left;
+      float: none;
+      margin-top: 5px; } }
+  .share > .twitter,
+  .share > .facebook,
+  .share > .linkedin,
+  .share > .reddit {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 3px;
+    margin-left: 5px;
+    text-decoration: none; }
+    @media only screen and (max-width: 400px) {
+      .share > .twitter,
+      .share > .facebook,
+      .share > .linkedin,
+      .share > .reddit {
+        margin: 0 5px 10px 0; } }
+    @media only screen and (min-width: 400px) and (max-width: 1050px) {
+      .share > .twitter,
+      .share > .facebook,
+      .share > .linkedin,
+      .share > .reddit {
+        margin: 0 5px 10px 0; } }
+    .share > .twitter span,
+    .share > .facebook span,
+    .share > .linkedin span,
+    .share > .reddit span {
+      vertical-align: middle; }
+  .share > .twitter {
+    background: #4fafed; }
+  .share > .facebook {
+    background: #4361b3; }
+  .share > .linkedin {
+    background: #0077b5; }
+  .share > .reddit {
+    background: #ff4500; }
+  .share svg {
+    width: 16px;
+    height: 16px;
+    margin: 3px;
+    fill: #fff; }
+
+@media only screen and (min-width: 780px) {
+  .side-by-side {
+    width: 130%;
+    margin: 6rem 0 6rem -15%; } }
+@media only screen and (max-width: 780px) {
+  .side-by-side {
+    width: 100%;
+    margin: 4rem 0; } }
+.side-by-side > .toleft,
+.side-by-side > .toright {
+  display: inline-block;
+  width: 47.5%; }
+  @media only screen and (max-width: 780px) {
+    .side-by-side > .toleft img,
+    .side-by-side > .toright img {
+      text-align: center;
+      display: block;
+      margin: 0 auto; } }
+@media only screen and (min-width: 780px) {
+  .side-by-side > .toleft {
+    margin-right: 2%; } }
+@media only screen and (max-width: 780px) {
+  .side-by-side > .toleft {
+    width: 100%;
+    margin: 0 0 4rem 0; } }
+@media only screen and (min-width: 780px) {
+  .side-by-side > .toright {
+    margin-left: 2%;
+    vertical-align: top; } }
+@media only screen and (max-width: 780px) {
+  .side-by-side > .toright {
+    width: 100%;
+    margin: 0 0 4rem 0; } }
+.side-by-side > .toleft > p,
+.side-by-side > .toright > p {
+  margin: 0 0 4rem 0; }
+  @media only screen and (max-width: 780px) {
+    .side-by-side > .toleft > p,
+    .side-by-side > .toright > p {
+      margin: 0; } }
+
+.social-links {
+  margin-top: 20px;
+  margin-left: 15px; }
+  .social-links > .link {
+    margin: 0;
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    height: 35px;
+    width: 35px; }
+    .social-links > .link:hover > .icon {
+      fill: #4175c3; }
+    .social-links > .link:hover:before {
+      opacity: 1;
+      display: inline-block;
+      transform: translate3d(0, 0, 0);
+      white-space: nowrap; }
+    .social-links > .link:before {
+      content: attr(data-title);
+      display: none;
+      position: absolute;
+      bottom: -34px;
+      left: -6px;
+      margin: 0 auto;
+      font-size: 13px;
+      padding: 3px 10px;
+      background: #222;
+      color: #fff;
+      border-radius: 2px;
+      height: 22px;
+      line-height: 22px;
+      opacity: 0;
+      transition: opacity 150ms linear, transform 150ms linear, -webkit-transform 150ms linear;
+      transform: translate3d(0, -8px, 0);
+      z-index: 99; }
+    .social-links > .link:after {
+      content: "";
+      position: absolute;
+      top: 35px;
+      left: 13px;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 6px solid #222;
+      opacity: 0;
+      transition: opacity 150ms linear, transform 150ms linear, -webkit-transform 150ms linear;
+      transform: translate3d(0, -8px, 0);
+      z-index: 100; }
+    .social-links > .link:hover:after {
+      opacity: 1;
+      transform: translate3d(0, 0, 0); }
+  .social-links > .icon {
+    transition: all ease-in-out 0.2s; }
+
+.spoiler {
+  position: relative; }
+  .spoiler:before {
+    content: "";
+    background-color: #fafae0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50; }
+  .spoiler:hover:before {
+    display: none; }
+
+.work-callout h2 {
+  font-size: 2.7rem; }
+.work-callout a.get-in-touch {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  padding: 5px 15px 5px 15px;
+  border-radius: 3px;
+  text-decoration: none;
+  background: #4175c3; }
+  .work-callout a.get-in-touch span {
+    vertical-align: middle; }
+  .work-callout a.get-in-touch svg {
+    width: 18px;
+    height: 18px;
+    margin: 3px;
+    fill: #fff; }
+    @media only screen and (max-width: 400px) {
+      .work-callout a.get-in-touch svg {
+        margin: 0 5px 10px 0; } }
+  @media only screen and (max-width: 400px) and (min-width: 400px) and (max-width: 1050px) {
+    .work-callout a.get-in-touch svg {
+      margin: 0 5px 10px 0; } }
+
+.thumb-image {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  text-align: center; }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="wrapper-normal">
+        
+            
+            <div class="page aquatone: now in go">
+                
+                    
+
+                    
+
+
+
+<nav class="nav">
+    <ul class="list">
+        
+            <li class="item">
+                <a class="link" href="https://michenriksen.com/">Home</a>
+            </li>
+        
+
+        
+            
+                <li class="item">
+                    <a class="link" href="https://michenriksen.com/blog">Blog</a>
+                </li>
+            
+        
+
+        
+            
+                <li class="item">
+                    <a class="link" href="https://michenriksen.com/projects">Projects</a>
+                </li>
+            
+        
+
+        
+
+        
+    </ul>
+</nav>
+
+
+
+
+
+<h1 class="title">AQUATONE: Now in Go</h1>
+
+<span class="date">
+    <time datetime="04-11-2018">Sunday, November 04, 2018</time>
+     - <span class="reading-time" title="Estimated read time">
+    
+
+    
+        3 mins
+    
+</span>
+
+</span>
+
+
+
+<div class="thumb-image">
+  <a href="/assets/images/aquatone/u22.png"><img src="/assets/images/aquatone/u22.png" class="image" alt="" /></a>
+  <figcaption class="caption">The Lockheed U-2 reconnaissance aircraft was given the codename Aquatone.</figcaption>
+</div>
+
+<p>I’m continuing my quest to move my open source tools from Ruby to Go. Earlier this year, I released the <a href="/blog/gitrob-now-in-go/">Go rewrite of Gitrob</a> and now I’m happy to announce the release of a new and streamlined version of Aquatone!</p>
+
+<h2 id="whats-changed">What’s Changed</h2>
+
+<p>Quite a lot has changed in the new version. The two major themes of the rewrite is simplification and ease-of-use:</p>
+
+<h3 id="no-dns-enumeration">No DNS enumeration</h3>
+
+<p>Yes, Aquatone is now completely focused on screenshotting and reporting. I know a lot of people used Aquatone for its DNS enumeration capabilities and it was definitely very good at that when it was released. Now other tools are doing a much better job of this, so I decided to leave it out of the new Aquatone, and instead make it easy to use it with your tool of choice.</p>
+
+<h3 id="single-command">Single command</h3>
+
+<p>Because Aquatone is now focused on one thing, it is now a single <em>aquatone</em> command. No more aquatone-discover, aquatone-scan and aquatone-gather.</p>
+
+<h3 id="screenshotting-with-chrome">Screenshotting with Chrome</h3>
+
+<p>The old version used <a href="http://www.nightmarejs.org/">Nightmare</a> for taking screenshots. This was very unreliable and introduced a big dependency with Node.js. The new version uses either Google Chrome or Chromium in headless mode to take screenshots, which is much more reliable.</p>
+
+<h2 id="whats-new">What’s New</h2>
+
+<h3 id="input-agnostic">Input Agnostic</h3>
+
+<p>Aquatone works by having input piped to it. It doesn’t care about what this data looks like as IPs, hostnames, domains and URLs will be extracted from the input with regular expression matching. The output of all your tools can be piped to Aquatone and it should work fine, but you can of course clean it up with the usual terminal commands if needed.</p>
+
+<h3 id="support-for-nmapmasscan-xml">Support for Nmap/Masscan XML</h3>
+
+<p>If you have an XML output file from either <a href="https://nmap.org/">Nmap</a> or <a href="https://github.com/robertdavidgraham/masscan">Masscan</a>, you can feed that to Aquatone too. Just add the <code class="language-plaintext highlighter-rouge">-nmap</code> flag to let Aquatone know to parse it properly.</p>
+
+<h3 id="clustering-of-similar-sites">Clustering of similar sites</h3>
+
+<p>Sometimes it could be quite painful to scroll through the HTML report from the old Aquatone to find that unusual, vulnerable-looking page. The new Aquatone will now cluster pages with similar HTML structure together to make it much easier to digest the report and find the interesting stuff.</p>
+
+<h2 id="pictures">Pictures</h2>
+
+<div class="side-by-side">
+  <div class="toleft">
+    <div class="thumb-image">
+      <a href="/assets/images/aquatone_1_3_2/start.png"><img src="/assets/images/aquatone_1_3_2/start_thumbnail.png" class="image" alt="" /></a>
+      <figcaption class="caption">Starting a scan of 500 random Yahoo subdomains.</figcaption>
+    </div>
+  </div>
+
+  <div class="toright">
+    <div class="thumb-image">
+      <a href="/assets/images/aquatone_1_3_2/finish.png"><img src="/assets/images/aquatone_1_3_2/finish_thumbnail.png" class="image" alt="" /></a>
+      <figcaption class="caption">Finished scanning and screenshotting 500 hosts in less than 5 minutes.</figcaption>
+    </div>
+  </div>
+
+  <div class="toleft">
+    <div class="thumb-image">
+      <a href="/assets/images/aquatone_1_3_2/masscan.png"><img src="/assets/images/aquatone_1_3_2/masscan_thumbnail.png" class="image" alt="" /></a>
+      <figcaption class="caption">Feeding Aquatone with a Masscan XML report.</figcaption>
+    </div>
+  </div>
+
+  <div class="toright">
+    <div class="thumb-image">
+      <a href="/assets/images/aquatone_1_3_2/masscan_finish.png"><img src="/assets/images/aquatone_1_3_2/masscan_finish_thumbnail.png" class="image" alt="" /></a>
+      <figcaption class="caption">Processed 796 hosts from Masscan report in about 10 minutes.</figcaption>
+    </div>
+  </div>
+
+  <div class="toleft">
+    <div class="thumb-image">
+      <a href="/assets/images/aquatone_1_3_2/masscan_report.png"><img src="/assets/images/aquatone_1_3_2/masscan_report_thumbnail.png" class="image" alt="" /></a>
+      <figcaption class="caption">Viewing report from Masscan results.</figcaption>
+    </div>
+  </div>
+
+  <div class="toright">
+    <div class="thumb-image">
+      <a href="/assets/images/aquatone_1_3_2/report_details.png"><img src="/assets/images/aquatone_1_3_2/report_details_thumbnail.png" class="image" alt="" /></a>
+      <figcaption class="caption">Viewing HTTP response headers for a page.</figcaption>
+    </div>
+  </div>
+
+  <div class="toleft">
+    <div class="thumb-image">
+      <a href="/assets/images/aquatone_1_3_2/report.png"><img src="/assets/images/aquatone_1_3_2/report_thumbnail.png" class="image" alt="" /></a>
+      <figcaption class="caption">Viewing report of 500 random Yahoo domains.</figcaption>
+    </div>
+  </div>
+
+  <div class="toright">
+    <div class="thumb-image">
+      <a href="/assets/images/aquatone_1_3_2/report2.png"><img src="/assets/images/aquatone_1_3_2/report2_thumbnail.png" class="image" alt="" /></a>
+      <figcaption class="caption">Viewing report from Masscan results.</figcaption>
+    </div>
+  </div>
+</div>
+
+<h2 id="installation">Installation</h2>
+
+<p>Installing Aquatone is super easy. Simply head over to the project on Github and <a href="https://github.com/michenriksen/aquatone/releases">download a pre-compiled binary</a> for your operating system.</p>
+
+<p>Read more about installation and setup in the project <a href="https://github.com/michenriksen/aquatone#installation">README</a>.</p>
+
+<p><strong>Enjoy!</strong></p>
+
+
+
+
+
+
+
+<section class="author">
+    <div class="toleft">
+        <img class="selfie"
+            src="https://michenriksen.com/assets/images/profile.png"
+            alt="Michael Henriksen">
+    </div>
+
+    <div class="toright">
+        <h4 class="name">Michael Henriksen</h4>
+        <p class="bio">Security engineer & builder of tools</p>
+
+        <div class="share">
+            <!-- Note: Only use three share links if your site width is set to large -->
+            <!-- If site width is set to normal, you may choose any two share links -->
+            <a class="twitter"
+                href="https://twitter.com/intent/tweet?text=https://michenriksen.com/blog/aquatone-now-in-go/ - AQUATONE: Now in Go by @michenriksen">
+                <svg class="icon"><use xlink:href='#fab.fa-twitter'></use></svg>
+                <span class="icon-twitter">Tweet</span>
+            </a>
+
+            <!-- <a class="facebook" href="javascript:void(0)" onclick="window.open('https://facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;">
+                <svg class="icon"><use xlink:href='#fab.fa-facebook'></use></svg>
+                <span class="icon-facebook-rect">Share</span>
+            </a> -->
+
+            <a class="linkedin"
+                href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://michenriksen.com/blog/aquatone-now-in-go/&amp;title=AQUATONE: Now in Go&amp;summary=&amp;source=https://michenriksen.com"
+                target="_blank">
+                <svg class="icon"><use xlink:href='#fab.fa-linkedin'></use></svg>
+                <span class="icon-linkedin">Share</span>
+            </a>
+
+            <!-- <a class="reddit" href="https://reddit.com/submit?url=https://michenriksen.com/blog/aquatone-now-in-go/&amp;title=AQUATONE: Now in Go" target="_blank">
+                <svg class="icon"><use xlink:href='#fab.fa-reddit'></use></svg>
+                <span class="icon-reddit">Share</span>
+            </a> -->
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<footer class="footer-main">
+    <span class="copyright">
+        Michael Henriksen &copy; 2021
+    </span>
+
+    <a class="link" href="https://michenriksen.com/feed.xml" target="_blank">
+        <svg class="icon"><use xlink:href='#fas.fa-rss'></use></svg>
+    </a>
+
+    <p class="extra">
+        based on the <a class="link" href="https://github.com/sergiokopplin/indigo" rel="nofollow noreferrer">Indigo theme</a> by <a
+            class="link" href="https://github.com/sergiokopplin/indigo" rel="nofollow noreferrer">Kopplin</a>
+        <img src="/assets/images/logo-dark.png" class="logo" title="SPOILER ALERT: A solution to the 9 Dots Problem" alt="A solution to the 9 Dots Problem" />
+    </p>
+</footer>
+
+
+                </div>
+            </div>
+
+            <svg display="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <defs>
+                  <!--
+                  Font Awesome Free 5.5.0 by @fontawesome - https://fontawesome.com
+                  License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+                  -->
+              <symbol id='fab.fa-twitter' viewBox='0 0 512 512'>
+            <title>twitter</title>
+            <path class='path1' d='M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z'></path>
+        </symbol>
+        <symbol id='fab.fa-facebook' viewBox='0 0 448 512'>
+            <title>facebook</title>
+            <path class='path1' d='M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z'></path>
+        </symbol>
+        <symbol id='fab.fa-linkedin' viewBox='0 0 448 512'>
+            <title>linkedin</title>
+            <path class='path1' d='M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z'></path>
+        </symbol>
+        <symbol id='fab.fa-reddit' viewBox='0 0 512 512'>
+            <title>reddit</title>
+            <path class='path1' d='M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6 0-2.2-2.2-6.1-2.2-8.3 0-2.5 2.5-2.5 6.4 0 8.6 22.8 22.8 87.3 22.8 110.2 0 2.5-2.2 2.5-6.1 0-8.6-2.2-2.2-6.1-2.2-8.3 0zm7.7-75c-13.6 0-24.6 11.1-24.6 24.9 0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.1 24.9-24.6 0-13.8-11-24.9-24.9-24.9z'></path>
+        </symbol>
+        <symbol id='fas.fa-rss' viewBox='0 0 448 512'>
+            <title>rss</title>
+            <path class='path1' d='M128.081 415.959c0 35.369-28.672 64.041-64.041 64.041S0 451.328 0 415.959s28.672-64.041 64.041-64.041 64.04 28.673 64.04 64.041zm175.66 47.25c-8.354-154.6-132.185-278.587-286.95-286.95C7.656 175.765 0 183.105 0 192.253v48.069c0 8.415 6.49 15.472 14.887 16.018 111.832 7.284 201.473 96.702 208.772 208.772.547 8.397 7.604 14.887 16.018 14.887h48.069c9.149.001 16.489-7.655 15.995-16.79zm144.249.288C439.596 229.677 251.465 40.445 16.503 32.01 7.473 31.686 0 38.981 0 48.016v48.068c0 8.625 6.835 15.645 15.453 15.999 191.179 7.839 344.627 161.316 352.465 352.465.353 8.618 7.373 15.453 15.999 15.453h48.068c9.034-.001 16.329-7.474 16.005-16.504z'></path>
+        </symbol>
+        </defs>
+              </svg>
+
+</body>
+
+</html>
+
