@@ -1,13 +1,11 @@
 # main text of home
 name: Michael Henriksen
-bio: Freelance security engineer and consultant with seven years of professional web application security experience. I have secured systems at companies like SoundCloud, Peakon, and F-Secure. I would love to work with you too!
-bio-da: Freelance sikkerhedsingeniør og konsulent med syv års professionel erfaring med webapplikationssikkerhed. Jeg har sikret systemer i firmaer som SoundCloud, Peakon, og F-Secure. Skal jeg også hjælpe med at sikre dig og dit firma?
+bio: Security engineer with seven years of professional web application security experience. Currently working at GitLab.
 
-title: "Michael Henriksen - Freelance Security Engineer & Consultant"
-title-da: "Michael Henriksen - Freelance Sikkerhedsingeniør & Konsulent"
+title: "Michael Henriksen - Security engineer & builder of tools"
 
 # twitter summary info
-description: Freelance security engineer and consultant. I help secure web applications using vulnerability assessments, secure code reviews, threat modeling, and developer training.
+description: Security engineer with seven years of professional web application security experience. Currently working at GitLab.
 
 # if it's an external image, update below for true
 # better with square images
@@ -46,7 +44,7 @@ linkedin: mihenriksen
 # youtube: myyoutube
 # spotify: myspotify
 github: michenriksen
-# gitlab: mygitlab
+gitlab: michenriksen
 # lastfm: mylastfm
 # stackoverflow: 7044681/mystackoverflow
 # quora: userquora
@@ -54,14 +52,12 @@ github: michenriksen
 # medium: medium
 # vimeo: myvimeo
 # lanyrd: mylanyrd
-email: contact@michenriksen.com
-
-cvr: 41229632
+email: mchnrksn@gmail.com
 
 authors:
     michenriksen:
         name: Michael Henriksen
-        bio: Freelance security engineer and consultant
+        bio: Security engineer & builder of tools
         external-image: false
         picture: assets/images/profile.png
         twitter: michenriksen

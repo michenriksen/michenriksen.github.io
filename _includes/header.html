@@ -1,5 +1,4 @@
 {% if page.title == "Home"
-   or page.title == "Velkommen"
    or page.title == "Blog"
    or page.title == "Projects"
    or page.title == "Tags"
@@ -18,12 +17,7 @@
         {% endif %}
 
         <h1 class="title">{{ site.name }}</h1>
-        {% if page.lang == "da_DK" %}
-            <h2 class="description">{{ site.bio-da }}</h2>
-        {% else %}
             <h2 class="description">{{ site.bio }}</h2>
-        {% endif %}
-
         {% include social-links.html %}
     </header>
 {% endif %}

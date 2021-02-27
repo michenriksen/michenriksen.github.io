@@ -1,17 +1,6 @@
 <nav class="nav">
     <ul class="list">
-
-            {% if page.lang == "da_DK" %}
-                <li class="item">
-                    <a class="link" href="{{ site.url }}/" title="Switch to english"><img src="/assets/images/flag-en.png" alt="" class="flag" /></a>
-                </li>
-            {% else %}
-                <li class="item">
-                    <a class="link" href="{{ site.url }}/da" title="Forside på dansk"><img src="/assets/images/flag-da.png" alt="" class="flag" /></a>
-                </li>
-            {% endif %}
-
-        {% if page.title != "Home" and page.title != "Velkommen" %}
+        {% if page.title != "Home" %}
             <li class="item">
                 <a class="link" href="{{ site.url }}/">Home</a>
             </li>
