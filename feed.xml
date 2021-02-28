@@ -1,4 +1,97 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://michenriksen.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://michenriksen.com/" rel="alternate" type="text/html" /><updated>2021-02-27T22:17:12+01:00</updated><id>https://michenriksen.com/feed.xml</id><title type="html">Michael Henriksen - Security engineer &amp;amp; builder of tools</title><subtitle>Security engineer with seven years of professional web application security experience. Currently working at GitLab.</subtitle><entry><title type="html">AQUATONE: Now in Go</title><link href="https://michenriksen.com/blog/aquatone-now-in-go/" rel="alternate" type="text/html" title="AQUATONE: Now in Go" /><published>2018-11-04T13:37:00+01:00</published><updated>2018-11-04T13:37:00+01:00</updated><id>https://michenriksen.com/blog/aquatone-now-in-go</id><content type="html" xml:base="https://michenriksen.com/blog/aquatone-now-in-go/">&lt;div class=&quot;thumb-image&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://michenriksen.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://michenriksen.com/" rel="alternate" type="text/html" /><updated>2021-02-28T14:22:28+01:00</updated><id>https://michenriksen.com/feed.xml</id><title type="html">Michael Henriksen - Security engineer &amp;amp; builder of tools</title><subtitle>Security engineer with seven years of professional web application security experience. Currently working at GitLab.</subtitle><entry><title type="html">Finding Evil Go Packages</title><link href="https://michenriksen.com/blog/finding-evil-go-packages/" rel="alternate" type="text/html" title="Finding Evil Go Packages" /><published>2021-02-28T13:37:00+01:00</published><updated>2021-02-28T13:37:00+01:00</updated><id>https://michenriksen.com/blog/finding-evil-go-packages</id><content type="html" xml:base="https://michenriksen.com/blog/finding-evil-go-packages/">&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/pkgtwist/gopher.png&quot;&gt;&lt;img src=&quot;/assets/images/pkgtwist/gopher.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Because of the big &lt;a href=&quot;https://en.wikipedia.org/wiki/2020_United_States_federal_government_data_breach&quot;&gt;SolarWinds hack&lt;/a&gt; and the recent blog post describing a new &lt;a href=&quot;https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610&quot;&gt;Dependency Confusion attack&lt;/a&gt;, there has been a lot of talk lately about supply chain attacks, the sneaky technique of compromising less secure elements in a supply chain to compromise more secure targets.&lt;/p&gt;
+
+&lt;p&gt;A popular target for supply chain attacks has always been the many package management systems for popular programming languages such as NPM for JavaScript, Rubygems for Ruby, and PyPI for Python. These systems have been plagued for years by malicious actors uploading malicious packages and waiting for victims to install them.&lt;/p&gt;
+
+&lt;p&gt;I haven’t heard much talk about how the situation looks for the Go ecosystem, and since Go is my new language of choice, I decided to do some investigation.&lt;/p&gt;
+
+&lt;p&gt;The novel &lt;a href=&quot;https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610&quot;&gt;Dependency Confusion attack&lt;/a&gt; vector is luckily not something a Go developer has to worry about since the source is always explicitly specified when importing a package, so when Go fetches the external dependency, it can’t be confused about where to fetch it:&lt;/p&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;github.com/stretchr/testify&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;There is however still a possible attack vector via simple &lt;a href=&quot;https://en.wikipedia.org/wiki/Typosquatting&quot;&gt;typosquatting&lt;/a&gt; where the attacker exploits the fact that people often hit the wrong keys when typing on their keyboard. This could both be done on the host domain where the attacker registers a common typo of github.com, but even easier would be to simply register a new user on GitHub, or any other open package host, with a common typo of the package owner’s username.&lt;/p&gt;
+
+&lt;p&gt;With this in mind, I set out to build a tool that would help me uncover potential typosquat packages in the wild:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Take a large list of Go package import paths (e.g. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;github.com/stretchr/testify&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;Permutate the username of every unique package owner to get a list of potential typosquats&lt;/li&gt;
+  &lt;li&gt;Check if any of the typosquat users exists on the platform&lt;/li&gt;
+  &lt;li&gt;If a potential typosquat user is found, retrieve all of their repositories&lt;/li&gt;
+  &lt;li&gt;Log any of the repositories that have a name equal to the original packages being checked&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This resulted in a new tool I call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pkgtwist&lt;/code&gt; which is &lt;a href=&quot;https://gitlab.com/michenriksen/pkgtwist&quot;&gt;available on GitLab&lt;/a&gt; (the name is inspired by the awesome &lt;a href=&quot;https://github.com/elceef/dnstwist&quot;&gt;dnstwist&lt;/a&gt; tool)  if you are interested in doing your own evil Go package hunting.&lt;/p&gt;
+
+&lt;h2 id=&quot;permutations&quot;&gt;Permutations&lt;/h2&gt;
+
+&lt;p&gt;Probably the most important part of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pkgtwist&lt;/code&gt; was the generation of good username permutations in order to have the best chance of detecting typosquats. A bit of research led me to &lt;a href=&quot;https://github.com/zntrio/typogenerator&quot;&gt;zntrio/typogenerater&lt;/a&gt; which looked like the perfect package for generating potential username typos. The package implements a pretty long list of permutation strategies that I picked a few from so that pkgtwist only spends time on checking what I feel are the most likely typosquats:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Omission:&lt;/strong&gt; removal of a single character (missing a keypress, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretchr&lt;/code&gt; =&amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strechr&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Repetition:&lt;/strong&gt; repetition of characters (pressing a key twice, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gobuffalo&lt;/code&gt; =&amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gobuffallo&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Bitsquatting&quot;&gt;Bitsquatting&lt;/a&gt;:&lt;/strong&gt; possible bit-flip errors (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretchr&lt;/code&gt; =&amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strftchr&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Transposition:&lt;/strong&gt; swapping of adjacent characters (pressing keys in the wrong order, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretchr&lt;/code&gt; =&amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strethcr&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This means that if pkgtwist is given the package &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;github.com/stretchr/testify&lt;/code&gt; as input, it will check if any of the of following users exist on GitHub, and if they do, check if they have also have a repository called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;testify&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tretchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sretchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stetchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strtchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strechr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strethr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretcr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretch&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sstretchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sttretchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strretchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;streetchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strettchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretcchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretchhr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretchrr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rtretchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;qtretchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ptretchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wtretchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vtretchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;utretchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ttretchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;suretchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;svretchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;swretchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spretchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sqretchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;srretchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssretchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stsetchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stpetchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stqetchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stvetchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stwetchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sttetchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stuetchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strdtchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strgtchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strftchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stratchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strctchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strbtchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;streuchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strevchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strewchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strepchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;streqchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strerchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;streschr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretbhr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretahr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretghr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretfhr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretehr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretdhr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretcir&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretcjr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretckr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretclr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretcmr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretcnr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretcor&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretchs&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretchp&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretchq&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretchv&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretchw&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretcht&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretchu&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tsretchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;srtetchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stertchr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strtechr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strecthr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strethcr&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stretcrh&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;subjects&quot;&gt;Subjects&lt;/h2&gt;
+
+&lt;p&gt;Next up was to find a list of packages to check. Initially, I thought about finding some sort of “Top X Go packages” list, but I couldn’t really find a good resource for that, so I ended up running pkgtwist against every github.com and gitlab.com hosted packages from the &lt;a href=&quot;https://index.golang.org/index&quot;&gt;Go Module Index&lt;/a&gt; (731 packages in all).&lt;/p&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/pkgtwist/pkgtwist_1.png&quot;&gt;&lt;img src=&quot;/assets/images/pkgtwist/pkgtwist_1.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;pkgtwist running in verbose mode.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;After several hours of crunching through the 731 packages, pkgtwist finished with a list of 7 potential typosquat packages to investigate further. I honestly expected the list to be bigger, but I was of course happy to see that the Go ecosystem isn’t completely infested (yet) with malicious typosquat packages.&lt;/p&gt;
+
+&lt;p&gt;There were however a couple of typosquat packages that jumped out at me…&lt;/p&gt;
+
+&lt;h3 id=&quot;githubcomsiruspenlogrus-️&quot;&gt;github.com/siruspen/logrus ⚠️&lt;/h3&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://github.com/sirupsen/logrus/&quot;&gt;logrus&lt;/a&gt; package by &lt;a href=&quot;https://github.com/sirupsen&quot;&gt;sirupsen&lt;/a&gt; is a very popular logging package (17.3k stars on GitHub) that many Go projects use, which obviously makes it a target for a typosquat supply chain attack. So when I saw that the user &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;siruspen&lt;/code&gt; (notice the letter swapping) had a similarly named repository, I quickly checked out what it was doing.&lt;/p&gt;
+
+&lt;p&gt;It turns out that the project is a fork of the original &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;logrus&lt;/code&gt; repository, so doing a comparison to find the differences was pretty easy. At the time of writing, the only thing that is added to the potential typosquat repository, &lt;a href=&quot;https://github.com/sirupsen/logrus/compare/master...siruspen:master#diff-ff87b7c4777a35588053a509583d66c9f404ccbea9e1c71d2a5f224d7ad1323eR13-R16&quot;&gt;is a small init function&lt;/a&gt; with a single &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Println&lt;/code&gt; call:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/pkgtwist/siruspen_logrus.png&quot;&gt;&lt;img src=&quot;/assets/images/pkgtwist/siruspen_logrus.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Comparing siruspen/logrus with the original repository.&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;While this is not malicious in any way it could very quickly be changed by the owner in the future, so I will definitely keep an eye on this repository. I would also recommend double-checking your projects if you use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;logrus&lt;/code&gt; to make sure you’re not using this package instead of the real one!&lt;/p&gt;
+
+&lt;h3 id=&quot;githubcomutfavecli-️&quot;&gt;github.com/utfave/cli ⚠️&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/urfave/cli&quot;&gt;urfave/cli&lt;/a&gt; is another popular Go package (15.4k stars on GitHub) for building CLI projects. So when I saw the user &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;utfave&lt;/code&gt; also had a repository called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cli&lt;/code&gt;, my alarm bells went off and I investigated further.&lt;/p&gt;
+
+&lt;p&gt;It turns out that the &lt;a href=&quot;https://github.com/utfave/cli/commit/4af15496c49f613503d37d43b99df767f831bae1#diff-8d9ca23280f24fe6444d03ae46e7a15dd152170f32f57f978dfbdfd3cfe8ff55L26-R36&quot;&gt;second-last commit&lt;/a&gt; introduces a highly suspicious &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;init&lt;/code&gt; function:&lt;/p&gt;
+
+&lt;div class=&quot;thumb-image&quot;&gt;
+  &lt;a href=&quot;/assets/images/pkgtwist/utfave_cli.png&quot;&gt;&lt;img src=&quot;/assets/images/pkgtwist/utfave_cli.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
+  &lt;figcaption class=&quot;caption&quot;&gt;Ohai there, 122.51.124.140...&lt;/figcaption&gt;
+&lt;/div&gt;
+
+&lt;p&gt;It looks like the author &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;utfave&lt;/code&gt; wants to know the hostname, operating system, and architecture of all the machines using their version of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;urfave/cli&lt;/code&gt;. The function extracts the system information and then calls out to the IP address &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;122.51.124.140&lt;/code&gt; belonging to the Chinese company Shenzhen Tencent Computer Systems via HTTP with the system information added as URL parameters.&lt;/p&gt;
+
+&lt;p&gt;While this code won’t give them any access to systems, it’s highly suspicious that they collect this information and the actor can quickly change this code to call back with a reverse shell if they identify a system to be valuable or interesting.&lt;/p&gt;
+
+&lt;p&gt;I reported this repository to GitHub and hope to see it taken down in the near future. Until then, I recommend double-checking your projects if you use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;urfave/cli&lt;/code&gt; to make sure you’re not using the typosquatted version.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;While my little research project didn’t cover every single Go package out there, I feel it covered enough to give a rough picture of what the supply chain attack situation looks like for the Go ecosystem. The two repositories &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;siruspen/logrus&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;utfave/cli&lt;/code&gt;, were the only ones out of the 7 flagged repos that really worried me, but I will keep a close eye on the rest as they could in theory become malicious at any time.&lt;/p&gt;
+
+&lt;p&gt;I think Go is in a better situation than other programming languages because the source of packages is always explicitly written every time they are used, but code editor automation could make typosquat attacks more likely to happen as the developer doesn’t write the import paths manually as often. As an example, if the popular &lt;a href=&quot;https://marketplace.visualstudio.com/items?itemName=golang.Go&quot;&gt;Go extension&lt;/a&gt; for &lt;a href=&quot;https://code.visualstudio.com/&quot;&gt;VS Code&lt;/a&gt; is installed, a developer will typically only type a package import on the first usage, and then the editor will automatically add the import in any other files as soon as the package name is used. If the developer mistypes the import path the first time, a malicious package could be introduced and live for a long time in a Go project before it’s discovered.&lt;/p&gt;</content><author><name>michenriksen</name></author><category term="blog" /><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://michenriksen.com/assets/images/pkgtwist/gopher.png" /><media:content medium="image" url="https://michenriksen.com/assets/images/pkgtwist/gopher.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">AQUATONE: Now in Go</title><link href="https://michenriksen.com/blog/aquatone-now-in-go/" rel="alternate" type="text/html" title="AQUATONE: Now in Go" /><published>2018-11-04T13:37:00+01:00</published><updated>2018-11-04T13:37:00+01:00</updated><id>https://michenriksen.com/blog/aquatone-now-in-go</id><content type="html" xml:base="https://michenriksen.com/blog/aquatone-now-in-go/">&lt;div class=&quot;thumb-image&quot;&gt;
   &lt;a href=&quot;/assets/images/aquatone/u22.png&quot;&gt;&lt;img src=&quot;/assets/images/aquatone/u22.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
   &lt;figcaption class=&quot;caption&quot;&gt;The Lockheed U-2 reconnaissance aircraft was given the codename Aquatone.&lt;/figcaption&gt;
 &lt;/div&gt;
@@ -1229,93 +1322,4 @@ WTFuzz
 
 &lt;h2 id=&quot;wrapping-up&quot;&gt;Wrapping up&lt;/h2&gt;
 
-&lt;p&gt;This concludes my first post on Birdwatcher. I hope you enjoyed it and hope you will include it in your OSINT toolbox. Feel free to file any bugs on &lt;a href=&quot;https://github.com/michenriksen/birdwatcher/issues/new&quot;&gt;GitHub&lt;/a&gt; or give me ideas for new modules.&lt;/p&gt;</content><author><name>michenriksen</name></author><category term="blog" /><summary type="html">Yes, here again with another tool release. This time it’s an OSINT framework for a different social network — Twitter.com.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://michenriksen.com/assets/images/birdwatcher/workspace.png" /><media:content medium="image" url="https://michenriksen.com/assets/images/birdwatcher/workspace.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">A new version of Gitrob is out</title><link href="https://michenriksen.com/blog/new-version-of-gitrob-is-out/" rel="alternate" type="text/html" title="A new version of Gitrob is out" /><published>2016-03-12T13:37:00+01:00</published><updated>2016-03-12T13:37:00+01:00</updated><id>https://michenriksen.com/blog/new-version-of-gitrob-is-out</id><content type="html" xml:base="https://michenriksen.com/blog/new-version-of-gitrob-is-out/">&lt;p&gt;&lt;span class=&quot;evidence&quot;&gt;&lt;strong&gt;Heads up! Gitrob has been totally rewritten in Go and is now much leaner and meaner. Read this blog post to get a general idea of the tool, and then read about the &lt;a href=&quot;/blog/gitrob-now-in-go&quot;&gt;new version&lt;/a&gt;!&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;It’s been more than a year since I released the initial version of Gitrob. I haven’t had a whole lot of time to expand on it, but now a new and improved version is finally here with a bunch of new features requested by users.&lt;/p&gt;
-
-&lt;p&gt;For those who don’t know, Gitrob is a command line tool which can help organizations and security professionals find sensitive information lingering in publicly available files on GitHub. The tool will iterate over all public organization and member repositories and match filenames against a range of patterns for files that typically contain sensitive or dangerous information. Head over to &lt;a href=&quot;/blog/gitrob-putting-the-open-source-in-osint/&quot;&gt;my previous post&lt;/a&gt; for more details and screenshots, but be sure to come back here to learn about the new features!&lt;/p&gt;
-
-&lt;p&gt;The attention the tool has received has been way over my expectations and I want to thank everyone who has helped spread the word about it. With over 1100 Stars on GitHub, a place in &lt;a href=&quot;https://www.thoughtworks.com/radar/tools&quot;&gt;ThoughtWorks’ Tech Radar&lt;/a&gt; and a mention in &lt;a href=&quot;http://www.amazon.com/The-Hacker-Playbook-Practical-Penetration/dp/1512214566&quot;&gt;The Hacker Playbook 2&lt;/a&gt;, I will strive to maintain and build upon the tool more frequently from now on.&lt;/p&gt;
-
-&lt;h2 id=&quot;new-features&quot;&gt;New features&lt;/h2&gt;
-
-&lt;h3 id=&quot;analyze-arbitrary-amount-of-organizations-and-users&quot;&gt;Analyze arbitrary amount of organizations and users&lt;/h3&gt;
-
-&lt;p&gt;The old version of Gitrob only allowed to analyze a single GitHub organization at a time, but the new version allows to mix any number of organizations and users in a single assessment. This is great if a company has multiple organizations or if you have identified GitHub users who work for the target company but don’t have their membership publicly visible.&lt;/p&gt;
-
-&lt;div class=&quot;thumb-image&quot;&gt;
-  &lt;a href=&quot;/assets/images/gitrob_1_0_0/analyze.png&quot;&gt;&lt;img src=&quot;/assets/images/gitrob_1_0_0/analyze_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
-  &lt;figcaption class=&quot;caption&quot;&gt;Analyzing an organization and a user in one assessment.&lt;/figcaption&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;create-and-delete-assessments-in-web-interface&quot;&gt;Create and delete assessments in web interface&lt;/h3&gt;
-
-&lt;p&gt;The new version has an improved web application which allows users to run a new assessment directly from the web interface. This is very convenient if Gitrob runs on a server accessible to multiple users as they no longer require command line access to manage assessments.&lt;/p&gt;
-
-&lt;div class=&quot;thumb-image&quot;&gt;
-  &lt;a href=&quot;/assets/images/gitrob_1_0_0/new_assessment.png&quot;&gt;&lt;img src=&quot;/assets/images/gitrob_1_0_0/new_assessment_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
-  &lt;figcaption class=&quot;caption&quot;&gt;Creating a new assessments from the web interface.&lt;/figcaption&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;github-enterprise-support&quot;&gt;GitHub Enterprise support&lt;/h3&gt;
-
-&lt;p&gt;The new version makes it possible to run Gitrob against custom GitHub Enterprise installations by simply providing the location when creating a new assessment. &lt;strong&gt;Note:&lt;/strong&gt; I unfortunately don’t have access to a GitHub Enterprise installation, so I would appreciate if anyone could verify if this works and report any bugs!&lt;/p&gt;
-
-&lt;div class=&quot;thumb-image&quot;&gt;
-  &lt;a href=&quot;/assets/images/gitrob_1_0_0/new_assessment_enterprise.png&quot;&gt;&lt;img src=&quot;/assets/images/gitrob_1_0_0/new_assessment_enterprise_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
-  &lt;figcaption class=&quot;caption&quot;&gt;Assessment against a custom GitHub Enterprise installation.&lt;/figcaption&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;compare-assessments-for-continuous-monitoring&quot;&gt;Compare assessments for continuous monitoring&lt;/h3&gt;
-
-&lt;p&gt;In the old version it wasn’t really easy to continuously monitor an organization, but the new version makes it possible to compare two assessments to quickly identify new or modified files, users and repositories.&lt;/p&gt;
-
-&lt;div class=&quot;thumb-image&quot;&gt;
-  &lt;a href=&quot;/assets/images/gitrob_1_0_0/comparison.gif&quot;&gt;&lt;img src=&quot;/assets/images/gitrob_1_0_0/comparison_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
-  &lt;figcaption class=&quot;caption&quot;&gt;Comparing two assessments (Gif).&lt;/figcaption&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;highlighting-of-interesting-values-and-detection-of-test-files&quot;&gt;Highlighting of interesting values and detection of test files&lt;/h3&gt;
-
-&lt;p&gt;In the small improvements category, the new version detects and highlights interesting values such as IP addresses, domains, tokens and email addresses when viewing a file’s content. The new version will also attempt to determine if a file is likely test or mock related and make them less visible so they can easily be skipped.&lt;/p&gt;
-
-&lt;div class=&quot;thumb-image&quot;&gt;
-  &lt;a href=&quot;/assets/images/gitrob_1_0_0/highlighting.gif&quot;&gt;&lt;img src=&quot;/assets/images/gitrob_1_0_0/highlighting_thumbnail.png&quot; class=&quot;image&quot; alt=&quot;&quot; /&gt;&lt;/a&gt;
-  &lt;figcaption class=&quot;caption&quot;&gt;Highlighting of interesting values and dimming of test related files (Gif).&lt;/figcaption&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;under-the-hood&quot;&gt;Under the hood&lt;/h2&gt;
-
-&lt;p&gt;Apart from the new features, Gitrob v1.0.0 is pretty much a complete rewrite of the first version and some components have been switched out with better and more stable components. Gitrob now uses &lt;a href=&quot;https://rubygems.org/gems/sequel&quot;&gt;Sequel&lt;/a&gt; for database communication, &lt;a href=&quot;https://rubygems.org/gems/github_api&quot;&gt;github_api&lt;/a&gt; for GitHub API interaction and &lt;a href=&quot;https://rubygems.org/gems/thor&quot;&gt;Thor&lt;/a&gt; for the command line interface. The switch to Thor also means that the interface is a little different from the old version: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gitrob -o acme&lt;/code&gt; is now &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gitrob analyze acme&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;new-file-signatures&quot;&gt;New file signatures&lt;/h2&gt;
-
-&lt;p&gt;The new version also ships with a bunch of new signatures for files that might contain sensitive information:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;SSH configuration files (Might contain usernames and SSH hostnames)&lt;/li&gt;
-  &lt;li&gt;PostgreSQL password files (Contains PostgreSQL database credentials)&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://aws.amazon.com/cli/&quot;&gt;AWS CLI&lt;/a&gt; credential files (Contains Amazon Web Services credentials)&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://dayoneapp.com/&quot;&gt;Day One&lt;/a&gt; journal files (Might contain sensitive and personal information)&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://maebert.github.io/jrnl/&quot;&gt;jrnl&lt;/a&gt; journal files (Might contain sensitive and personal information)&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/pearkes/tugboat&quot;&gt;Tugboat&lt;/a&gt; configuration files (Might contain &lt;a href=&quot;https://www.digitalocean.com/&quot;&gt;DigitalOcean&lt;/a&gt; credentials)&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://git-scm.com/docs/git-credential-store&quot;&gt;git-credential-store&lt;/a&gt; configuration files (Contains Git credentials)&lt;/li&gt;
-  &lt;li&gt;Git configuration files (Contains names, email addresses and occasionally access tokens)&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.chef.io/chef/&quot;&gt;Chef&lt;/a&gt; Knife configuration files (Might contain references to Chef servers)&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.chef.io/chef/&quot;&gt;Chef&lt;/a&gt; private keys (Gives access to Chef servers)&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://cpanel.com/&quot;&gt;cPanel&lt;/a&gt; backup ProFTPd credential files (Might contain FTP server credentials)&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://robomongo.org/&quot;&gt;Robomongo&lt;/a&gt; configuration files (Might contain MongoDB database credentials)&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://filezilla-project.org/&quot;&gt;FileZilla&lt;/a&gt; configuration files (Might contain FTP server credentials)&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://filezilla-project.org/&quot;&gt;FileZilla&lt;/a&gt; recent servers files (Might contain FTP server credentials)&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.ventrilo.com/&quot;&gt;Ventrilo&lt;/a&gt; server configuration files (Might contain server credentials)&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker&lt;/a&gt; configuration files (Might contain credentials for public or private Docker registries)&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.npmjs.com/&quot;&gt;NPM&lt;/a&gt; configuration files (Might contain credentials for NPM registries)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Check out &lt;a href=&quot;https://github.com/michenriksen/gitrob/blob/master/core/signatures.go#L163&quot;&gt;signatures file&lt;/a&gt; for the full list of file signatures.&lt;/p&gt;
-
-&lt;p&gt;If you have a good idea for a new signature, please don’t hesitate to make a Pull Request or simply create an Issue with details and I will look into it!&lt;/p&gt;
-
-&lt;p&gt;I am very excited about this release and I hope you are too. Hurry up and run Gitrob against your organization before someone else does! Installation and setup instructions can be found in the &lt;a href=&quot;https://github.com/michenriksen/gitrob&quot;&gt;README on GitHub&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Have fun and be responsible!&lt;/strong&gt;&lt;/p&gt;</content><author><name>michenriksen</name></author><category term="blog" /><summary type="html">Heads up! Gitrob has been totally rewritten in Go and is now much leaner and meaner. Read this blog post to get a general idea of the tool, and then read about the new version!</summary></entry></feed>
+&lt;p&gt;This concludes my first post on Birdwatcher. I hope you enjoyed it and hope you will include it in your OSINT toolbox. Feel free to file any bugs on &lt;a href=&quot;https://github.com/michenriksen/birdwatcher/issues/new&quot;&gt;GitHub&lt;/a&gt; or give me ideas for new modules.&lt;/p&gt;</content><author><name>michenriksen</name></author><category term="blog" /><summary type="html">Yes, here again with another tool release. This time it’s an OSINT framework for a different social network — Twitter.com.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://michenriksen.com/assets/images/birdwatcher/workspace.png" /><media:content medium="image" url="https://michenriksen.com/assets/images/birdwatcher/workspace.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

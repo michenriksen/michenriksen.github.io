@@ -22,20 +22,26 @@
 
     
         <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>Blog | Michael Henriksen - Security engineer &amp; builder of tools</title>
+<title>Finding Evil Go Packages | Michael Henriksen - Security engineer &amp; builder of tools</title>
 <meta name="generator" content="Jekyll v3.9.0" />
-<meta property="og:title" content="Blog" />
+<meta property="og:title" content="Finding Evil Go Packages" />
+<meta name="author" content="michenriksen" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Security engineer with seven years of professional web application security experience. Currently working at GitLab." />
 <meta property="og:description" content="Security engineer with seven years of professional web application security experience. Currently working at GitLab." />
-<link rel="canonical" href="https://michenriksen.com/blog/" />
-<meta property="og:url" content="https://michenriksen.com/blog/" />
+<link rel="canonical" href="https://michenriksen.com/blog/finding-evil-go-packages/" />
+<meta property="og:url" content="https://michenriksen.com/blog/finding-evil-go-packages/" />
 <meta property="og:site_name" content="Michael Henriksen - Security engineer &amp; builder of tools" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Blog" />
+<meta property="og:image" content="https://michenriksen.com/assets/images/pkgtwist/gopher.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-02-28T13:37:00+01:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://michenriksen.com/assets/images/pkgtwist/gopher.png" />
+<meta property="twitter:title" content="Finding Evil Go Packages" />
 <meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@michenriksen" />
 <script type="application/ld+json">
-{"@type":"WebPage","headline":"Blog","description":"Security engineer with seven years of professional web application security experience. Currently working at GitLab.","url":"https://michenriksen.com/blog/","@context":"https://schema.org"}</script>
+{"@type":"BlogPosting","image":"https://michenriksen.com/assets/images/pkgtwist/gopher.png","headline":"Finding Evil Go Packages","dateModified":"2021-02-28T13:37:00+01:00","datePublished":"2021-02-28T13:37:00+01:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://michenriksen.com/blog/finding-evil-go-packages/"},"author":{"@type":"Person","name":"michenriksen"},"description":"Security engineer with seven years of professional web application security experience. Currently working at GitLab.","url":"https://michenriksen.com/blog/finding-evil-go-packages/","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     
@@ -60,7 +66,7 @@
 <meta name="theme-color" content="#ffffff">
 
 
-    <link rel="canonical" href="https://michenriksen.com/blog/">
+    <link rel="canonical" href="https://michenriksen.com/blog/finding-evil-go-packages/">
     <link rel="alternate" type="application/rss+xml" title="Michael Henriksen - Security engineer & builder of tools" href="https://michenriksen.com/feed.xml" />
 
     <style>
@@ -1391,82 +1397,12 @@ pre {
     <div class="wrapper-normal">
         
             
-            <div class="page blog">
+            <div class="page finding evil go packages">
                 
                     
 
                     
 
-
-    <header class="header-home animated">
-        
-            <span class="link">
-                <img class="selfie" alt="Michael Henriksen" src="https://michenriksen.com/assets/images/profile.png" />
-            </span>
-        
-
-        <h1 class="title">Michael Henriksen</h1>
-            <h2 class="description">Security engineer with seven years of professional web application security experience. Currently working at GitLab.</h2>
-        <div class="social-links">
-    
-
-    
-    <a class="link" data-title="twitter.com/michenriksen" href="https://twitter.com/michenriksen"
-        target="_blank">
-        <svg class="icon"><use xlink:href='#fab.fa-twitter'></use></svg>
-    </a>
-    
-
-    
-
-    
-
-    
-    <a class="link" data-title="linkedin.com/in/mihenriksen" href="https://linkedin.com/in/mihenriksen"
-        target="_blank">
-        <svg class="icon"><use xlink:href='#fab.fa-linkedin'></use></svg>
-    </a>
-    
-
-    
-
-    
-
-    
-
-    
-    <a class="link" data-title="github.com/michenriksen" href="https://github.com/michenriksen"
-        target="_blank">
-        <svg class="icon"><use xlink:href='#fab.fa-github'></use></svg>
-    </a>
-    
-
-    
-    <a class="link" data-title="gitlab.com/michenriksen" href="https://gitlab.com/michenriksen"
-        target="_blank">
-        <svg class="icon"><use xlink:href='#fab.fa-gitlab'></use></svg>
-    </a>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <a class="link" data-title="mchnrksn@gmail.com" href="mailto:mchnrksn@gmail.com">
-        <svg class="icon"><use xlink:href='#fas.fa-envelope'></use></svg>
-    </a>
-    
-</div>
-    </header>
 
 
 <nav class="nav">
@@ -1478,6 +1414,10 @@ pre {
         
 
         
+            
+                <li class="item">
+                    <a class="link" href="https://michenriksen.com/blog">Blog</a>
+                </li>
             
         
 
@@ -1497,155 +1437,167 @@ pre {
 
 
 
-<section class="list">
-	
-		
-			
-				
-					<div class="item ">
-    <a class="url" href="https://michenriksen.com/blog/finding-evil-go-packages/">
-        <aside class="date"><time datetime="28-02-2021">Feb 28 2021</time></aside>
-        <h3 class="title">Finding Evil Go Packages</h3>
-    </a>
+
+
+<h1 class="title">Finding Evil Go Packages</h1>
+
+<span class="date">
+    <time datetime="28-02-2021">Sunday, February 28, 2021</time>
+     - <span class="reading-time" title="Estimated read time">
+    
+
+    
+        8 mins
+    
+</span>
+
+</span>
+
+
+
+<div class="thumb-image">
+  <a href="/assets/images/pkgtwist/gopher.png"><img src="/assets/images/pkgtwist/gopher.png" class="image" alt="" /></a>
 </div>
 
-				
-			
-		
-			
-				
-					<div class="item ">
-    <a class="url" href="https://michenriksen.com/blog/aquatone-now-in-go/">
-        <aside class="date"><time datetime="04-11-2018">Nov 04 2018</time></aside>
-        <h3 class="title">AQUATONE: Now in Go</h3>
-    </a>
+<p>Because of the big <a href="https://en.wikipedia.org/wiki/2020_United_States_federal_government_data_breach">SolarWinds hack</a> and the recent blog post describing a new <a href="https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610">Dependency Confusion attack</a>, there has been a lot of talk lately about supply chain attacks, the sneaky technique of compromising less secure elements in a supply chain to compromise more secure targets.</p>
+
+<p>A popular target for supply chain attacks has always been the many package management systems for popular programming languages such as NPM for JavaScript, Rubygems for Ruby, and PyPI for Python. These systems have been plagued for years by malicious actors uploading malicious packages and waiting for victims to install them.</p>
+
+<p>I haven’t heard much talk about how the situation looks for the Go ecosystem, and since Go is my new language of choice, I decided to do some investigation.</p>
+
+<p>The novel <a href="https://medium.com/@alex.birsan/dependency-confusion-4a5d60fec610">Dependency Confusion attack</a> vector is luckily not something a Go developer has to worry about since the source is always explicitly specified when importing a package, so when Go fetches the external dependency, it can’t be confused about where to fetch it:</p>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="s">"github.com/stretchr/testify"</span>
+</code></pre></div></div>
+
+<p>There is however still a possible attack vector via simple <a href="https://en.wikipedia.org/wiki/Typosquatting">typosquatting</a> where the attacker exploits the fact that people often hit the wrong keys when typing on their keyboard. This could both be done on the host domain where the attacker registers a common typo of github.com, but even easier would be to simply register a new user on GitHub, or any other open package host, with a common typo of the package owner’s username.</p>
+
+<p>With this in mind, I set out to build a tool that would help me uncover potential typosquat packages in the wild:</p>
+
+<ol>
+  <li>Take a large list of Go package import paths (e.g. <code class="language-plaintext highlighter-rouge">github.com/stretchr/testify</code>)</li>
+  <li>Permutate the username of every unique package owner to get a list of potential typosquats</li>
+  <li>Check if any of the typosquat users exists on the platform</li>
+  <li>If a potential typosquat user is found, retrieve all of their repositories</li>
+  <li>Log any of the repositories that have a name equal to the original packages being checked</li>
+</ol>
+
+<p>This resulted in a new tool I call <code class="language-plaintext highlighter-rouge">pkgtwist</code> which is <a href="https://gitlab.com/michenriksen/pkgtwist">available on GitLab</a> (the name is inspired by the awesome <a href="https://github.com/elceef/dnstwist">dnstwist</a> tool)  if you are interested in doing your own evil Go package hunting.</p>
+
+<h2 id="permutations">Permutations</h2>
+
+<p>Probably the most important part of <code class="language-plaintext highlighter-rouge">pkgtwist</code> was the generation of good username permutations in order to have the best chance of detecting typosquats. A bit of research led me to <a href="https://github.com/zntrio/typogenerator">zntrio/typogenerater</a> which looked like the perfect package for generating potential username typos. The package implements a pretty long list of permutation strategies that I picked a few from so that pkgtwist only spends time on checking what I feel are the most likely typosquats:</p>
+
+<ul>
+  <li><strong>Omission:</strong> removal of a single character (missing a keypress, <code class="language-plaintext highlighter-rouge">stretchr</code> =&gt; <code class="language-plaintext highlighter-rouge">strechr</code>)</li>
+  <li><strong>Repetition:</strong> repetition of characters (pressing a key twice, <code class="language-plaintext highlighter-rouge">gobuffalo</code> =&gt; <code class="language-plaintext highlighter-rouge">gobuffallo</code>)</li>
+  <li><strong><a href="https://en.wikipedia.org/wiki/Bitsquatting">Bitsquatting</a>:</strong> possible bit-flip errors (<code class="language-plaintext highlighter-rouge">stretchr</code> =&gt; <code class="language-plaintext highlighter-rouge">strftchr</code>)</li>
+  <li><strong>Transposition:</strong> swapping of adjacent characters (pressing keys in the wrong order, <code class="language-plaintext highlighter-rouge">stretchr</code> =&gt; <code class="language-plaintext highlighter-rouge">strethcr</code>)</li>
+</ul>
+
+<p>This means that if pkgtwist is given the package <code class="language-plaintext highlighter-rouge">github.com/stretchr/testify</code> as input, it will check if any of the of following users exist on GitHub, and if they do, check if they have also have a repository called <code class="language-plaintext highlighter-rouge">testify</code>:</p>
+
+<p><code class="language-plaintext highlighter-rouge">tretchr</code> <code class="language-plaintext highlighter-rouge">sretchr</code> <code class="language-plaintext highlighter-rouge">stetchr</code> <code class="language-plaintext highlighter-rouge">strtchr</code> <code class="language-plaintext highlighter-rouge">strechr</code> <code class="language-plaintext highlighter-rouge">strethr</code> <code class="language-plaintext highlighter-rouge">stretcr</code> <code class="language-plaintext highlighter-rouge">stretch</code> <code class="language-plaintext highlighter-rouge">sstretchr</code> <code class="language-plaintext highlighter-rouge">sttretchr</code> <code class="language-plaintext highlighter-rouge">strretchr</code> <code class="language-plaintext highlighter-rouge">streetchr</code> <code class="language-plaintext highlighter-rouge">strettchr</code> <code class="language-plaintext highlighter-rouge">stretcchr</code> <code class="language-plaintext highlighter-rouge">stretchhr</code> <code class="language-plaintext highlighter-rouge">stretchrr</code> <code class="language-plaintext highlighter-rouge">rtretchr</code> <code class="language-plaintext highlighter-rouge">qtretchr</code> <code class="language-plaintext highlighter-rouge">ptretchr</code> <code class="language-plaintext highlighter-rouge">wtretchr</code> <code class="language-plaintext highlighter-rouge">vtretchr</code> <code class="language-plaintext highlighter-rouge">utretchr</code> <code class="language-plaintext highlighter-rouge">ttretchr</code> <code class="language-plaintext highlighter-rouge">suretchr</code> <code class="language-plaintext highlighter-rouge">svretchr</code> <code class="language-plaintext highlighter-rouge">swretchr</code> <code class="language-plaintext highlighter-rouge">spretchr</code> <code class="language-plaintext highlighter-rouge">sqretchr</code> <code class="language-plaintext highlighter-rouge">srretchr</code> <code class="language-plaintext highlighter-rouge">ssretchr</code> <code class="language-plaintext highlighter-rouge">stsetchr</code> <code class="language-plaintext highlighter-rouge">stpetchr</code> <code class="language-plaintext highlighter-rouge">stqetchr</code> <code class="language-plaintext highlighter-rouge">stvetchr</code> <code class="language-plaintext highlighter-rouge">stwetchr</code> <code class="language-plaintext highlighter-rouge">sttetchr</code> <code class="language-plaintext highlighter-rouge">stuetchr</code> <code class="language-plaintext highlighter-rouge">strdtchr</code> <code class="language-plaintext highlighter-rouge">strgtchr</code> <code class="language-plaintext highlighter-rouge">strftchr</code> <code class="language-plaintext highlighter-rouge">stratchr</code> <code class="language-plaintext highlighter-rouge">strctchr</code> <code class="language-plaintext highlighter-rouge">strbtchr</code> <code class="language-plaintext highlighter-rouge">streuchr</code> <code class="language-plaintext highlighter-rouge">strevchr</code> <code class="language-plaintext highlighter-rouge">strewchr</code> <code class="language-plaintext highlighter-rouge">strepchr</code> <code class="language-plaintext highlighter-rouge">streqchr</code> <code class="language-plaintext highlighter-rouge">strerchr</code> <code class="language-plaintext highlighter-rouge">streschr</code> <code class="language-plaintext highlighter-rouge">stretbhr</code> <code class="language-plaintext highlighter-rouge">stretahr</code> <code class="language-plaintext highlighter-rouge">stretghr</code> <code class="language-plaintext highlighter-rouge">stretfhr</code> <code class="language-plaintext highlighter-rouge">stretehr</code> <code class="language-plaintext highlighter-rouge">stretdhr</code> <code class="language-plaintext highlighter-rouge">stretcir</code> <code class="language-plaintext highlighter-rouge">stretcjr</code> <code class="language-plaintext highlighter-rouge">stretckr</code> <code class="language-plaintext highlighter-rouge">stretclr</code> <code class="language-plaintext highlighter-rouge">stretcmr</code> <code class="language-plaintext highlighter-rouge">stretcnr</code> <code class="language-plaintext highlighter-rouge">stretcor</code> <code class="language-plaintext highlighter-rouge">stretchs</code> <code class="language-plaintext highlighter-rouge">stretchp</code> <code class="language-plaintext highlighter-rouge">stretchq</code> <code class="language-plaintext highlighter-rouge">stretchv</code> <code class="language-plaintext highlighter-rouge">stretchw</code> <code class="language-plaintext highlighter-rouge">stretcht</code> <code class="language-plaintext highlighter-rouge">stretchu</code> <code class="language-plaintext highlighter-rouge">tsretchr</code> <code class="language-plaintext highlighter-rouge">srtetchr</code> <code class="language-plaintext highlighter-rouge">stertchr</code> <code class="language-plaintext highlighter-rouge">strtechr</code> <code class="language-plaintext highlighter-rouge">strecthr</code> <code class="language-plaintext highlighter-rouge">strethcr</code> <code class="language-plaintext highlighter-rouge">stretcrh</code></p>
+
+<h2 id="subjects">Subjects</h2>
+
+<p>Next up was to find a list of packages to check. Initially, I thought about finding some sort of “Top X Go packages” list, but I couldn’t really find a good resource for that, so I ended up running pkgtwist against every github.com and gitlab.com hosted packages from the <a href="https://index.golang.org/index">Go Module Index</a> (731 packages in all).</p>
+
+<h2 id="results">Results</h2>
+
+<div class="thumb-image">
+  <a href="/assets/images/pkgtwist/pkgtwist_1.png"><img src="/assets/images/pkgtwist/pkgtwist_1.png" class="image" alt="" /></a>
+  <figcaption class="caption">pkgtwist running in verbose mode.</figcaption>
 </div>
 
-				
-			
-		
-			
-				
-					<div class="item ">
-    <a class="url" href="https://michenriksen.com/blog/drawio-for-threat-modeling/">
-        <aside class="date"><time datetime="05-10-2018">Oct 05 2018</time></aside>
-        <h3 class="title">Draw.io for threat modeling</h3>
-    </a>
+<p>After several hours of crunching through the 731 packages, pkgtwist finished with a list of 7 potential typosquat packages to investigate further. I honestly expected the list to be bigger, but I was of course happy to see that the Go ecosystem isn’t completely infested (yet) with malicious typosquat packages.</p>
+
+<p>There were however a couple of typosquat packages that jumped out at me…</p>
+
+<h3 id="githubcomsiruspenlogrus-️">github.com/siruspen/logrus ⚠️</h3>
+
+<p>The <a href="https://github.com/sirupsen/logrus/">logrus</a> package by <a href="https://github.com/sirupsen">sirupsen</a> is a very popular logging package (17.3k stars on GitHub) that many Go projects use, which obviously makes it a target for a typosquat supply chain attack. So when I saw that the user <code class="language-plaintext highlighter-rouge">siruspen</code> (notice the letter swapping) had a similarly named repository, I quickly checked out what it was doing.</p>
+
+<p>It turns out that the project is a fork of the original <code class="language-plaintext highlighter-rouge">logrus</code> repository, so doing a comparison to find the differences was pretty easy. At the time of writing, the only thing that is added to the potential typosquat repository, <a href="https://github.com/sirupsen/logrus/compare/master...siruspen:master#diff-ff87b7c4777a35588053a509583d66c9f404ccbea9e1c71d2a5f224d7ad1323eR13-R16">is a small init function</a> with a single <code class="language-plaintext highlighter-rouge">Println</code> call:</p>
+
+<div class="thumb-image">
+  <a href="/assets/images/pkgtwist/siruspen_logrus.png"><img src="/assets/images/pkgtwist/siruspen_logrus.png" class="image" alt="" /></a>
+  <figcaption class="caption">Comparing siruspen/logrus with the original repository.</figcaption>
 </div>
 
-				
-			
-		
-			
-				
-					<div class="item ">
-    <a class="url" href="https://michenriksen.com/blog/gitrob-now-in-go/">
-        <aside class="date"><time datetime="09-06-2018">Jun 09 2018</time></aside>
-        <h3 class="title">Gitrob: Now in Go</h3>
-    </a>
+<p>While this is not malicious in any way it could very quickly be changed by the owner in the future, so I will definitely keep an eye on this repository. I would also recommend double-checking your projects if you use <code class="language-plaintext highlighter-rouge">logrus</code> to make sure you’re not using this package instead of the real one!</p>
+
+<h3 id="githubcomutfavecli-️">github.com/utfave/cli ⚠️</h3>
+
+<p><a href="https://github.com/urfave/cli">urfave/cli</a> is another popular Go package (15.4k stars on GitHub) for building CLI projects. So when I saw the user <code class="language-plaintext highlighter-rouge">utfave</code> also had a repository called <code class="language-plaintext highlighter-rouge">cli</code>, my alarm bells went off and I investigated further.</p>
+
+<p>It turns out that the <a href="https://github.com/utfave/cli/commit/4af15496c49f613503d37d43b99df767f831bae1#diff-8d9ca23280f24fe6444d03ae46e7a15dd152170f32f57f978dfbdfd3cfe8ff55L26-R36">second-last commit</a> introduces a highly suspicious <code class="language-plaintext highlighter-rouge">init</code> function:</p>
+
+<div class="thumb-image">
+  <a href="/assets/images/pkgtwist/utfave_cli.png"><img src="/assets/images/pkgtwist/utfave_cli.png" class="image" alt="" /></a>
+  <figcaption class="caption">Ohai there, 122.51.124.140...</figcaption>
 </div>
 
-				
-			
-		
-			
-				
-					<div class="item ">
-    <a class="url" href="https://michenriksen.com/blog/subdomain-takeover-detection-with-aquatone/">
-        <aside class="date"><time datetime="21-07-2017">Jul 21 2017</time></aside>
-        <h3 class="title">Subdomain takeover detection with AQUATONE</h3>
-    </a>
-</div>
+<p>It looks like the author <code class="language-plaintext highlighter-rouge">utfave</code> wants to know the hostname, operating system, and architecture of all the machines using their version of <code class="language-plaintext highlighter-rouge">urfave/cli</code>. The function extracts the system information and then calls out to the IP address <code class="language-plaintext highlighter-rouge">122.51.124.140</code> belonging to the Chinese company Shenzhen Tencent Computer Systems via HTTP with the system information added as URL parameters.</p>
 
-				
-			
-		
-			
-				
-					<div class="item ">
-    <a class="url" href="https://michenriksen.com/blog/geolocating-miriam-steimer/">
-        <aside class="date"><time datetime="18-06-2017">Jun 18 2017</time></aside>
-        <h3 class="title">Geolocating Miriam Steimer</h3>
-    </a>
-</div>
+<p>While this code won’t give them any access to systems, it’s highly suspicious that they collect this information and the actor can quickly change this code to call back with a reverse shell if they identify a system to be valuable or interesting.</p>
 
-				
-			
-		
-			
-				
-					<div class="item ">
-    <a class="url" href="https://michenriksen.com/blog/aquatone-tool-for-domain-flyovers/">
-        <aside class="date"><time datetime="17-06-2017">Jun 17 2017</time></aside>
-        <h3 class="title">AQUATONE: A tool for domain flyovers</h3>
-    </a>
-</div>
+<p>I reported this repository to GitHub and hope to see it taken down in the near future. Until then, I recommend double-checking your projects if you use the <code class="language-plaintext highlighter-rouge">urfave/cli</code> to make sure you’re not using the typosquatted version.</p>
 
-				
-			
-		
-			
-				
-					<div class="item ">
-    <a class="url" href="https://michenriksen.com/blog/geolocating-maks-czuperski/">
-        <aside class="date"><time datetime="18-01-2017">Jan 18 2017</time></aside>
-        <h3 class="title">Geolocating Maks Czuperski</h3>
-    </a>
-</div>
+<h2 id="conclusion">Conclusion</h2>
 
-				
-			
-		
-			
-				
-					<div class="item ">
-    <a class="url" href="https://michenriksen.com/blog/detecting-online-investigations/">
-        <aside class="date"><time datetime="14-11-2016">Nov 14 2016</time></aside>
-        <h3 class="title">Detecting online investigations</h3>
-    </a>
-</div>
+<p>While my little research project didn’t cover every single Go package out there, I feel it covered enough to give a rough picture of what the supply chain attack situation looks like for the Go ecosystem. The two repositories <code class="language-plaintext highlighter-rouge">siruspen/logrus</code> and <code class="language-plaintext highlighter-rouge">utfave/cli</code>, were the only ones out of the 7 flagged repos that really worried me, but I will keep a close eye on the rest as they could in theory become malicious at any time.</p>
 
-				
-			
-		
-			
-				
-					<div class="item ">
-    <a class="url" href="https://michenriksen.com/blog/birdwatcher-twitter-osint-framework/">
-        <aside class="date"><time datetime="14-10-2016">Oct 14 2016</time></aside>
-        <h3 class="title">Birdwatcher: Data analysis and OSINT framework for Twitter</h3>
-    </a>
-</div>
+<p>I think Go is in a better situation than other programming languages because the source of packages is always explicitly written every time they are used, but code editor automation could make typosquat attacks more likely to happen as the developer doesn’t write the import paths manually as often. As an example, if the popular <a href="https://marketplace.visualstudio.com/items?itemName=golang.Go">Go extension</a> for <a href="https://code.visualstudio.com/">VS Code</a> is installed, a developer will typically only type a package import on the first usage, and then the editor will automatically add the import in any other files as soon as the package name is used. If the developer mistypes the import path the first time, a malicious package could be introduced and live for a long time in a Go project before it’s discovered.</p>
 
-				
-			
-		
-			
-				
-					<div class="item ">
-    <a class="url" href="https://michenriksen.com/blog/new-version-of-gitrob-is-out/">
-        <aside class="date"><time datetime="12-03-2016">Mar 12 2016</time></aside>
-        <h3 class="title">A new version of Gitrob is out</h3>
-    </a>
-</div>
 
-				
-			
-		
-			
-				
-					<div class="item ">
-    <a class="url" href="https://michenriksen.com/blog/gitrob-putting-the-open-source-in-osint/">
-        <aside class="date"><time datetime="12-01-2015">Jan 12 2015</time></aside>
-        <h3 class="title">Gitrob: Putting the Open Source in OSINT</h3>
-    </a>
-</div>
 
-				
-			
-		
-	
+
+
+
+
+<section class="author">
+    <div class="toleft">
+        <img class="selfie"
+            src="https://michenriksen.com/assets/images/profile.png"
+            alt="Michael Henriksen">
+    </div>
+
+    <div class="toright">
+        <h4 class="name">Michael Henriksen</h4>
+        <p class="bio">Security engineer & builder of tools</p>
+
+        <div class="share">
+            <!-- Note: Only use three share links if your site width is set to large -->
+            <!-- If site width is set to normal, you may choose any two share links -->
+            <a class="twitter"
+                href="https://twitter.com/intent/tweet?text=https://michenriksen.com/blog/finding-evil-go-packages/ - Finding Evil Go Packages by @michenriksen">
+                <svg class="icon"><use xlink:href='#fab.fa-twitter'></use></svg>
+                <span class="icon-twitter">Tweet</span>
+            </a>
+
+            <!-- <a class="facebook" href="javascript:void(0)" onclick="window.open('https://facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href), 'facebook-share-dialog', 'width=626,height=436'); return false;">
+                <svg class="icon"><use xlink:href='#fab.fa-facebook'></use></svg>
+                <span class="icon-facebook-rect">Share</span>
+            </a> -->
+
+            <a class="linkedin"
+                href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://michenriksen.com/blog/finding-evil-go-packages/&amp;title=Finding Evil Go Packages&amp;summary=&amp;source=https://michenriksen.com"
+                target="_blank">
+                <svg class="icon"><use xlink:href='#fab.fa-linkedin'></use></svg>
+                <span class="icon-linkedin">Share</span>
+            </a>
+
+            <!-- <a class="reddit" href="https://reddit.com/submit?url=https://michenriksen.com/blog/finding-evil-go-packages/&amp;title=Finding Evil Go Packages" target="_blank">
+                <svg class="icon"><use xlink:href='#fab.fa-reddit'></use></svg>
+                <span class="icon-reddit">Share</span>
+            </a> -->
+        </div>
+    </div>
 </section>
+
+
+
 
 
 <footer class="footer-main">
@@ -1678,21 +1630,17 @@ pre {
             <title>twitter</title>
             <path class='path1' d='M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z'></path>
         </symbol>
+        <symbol id='fab.fa-facebook' viewBox='0 0 448 512'>
+            <title>facebook</title>
+            <path class='path1' d='M448 56.7v398.5c0 13.7-11.1 24.7-24.7 24.7H309.1V306.5h58.2l8.7-67.6h-67v-43.2c0-19.6 5.4-32.9 33.5-32.9h35.8v-60.5c-6.2-.8-27.4-2.7-52.2-2.7-51.6 0-87 31.5-87 89.4v49.9h-58.4v67.6h58.4V480H24.7C11.1 480 0 468.9 0 455.3V56.7C0 43.1 11.1 32 24.7 32h398.5c13.7 0 24.8 11.1 24.8 24.7z'></path>
+        </symbol>
         <symbol id='fab.fa-linkedin' viewBox='0 0 448 512'>
             <title>linkedin</title>
             <path class='path1' d='M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z'></path>
         </symbol>
-        <symbol id='fab.fa-github' viewBox='0 0 496 512'>
-            <title>github</title>
-            <path class='path1' d='M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z'></path>
-        </symbol>
-        <symbol id='fab.fa-gitlab' viewBox='0 0 512 512'>
-            <title>gitlab</title>
-            <path class='path1' d='M29.782 199.732L256 493.714 8.074 309.699c-6.856-5.142-9.712-13.996-7.141-21.993l28.849-87.974zm75.405-174.806c-3.142-8.854-15.709-8.854-18.851 0L29.782 199.732h131.961L105.187 24.926zm56.556 174.806L256 493.714l94.257-293.982H161.743zm349.324 87.974l-28.849-87.974L256 493.714l247.926-184.015c6.855-5.142 9.711-13.996 7.141-21.993zm-85.404-262.78c-3.142-8.854-15.709-8.854-18.851 0l-56.555 174.806h131.961L425.663 24.926z'></path>
-        </symbol>
-        <symbol id='fas.fa-envelope' viewBox='0 0 512 512'>
-            <title>envelope</title>
-            <path class='path1' d='M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z'></path>
+        <symbol id='fab.fa-reddit' viewBox='0 0 512 512'>
+            <title>reddit</title>
+            <path class='path1' d='M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6 0-2.2-2.2-6.1-2.2-8.3 0-2.5 2.5-2.5 6.4 0 8.6 22.8 22.8 87.3 22.8 110.2 0 2.5-2.2 2.5-6.1 0-8.6-2.2-2.2-6.1-2.2-8.3 0zm7.7-75c-13.6 0-24.6 11.1-24.6 24.9 0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.1 24.9-24.6 0-13.8-11-24.9-24.9-24.9z'></path>
         </symbol>
         <symbol id='fas.fa-rss' viewBox='0 0 448 512'>
             <title>rss</title>
