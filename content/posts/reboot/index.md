@@ -1,7 +1,6 @@
 ---
 title: "Reboot"
 date: "2023-11-05"
-draft: true
 ---
 
 Ah yes, it was time again to reboot my blog. If I don't write any posts, I might as well spend my time tinkering with
