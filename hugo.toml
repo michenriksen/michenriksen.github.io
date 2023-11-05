@@ -52,7 +52,7 @@ copyright = 'Copyright <span aria-hidden="true">&copy;</span> 2023, Michael Henr
     showRSS = true
 
   [params.social]
-    email = "mchnrksn@gmail.com"
+    email = "mailto:mchnrksn@gmail.com"
     github = "https://github.com/michenriksen"
     gitlab = "https://gitlab.com/michenriksen"
     mastodon = "https://chaos.social/@michenriksen"
