@@ -1,0 +1,18 @@
+{{- $defaults := .Site.Data.procrastinato.defaults -}}
+{{- $showTags := and ( .Site.Params.posts.showTags | default $defaults.posts.showTags ) .Params.tags -}}
+{{- $title := .Title | plainify | htmlUnescape | title -}}
+{{- $post := dict
+  "@type" "BlogPosting"
+  "@id" .Permalink
+  "mainEntityOfPage" .Permalink
+  "title" $title
+  "headline" $title
+  "name" $title
+  "datePublished" ( .Date.Format "2006-01-02" )
+  "url" .Permalink
+-}}
+{{- if $showTags -}}{{ $post = merge $post ( dict "keywords" ( sort .Params.tags ) ) }}{{- end -}}
+{{- if lt ( .Date.AddDate 0 0 2 ) .Lastmod -}}
+  {{- $post = merge $post ( dict "dateModified" ( .Lastmod.Format "2006-01-02" ) ) -}}
+{{- end -}}
+{{- return $post -}}

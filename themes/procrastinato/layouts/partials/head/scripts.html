@@ -1,0 +1,21 @@
+{{- $defaults := .Site.Data.procrastinato.defaults -}}
+{{- $applyInline := .Site.Params.theme.applyInline | default $defaults.theme.applyInline -}}
+{{- $forcedTheme := strings.ContainsNonSpace ( .Site.Params.theme.force | default $defaults.theme.force ) -}}
+{{- $script := resources.Get "js/applyTheme.js" -}}
+{{- if not $forcedTheme -}}
+  {{- if $applyInline -}}
+    <script type="text/javascript">
+      {{ $script.Content | safeJS }}
+    </script>
+  {{ else -}}
+    {{- $opts := dict "targetPath" "applyTheme.js" "sourceMap" ( cond hugo.IsProduction "" "inline" ) -}}
+    {{- $script = $script | js.Build $opts -}}
+    {{- if hugo.IsProduction -}}
+      {{- $script = $script | minify | fingerprint -}}
+    {{- end -}}
+    <script
+      src="{{ $script.RelPermalink }}"
+      {{- if hugo.IsProduction }}integrity="{{ $script.Data.Integrity }}"{{ end }}
+    ></script>
+  {{ end -}}
+{{- end -}}

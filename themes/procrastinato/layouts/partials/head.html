@@ -1,0 +1,11 @@
+{{- $title := cond .IsHome .Site.Title ( printf "%s | %s" .Title .Site.Title ) -}}
+{{ partial "hooks/head/start.html" . }}
+<meta charset="UTF-8" />
+<meta name="language" content="{{ .Site.Language.LanguageName | default "en" }}" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{{ $title }}</title>
+{{ partial "head/meta.html" . }}
+{{ partial "head/scripts.html" . }}
+{{ partial "head/styles.html" . }}
+{{ partial "head/jsonld.html" . }}
+{{ partial "hooks/head/end.html" . }}

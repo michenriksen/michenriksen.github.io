@@ -1,0 +1,44 @@
+[meta]
+  version = "0.1.0"
+
+[defaults]
+  [crawlers]
+    blockCommonCrawl = false
+    blockLLM = false
+  [dates]
+    format = "Jan 02"
+    formatFull = "Jan 02, 2006"
+  [footer]
+    showSocials = true
+  [footer.creativeCommons]
+    enabled = false
+    icons = true
+    license = ""
+  [homepage]
+    hero = true
+    portrait = ""
+    recentLimit = 4
+    showRecent = true
+    showSocials = true
+  [katex]
+    autoRenderIntegrity = "sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+    integrity = "sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8"
+    styleIntegrity  = "sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV"
+    version = "0.16.9"
+  [layout]
+    centered = true
+  [posts]
+    fuzzyWordCount = true
+    showRSS = true
+    showReadingTime = true
+    showRelated = true
+    showSummaries = true
+    showTags = true
+    showTopics = true
+    showWordCount = false
+  [sa11y]
+    enabled = false
+    version = "latest"
+  [theme]
+    applyInline = true
+    force = ""

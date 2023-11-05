@@ -1,0 +1,294 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "chroma";
+@import "chroma-dark";
+
+/* Atkinson Hyperlegible font: https://brailleinstitute.org/freefont. */
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src:
+    url("/fonts/Atkinson-Hyperlegible-Regular-102a.woff2") format("woff2"),
+    url("/fonts/Atkinson-Hyperlegible-Regular-102.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src:
+    url("/fonts/Atkinson-Hyperlegible-Bold-102a.woff2") format("woff2"),
+    url("/fonts/Atkinson-Hyperlegible-Bold-102.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src:
+    url("/fonts/Atkinson-Hyperlegible-Italic-102a.woff2") format("woff2"),
+    url("/fonts/Atkinson-Hyperlegible-Italic-102.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src:
+    url("/fonts/Atkinson-Hyperlegible-BoldItalic-102a.woff2") format("woff2"),
+    url("/fonts/Atkinson-Hyperlegible-BoldItalic-102.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Intel One Mono";
+  src:
+    url("/fonts/IntelOneMono-Regular.woff2") format("woff2"),
+    url("/fonts/IntelOneMono-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Intel One Mono";
+  src:
+    url("/fonts/IntelOneMono-Bold.woff2") format("woff2"),
+    url("/fonts/IntelOneMono-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Intel One Mono";
+  src:
+    url("/fonts/IntelOneMono-Italic.woff2") format("woff2"),
+    url("/fonts/IntelOneMono-Italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Intel One Mono";
+  src:
+    url("/fonts/IntelOneMono-BoldItalic.woff2") format("woff2"),
+    url("/fonts/IntelOneMono-BoldItalic.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@layer base {
+  :focus-visible {
+    @apply outline-none ring-2 ring-blue-600 dark:ring-blue-300;
+  }
+
+  body {
+    counter-reset: sidenote-counter;
+  }
+
+  main,
+  .prose {
+    a {
+      @apply text-sky-900 dark:text-white/80 decoration-sky-400 dark:decoration-white/70 underline underline-offset-4 decoration-2 motion-safe:transition-all;
+
+      &:hover {
+        @apply text-sky-800 dark:text-white/90 underline-offset-8;
+      }
+
+      &:active {
+        @apply relative top-px;
+      }
+    }
+  }
+
+  footer {
+    a {
+      @apply decoration-neutral-500 dark:decoration-white/70 underline underline-offset-2 motion-safe:transition-all;
+
+      &:hover {
+        @apply text-sky-800 dark:text-white/90 decoration-sky-400 dark:decoration-white/70 underline-offset-4;
+      }
+
+      &:active {
+        @apply relative top-px;
+      }
+    }
+  }
+
+  mark {
+    @apply bg-yellow-300 px-1 rounded-sm dark:bg-yellow-700 dark:text-white/90;
+  }
+}
+
+@layer utilities {
+  .small-caps {
+    font-variant: all-small-caps;
+  }
+}
+
+.skip-link {
+  @apply !absolute inline-block left-5 !px-3 motion-safe:transition-all -translate-y-full bg-neutral-100 dark:bg-white/10 rounded-b-sm;
+
+  &:focus {
+    @apply translate-y-0 outline-none ring-2 ring-sky-600 dark:ring-blue-400;
+  }
+}
+
+.menu-item {
+  @apply py-5 px-3 text-lg decoration-2 decoration-neutral-600 dark:decoration-white/60 underline-offset-4 motion-safe:transition-all;
+
+  &:hover {
+    @apply text-sky-800 dark:text-white/90 decoration-sky-400 dark:decoration-white/70 underline underline-offset-8;
+  }
+
+  &:active {
+    @apply relative top-px;
+  }
+
+  &[aria-current="page"] {
+    @apply text-neutral-800 dark:text-white/90 underline;
+  }
+
+  &.mobile {
+    @apply block p-5;
+  }
+}
+
+.theme-menu-item {
+  @apply flex items-center space-x-2 block py-2 px-3 whitespace-nowrap;
+
+  &[aria-current="true"] {
+    @apply text-neutral-800 decoration-neutral-600 dark:text-white/90 dark:decoration-white/60 underline decoration-2 underline-offset-4;
+
+    svg {
+      @apply text-sky-400 dark:text-blue-300;
+    }
+  }
+}
+
+.toc {
+  ul {
+    @apply list-disc ml-4 leading-10;
+  }
+
+  li {
+    @apply pl-2;
+  }
+
+  a:not(hover) {
+    @apply text-inherit decoration-inherit;
+  }
+}
+
+.chroma {
+  @apply py-9 px-3 text-xs md:text-sm text-neutral-600 dark:text-white/75 shadow-sm rounded-sm overflow-x-auto;
+}
+
+.sidenote {
+  @apply inline;
+  counter-increment: sidenote-counter;
+}
+
+.sidenote-checkbox ~ .sidenote-content {
+  @apply max-lg:sr-only;
+}
+
+.sidenote-checkbox:checked {
+  & ~ .sidenote-content {
+    @apply max-lg:text-sky-500 max-lg:dark:text-sky-300 max-lg:not-sr-only max-lg:block max-lg:left-auto max-lg:float-left max-lg:min-w-full max-lg:my-2 max-lg:pl-4;
+  }
+
+  & ~ .sidenote-mark {
+    @apply max-lg:text-sky-500 max-lg:dark:text-sky-300 no-underline;
+  }
+}
+
+.sidenote:active,
+.sidenote:active .sidenote-content {
+  @apply text-sky-500 dark:text-blue-300;
+}
+
+.sidenote:hover .sidenote-mark::after,
+.sidenote:hover .sidenote-content::before {
+  @apply text-sky-500 dark:text-blue-300;
+}
+
+.sidenote-mark {
+  &::after {
+    @apply inline align-super text-xs font-semibold;
+    content: counter(sidenote-counter);
+  }
+
+  @apply max-lg:cursor-pointer max-lg:underline max-lg:decoration-sky-400 max-lg:decoration-dotted max-lg:decoration-2 max-lg:underline-offset-4 motion-safe:transition-all;
+
+  &:hover {
+    @apply max-lg:underline-offset-8;
+  }
+}
+
+.footnote-ref {
+  @apply align-super text-xs font-semibold max-lg:cursor-pointer max-lg:underline max-lg:decoration-sky-400 max-lg:decoration-dotted max-lg:decoration-2 max-lg:underline-offset-4 motion-safe:transition-all;
+
+  &:hover {
+    @apply max-lg:underline-offset-4;
+  }
+}
+
+.sidenote-content {
+  &::before {
+    @apply flex items-start justify-end absolute top-0 bottom-0 -left-16 w-14 font-semibold;
+    content: counter(sidenote-counter) ".";
+  }
+
+  @apply lg:absolute lg:right-0 lg:w-48 lg:cursor-default motion-safe:transition-all;
+
+  @media screen(lg) {
+    margin-right: calc(-1 * theme(width.48) - 1 * theme(margin.16));
+  }
+}
+
+.admonition {
+  @apply bg-neutral-200 text-neutral-600 px-4 py-3 my-10 shadow-sm rounded-sm border-l-4 border-neutral-500;
+  @apply dark:bg-zinc-700 dark:text-white/80 dark:border-zinc-400;
+
+  * {
+    @apply text-inherit;
+  }
+
+  figcaption {
+    @apply small-caps font-semibold text-lg mt-0;
+  }
+
+  a {
+    @apply !text-inherit font-semibold !decoration-inherit;
+  }
+
+  &.info {
+    @apply bg-info-bg text-info-fg border-info-border;
+    @apply dark:bg-info-bg-dark dark:text-info-fg-dark dark:border-info-border-dark;
+  }
+
+  &.tip {
+    @apply bg-tip-bg text-tip-fg border-tip-border;
+    @apply dark:bg-tip-bg-dark dark:text-tip-fg-dark dark:border-tip-border-dark;
+  }
+
+  &.warning {
+    @apply bg-warning-bg text-warning-fg border-warning-border;
+    @apply dark:bg-warning-bg-dark dark:text-warning-fg-dark dark:border-warning-border-dark;
+  }
+
+  &.danger {
+    @apply bg-danger-bg text-danger-fg border-danger-border;
+    @apply dark:bg-danger-bg-dark dark:text-danger-fg-dark dark:border-danger-border-dark;
+  }
+}

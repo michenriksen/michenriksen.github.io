@@ -1,0 +1,413 @@
+// a11y-dark syntax highlighting theme
+// https://github.com/ericwbailey/a11y-syntax-highlighting#a11y-dark
+$a11y-dark-bg: #2b2b2b;
+$a11y-dark-fg: #f8f8f2;
+$a11y-dark-bright-turquoise: #00e0e0;
+$a11y-dark-chino: #d4d0ab;
+$a11y-dark-conifer: #abe338;
+$a11y-dark-gold: #ffd700;
+$a11y-dark-snuff: #dcc6e0;
+$a11y-dark-spring-wood: #f8f8f2;
+$a11y-dark-vivid-tangerine: #ffa07a;
+
+// a11y-light syntax highlighting theme
+// https://github.com/ericwbailey/a11y-syntax-highlighting#a11y-light
+$a11y-light-chelsea-gem: #aa5d00;
+$a11y-light-allports: #007299;
+$a11y-light-dove-gray: #696969;
+$a11y-light-emperor: #545454;
+$a11y-light-japanese-laurel: #008000;
+$a11y-light-thunderbird: #d91e18;
+
+@media (prefers-color-scheme: dark) {
+  .chroma {
+    --highlight-bg: #{$a11y-dark-bg};
+    --highlight-fg: #{$a11y-dark-fg};
+    --highlight-line-nums: #{$a11y-dark-chino};
+    --highlight-line-highlight: rgba(255, 217, 0, 0.1);
+    --highlight-keyword: #{$a11y-dark-bright-turquoise};
+    --highlight-keyword-type: #{$a11y-dark-conifer};
+    --highlight-attribute: #{$a11y-dark-conifer};
+    --highlight-attribute-value: #{$a11y-dark-gold};
+    --highlight-builtin: #{$a11y-dark-conifer};
+    --highlight-class: #{$a11y-dark-vivid-tangerine};
+    --highlight-constant: #{$a11y-dark-vivid-tangerine};
+    --highlight-decorator: #{$a11y-dark-vivid-tangerine};
+    --highlight-entity: #{$a11y-dark-bright-turquoise};
+    --highlight-exception: #{$a11y-dark-vivid-tangerine};
+    --highlight-function: #{$a11y-dark-gold};
+    --highlight-label: #{$a11y-dark-conifer};
+    --highlight-namespace: #{$a11y-dark-conifer};
+    --highlight-tag: #{$a11y-dark-vivid-tangerine};
+    --highlight-variable: #{$a11y-dark-bright-turquoise};
+    --highlight-string: #{$a11y-dark-conifer};
+    --highlight-number: #{$a11y-dark-bright-turquoise};
+    --highlight-operator: #{$a11y-dark-bright-turquoise};
+    --highlight-punctuation: #{$a11y-dark-bright-turquoise};
+    --highlight-comment: #{$a11y-dark-chino};
+    --highlight-deleted: #{$a11y-dark-vivid-tangerine};
+  }
+}
+
+/* Background */
+.bg {
+  background-color: var(--highlight-bg);
+}
+/* PreWrapper */
+.chroma {
+  background-color: var(--highlight-bg);
+}
+// /* Other */ .chroma .x {  }
+// /* Error */ .chroma .err {  }
+// /* CodeLine */ .chroma .cl {  }
+/* LineLink */
+.chroma .lnlinks {
+  outline: none;
+  text-decoration: none;
+  color: inherit;
+}
+/* LineTableTD */
+.chroma .lntd {
+  vertical-align: top;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+/* LineTable */
+.chroma .lntable {
+  border-spacing: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+/* LineHighlight */
+.chroma .hl {
+  background-color: var(--highlight-line-highlight);
+}
+/* LineNumbersTable */
+.chroma .lnt {
+  white-space: pre;
+  -webkit-user-select: none;
+  user-select: none;
+  margin-right: 0.4em;
+  padding: 0 0.4em 0 0.4em;
+  color: var(--highlight-line-nums);
+}
+/* LineNumbers */
+.chroma .ln {
+  white-space: pre;
+  -webkit-user-select: none;
+  user-select: none;
+  margin-right: 0.4em;
+  padding: 0 0.4em 0 0.4em;
+  color: var(--highlight-line-nums);
+}
+/* Line */
+.chroma .line {
+  display: flex;
+}
+/* Keyword */
+.chroma .k {
+  color: var(--highlight-keyword);
+  font-weight: bold;
+}
+/* KeywordConstant */
+.chroma .kc {
+  color: var(--highlight-keyword);
+  font-weight: bold;
+}
+/* KeywordDeclaration */
+.chroma .kd {
+  color: var(--highlight-keyword);
+  font-weight: bold;
+}
+/* KeywordNamespace */
+.chroma .kn {
+  color: var(--highlight-keyword);
+  font-weight: bold;
+}
+/* KeywordPseudo */
+.chroma .kp {
+  color: var(--highlight-keyword);
+}
+/* KeywordReserved */
+.chroma .kr {
+  color: var(--highlight-keyword);
+  font-weight: bold;
+}
+/* KeywordType */
+.chroma .kt {
+  color: var(--highlight-keyword-type);
+}
+// /* Name */ .chroma .n {  }
+/* NameAttribute */
+.chroma .na {
+  color: var(--highlight-attribute);
+}
+/* NameBuiltin */
+.chroma .nb {
+  color: var(--highlight-builtin);
+}
+// /* NameBuiltinPseudo */ .chroma .bp {  }
+/* NameClass */
+.chroma .nc {
+  color: var(--highlight-class);
+  font-weight: bold;
+}
+/* NameConstant */
+.chroma .no {
+  color: var(--highlight-constant);
+}
+/* NameDecorator */
+.chroma .nd {
+  color: var(--highlight-decorator);
+  font-weight: bold;
+}
+/* NameEntity */
+.chroma .ni {
+  color: var(--highlight-entity);
+  font-weight: bold;
+}
+/* NameException */
+.chroma .ne {
+  color: var(--highlight-exception);
+}
+/* NameFunction */
+.chroma .nf {
+  color: var(--highlight-function);
+}
+// /* NameFunctionMagic */ .chroma .fm {  }
+/* NameLabel */
+.chroma .nl {
+  color: var(--highlight-label);
+  font-weight: bold;
+}
+/* NameNamespace */
+.chroma .nn {
+  color: var(--highlight-namespace);
+  font-weight: bold;
+}
+// /* NameOther */ .chroma .nx {  }
+// /* NameProperty */ .chroma .py {  }
+/* NameTag */
+.chroma .nt {
+  color: var(--highlight-tag);
+  font-weight: bold;
+}
+/* NameVariable */
+.chroma .nv {
+  color: var(--highlight-variable);
+}
+// /* NameVariableClass */ .chroma .vc {  }
+// /* NameVariableGlobal */ .chroma .vg {  }
+// /* NameVariableInstance */ .chroma .vi {  }
+// /* NameVariableMagic */ .chroma .vm {  }
+// /* Literal */ .chroma .l {  }
+// /* LiteralDate */ .chroma .ld {  }
+/* LiteralString */
+.chroma .s {
+  color: var(--highlight-string);
+}
+/* LiteralStringAffix */
+.chroma .sa {
+  color: var(--highlight-string);
+}
+/* LiteralStringBacktick */
+.chroma .sb {
+  color: var(--highlight-string);
+}
+/* LiteralStringChar */
+.chroma .sc {
+  color: var(--highlight-string);
+}
+/* LiteralStringDelimiter */
+.chroma .dl {
+  color: var(--highlight-string);
+}
+/* LiteralStringDoc */
+.chroma .sd {
+  color: var(--highlight-string);
+  font-style: italic;
+}
+/* LiteralStringDouble */
+.chroma .s2 {
+  color: var(--highlight-string);
+}
+/* LiteralStringDouble in HTML */
+.chroma .language-html .s2 {
+  color: var(--highlight-attribute-value);
+}
+/* LiteralStringEscape */
+.chroma .se {
+  color: var(--highlight-string);
+  font-weight: bold;
+}
+/* LiteralStringHeredoc */
+.chroma .sh {
+  color: var(--highlight-string);
+}
+/* LiteralStringInterpol */
+.chroma .si {
+  color: var(--highlight-string);
+}
+/* LiteralStringOther */
+.chroma .sx {
+  color: var(--highlight-string);
+}
+/* LiteralStringRegex */
+.chroma .sr {
+  color: var(--highlight-string);
+}
+/* LiteralStringSingle */
+.chroma .s1 {
+  color: var(--highlight-string);
+}
+/* LiteralStringSingle in HTML code */
+.chroma .language-html .s1 {
+  color: var(--highlight-attribute-value);
+}
+/* LiteralStringSymbol */
+.chroma .ss {
+  color: var(--highlight-string);
+}
+/* LiteralNumber */
+.chroma .m {
+  color: var(--highlight-number);
+}
+/* LiteralNumberBin */
+.chroma .mb {
+  color: var(--highlight-number);
+}
+/* LiteralNumberFloat */
+.chroma .mf {
+  color: var(--highlight-number);
+}
+/* LiteralNumberHex */
+.chroma .mh {
+  color: var(--highlight-number);
+}
+/* LiteralNumberInteger */
+.chroma .mi {
+  color: var(--highlight-number);
+}
+/* LiteralNumberIntegerLong */
+.chroma .il {
+  color: var(--highlight-number);
+}
+/* LiteralNumberOct */
+.chroma .mo {
+  color: var(--highlight-number);
+}
+/* Operator */
+.chroma .o {
+  color: var(--highlight-operator);
+}
+/* OperatorWord */
+.chroma .ow {
+  color: var(--highlight-operator);
+  font-weight: bold;
+}
+/* Punctuation */
+.chroma .p {
+  color: var(--highlight-punctuation);
+}
+/* Comment */
+.chroma .c {
+  color: var(--highlight-comment);
+  font-style: italic;
+}
+/* CommentHashbang */
+.chroma .ch {
+  color: var(--highlight-comment);
+  font-style: italic;
+}
+/* CommentMultiline */
+.chroma .cm {
+  color: var(--highlight-comment);
+  font-style: italic;
+}
+/* CommentSingle */
+.chroma .c1 {
+  color: var(--highlight-comment);
+  font-style: italic;
+}
+/* CommentSpecial */
+.chroma .cs {
+  color: var(--highlight-comment);
+  background-color: #fff0f0;
+}
+/* CommentPreproc */
+.chroma .cp {
+  color: var(--highlight-comment);
+}
+/* CommentPreprocFile */
+.chroma .cpf {
+  color: var(--highlight-comment);
+}
+// /* Generic */ .chroma .g {  }
+/* GenericDeleted */
+.chroma .gd {
+  color: var(--highlight-deleted);
+}
+/* GenericEmph */
+.chroma .ge {
+  font-style: italic;
+}
+/* GenericError */
+.chroma .gr {
+  color: #ff0000;
+}
+/* GenericHeading */
+.chroma .gh {
+  color: #000080;
+  font-weight: bold;
+}
+/* GenericInserted */
+.chroma .gi {
+  color: #00a000;
+}
+/* GenericOutput */
+.chroma .go {
+  color: #888888;
+}
+/* GenericPrompt */
+.chroma .gp {
+  color: #c65d09;
+  font-weight: bold;
+}
+/* GenericStrong */
+.chroma .gs {
+  font-weight: bold;
+}
+/* GenericSubheading */
+.chroma .gu {
+  color: #800080;
+  font-weight: bold;
+}
+/* GenericTraceback */
+.chroma .gt {
+  color: #0044dd;
+}
+/* GenericUnderline */
+.chroma .gl {
+  text-decoration: underline;
+}
+/* TextWhitespace */
+.chroma .w {
+  color: #bbbbbb;
+}
+
+// Special handling of strings when highlighting HTML to make tag attribute
+// values yellow/gold.
+/* LiteralString in HTML */
+.chroma .language-html .s {
+  color: var(--highlight-attribute-value);
+}
+/* LiteralStringSingle in HTML */
+.chroma .language-html .s1 {
+  color: var(--highlight-attribute-value);
+}
+/* LiteralStringDouble in HTML */
+.chroma .language-html .s2 {
+  color: var(--highlight-attribute-value);
+}

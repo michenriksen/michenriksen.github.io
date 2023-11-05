@@ -1,0 +1,13 @@
+{{- $data := partial "jsonld/base.html" . -}}
+{{- if and ( eq .Section "posts") ( not .IsNode ) -}}
+  {{- $data = merge $data ( partial "jsonld/blogPostDetailed.html" . ) -}}
+{{- else if in ( slice "posts" "topics" "tags" ) .Section -}}
+  {{- $data = merge $data ( partial "jsonld/blog.html" . ) -}}
+{{- else if .IsHome -}}
+  {{- $data = merge $data ( partial "jsonld/home.html" . ) -}}
+{{- else if eq .RelPermalink "/about/" -}}
+  {{- $data = merge $data ( dict "@type" "AboutPage" ) -}}
+{{- end -}}
+<script type="application/ld+json">
+  {{ jsonify (dict "indent" "  ") $data | safeJS }}
+</script>

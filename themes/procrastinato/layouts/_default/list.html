@@ -1,0 +1,44 @@
+{{ define "main" }}
+  {{- $defaults := .Site.Data.procrastinato.defaults -}}
+  {{- $rss := .OutputFormats.Get "rss" -}}
+  {{- $showRSS := and (.Site.Params.posts.showRSS | default $defaults.posts.showRSS ) $rss -}}
+  <div class="not-prose">
+    <div class="flex items-center space-x-2 pb-7">
+      <div>
+        <h1 class="text-2xl sm:text-4xl font-semibold text-neutral-900 dark:text-white/90">
+          {{ if eq .Page.Section "tags" -}}
+            {{ printf "posts tagged with" | title }}
+            <span class="text-neutral-800 dark:text-white/80"><span aria-hidden="true">&num;</span>{{ .Title }}</span>
+          {{ else if eq .Page.Section "topics" -}}
+            {{ printf "posts filed under" | title }}
+            <span class="text-neutral-800 dark:text-white/80">{{ .Title }}</span>
+          {{ else -}}
+            {{ .Title }}
+          {{ end -}}
+        </h1>
+      </div>
+      <div class="flex-none">
+        <a
+          rel="alternate"
+          type="application/rss+xml"
+          href="{{ $rss.RelPermalink }}"
+          title="Subscribe to the {{ .Title }} RSS feed"
+          class="block relative -top-2 !text-orange-600 dark:!text-orange-400 border-b-2 border-transparent hover:border-orange-600 dark:hover:border-orange-400"
+        >
+          {{ partial "svg/rss.html" }}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {{ .Content }}
+
+  {{- $byYear := .Pages.GroupByPublishDate "2006" -}}
+  {{ if gt ( $byYear | len ) 1 -}}
+    {{ range $byYear -}}
+      {{ partial "posts/list.html" ( dict "year" .Key "pages" .Pages "forceColumns" true ) }}
+    {{ end -}}
+  {{ else -}}
+    {{ partial "posts/list.html" ( dict "pages" .Pages ) }}
+  {{ end -}}
+{{ end }}

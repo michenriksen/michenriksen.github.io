@@ -1,0 +1,60 @@
+{{- $defaults := .Site.Data.procrastinato.defaults -}}
+{{- $dateFormat := .Site.Params.dates.format | default $defaults.dates.format -}}
+{{- if page.IsHome -}}
+  {{- $dateFormat = .Site.Params.dates.formatFull | default $defaults.dates.formatFull -}}
+{{- end -}}
+<article class="not-prose group" tabindex="0">
+  <header>
+    <h3 class="text-2xl">
+      <a href="{{ .RelPermalink }}" class="dark:!text-white/90">{{ .Title | title }}</a>
+    </h3>
+    <div class="flex items-center space-x-2 text-neutral-700 dark:text-white/70">
+      <div><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format $dateFormat }}</time></div>
+      {{- if .Site.Params.posts.showWordCount | default $defaults.posts.showWordCound -}}
+        {{- $wordCount := cond ( .Site.Params.posts.fuzzyWordCount | default $defaults.posts.fuzzyWordCount ) .FuzzyWordCount .WordCount -}}
+        <div aria-hidden="true" class="flex-none">&middot;</div>
+        <div>{{ $wordCount }} words</div>
+      {{- end -}}
+      {{- if .Site.Params.posts.showReadingTime | default $defaults.posts.showReadingTime -}}
+        <div aria-hidden="true" class="flex-none">&middot;</div>
+        <div>{{ .ReadingTime }} <abbr class="no-underline" title="Minute">min</abbr> read</div>
+      {{- end -}}
+    </div>
+  </header>
+
+  {{- if .Site.Params.posts.showSummaries | default $defaults.posts.showSummaries -}}
+    <p class="text-sm">{{ .Summary | plainify | safeHTML }}</p>
+  {{- end -}}
+
+  {{- if .Site.Params.posts.showTopics | default $defaults.posts.showTopics -}}
+    {{ with .GetTerms "topics" -}}
+      <ul aria-label="Topics" class="flex items-center space-x-2">
+        {{- range sort . "LinkTitle" -}}
+          <li>
+            <a
+              href="{{ .RelPermalink }}"
+              class="text-sm capitalize dark:!text-white/90 !no-underline group-hover:!underline group-focus:!underline"
+              >{{ .LinkTitle }}</a
+            >
+          </li>
+        {{- end -}}
+      </ul>
+    {{ end -}}
+  {{- end -}}
+
+  {{- if .Site.Params.posts.showTags | default $defaults.posts.showTags -}}
+    {{ with .GetTerms "tags" -}}
+      <ul aria-label="Tagged with" class="flex items-center space-x-2">
+        {{- range sort . "LinkTitle" -}}
+          <li>
+            <a
+              href="{{ .RelPermalink }}"
+              class="text-sm dark:!text-white/90 !no-underline group-hover:!underline group-focus:!underline"
+              ><span aria-hidden="true">&num;</span>{{ .LinkTitle }}</a
+            >
+          </li>
+        {{- end -}}
+      </ul>
+    {{ end -}}
+  {{- end -}}
+</article>

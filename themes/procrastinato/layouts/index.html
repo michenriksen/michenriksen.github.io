@@ -1,0 +1,44 @@
+{{ define "main" }}
+  {{- $defaults := .Site.Data.procrastinato.defaults -}}
+  {{- $posts := where .Site.RegularPages "Section" "posts" -}}
+  {{- $recentLimit := .Site.Params.homepage.recentLimit | default $defaults.homepage.recentLimit -}}
+  {{- $recentHeading := cond ( le ( len $posts ) $recentLimit ) "posts" "recent posts" -}}
+  {{- $postsPage := .GetPage "/posts" -}}
+  {{- $postsRSS := $postsPage.OutputFormats.Get "rss" -}}
+  {{- $showRSS := and ( .Site.Params.posts.showRSS | default $defaults.posts.showRSS) $postsRSS -}}
+  {{- if .Site.Params.homepage.hero | default $defaults.homepage.hero -}}
+    {{ partial "homepage/hero.html" . }}
+  {{- else -}}
+    {{ if strings.ContainsNonSpace .Title }}<h1>{{ . }}</h1>{{ else }}{{ warnf "%s has no title" .File.Path }}{{ end }}
+    {{ .Content }}
+  {{- end -}}
+
+  {{- if .Site.Params.homepage.showRecent | default $defaults.homepage.showRecent -}}
+    {{- with $posts -}}
+      <section class="not-prose pt-8">
+        {{- if $showRSS -}}
+          <div class="flex items-center space-x-2 pb-7">
+            <div>
+              <h2 class="text-3xl font-semibold text-neutral-900 dark:text-white/90">{{ $recentHeading | title }}</h2>
+            </div>
+            <div class="flex-none">
+              <a
+                rel="alternate"
+                type="application/rss+xml"
+                href="{{ $postsRSS.RelPermalink }}"
+                title="Subscribe to the {{ $postsPage.Title }} RSS feed"
+                class="block relative -top-2 !text-orange-600 dark:!text-orange-400 border-b-2 border-transparent hover:border-orange-600 dark:hover:border-orange-400"
+              >
+                {{ partial "svg/rss.html" }}
+              </a>
+            </div>
+          </div>
+        {{- else -}}
+          <h2>{{ $recentHeading | title }}</h2>
+        {{- end -}}
+
+        {{ partial "posts/list.html" ( dict "pages" ( first $recentLimit $posts ) ) }}
+      </section>
+    {{- end -}}
+  {{- end -}}
+{{ end }}

@@ -1,0 +1,30 @@
+{{- $description := or .Params.description .Site.Params.description }}
+{{- $title := or .Title .Site.Title -}}
+{{- $author := partial "jsonld/author.html" . -}}
+{{- $license := partial "jsonld/license.html" . -}}
+{{- $data := dict
+  "@context" "https://schema.org"
+  "@type" "WebPage"
+  "accessibilityAPI" "ARIA"
+  "accessibilityControl" ( slice
+  "fullKeyboardControl"
+  "fullMouseControl"
+  )
+  "accessibilityFeature" ( slice
+  "ARIA"
+  "alternativeText"
+  "highContrast/CSSEnabled"
+  "largePrint/CSSEnabled"
+  "readingOrder"
+  "resizeText/CSSEnabled"
+  "structuralNavigation"
+  )
+  "accessibilityHazard" ( slice "none" )
+  "url" .Permalink
+  "title" ( $title | plainify | htmlUnescape | title )
+  "description" ( $description | plainify | htmlUnescape )
+  "author" $author
+-}}
+{{- with $license -}}{{ $data = merge $data $license }}{{- end -}}
+{{- with .GitInfo.AbbreviatedHash -}}{{ $data = merge $data ( dict "version" . ) }}{{- end -}}
+{{- return $data -}}

@@ -1,0 +1,51 @@
+{{- $defaults := .Site.Data.procrastinato.defaults -}}
+{{- $opts := dict "targetPath" "main.js" "sourceMap" ( cond hugo.IsProduction "" "inline" ) -}}
+{{- $script := resources.Get "ts/main.ts" | js.Build $opts -}}
+{{- if hugo.IsProduction -}}
+  {{- $script = $script | minify | fingerprint -}}
+{{- end -}}
+{{- $loadKatex := or .Params.math .Site.Params.math -}}
+{{- $loadSa11y := and ( not hugo.IsProduction ) ( .Site.Params.sa11y.enabled | default $defaults.sa11y.enabled ) -}}
+<script
+  src="{{ $script.RelPermalink }}"
+  {{- if hugo.IsProduction }}integrity="{{ $script.Data.Integrity }}"{{ end }}
+  defer
+></script>
+{{- if $loadKatex -}}
+  {{- $katexVersion := .Site.Params.katex.version | default $defaults.katex.version -}}
+  {{- $katexIntegrity := .Site.Params.katex.integrity | default $defaults.katex.integrity -}}
+  {{- $autoRenderIntegrity := .Site.Params.katex.autoRenderIntegrity | default $defaults.katex.autoRenderIntegrity -}}
+  <script
+    src="https://cdn.jsdelivr.net/npm/katex@{{ $katexVersion | urlize }}/dist/katex.min.js"
+    integrity="{{ $katexIntegrity }}"
+    crossorigin="anonymous"
+    defer
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/katex@{{ $katexVersion | urlize }}/dist/contrib/auto-render.min.js"
+    integrity="{{ $autoRenderIntegrity }}"
+    crossorigin="anonymous"
+    onload="renderMathInElement(document.getElementById('main'));"
+    defer
+  ></script>
+{{- end -}}
+{{- if $loadSa11y -}}
+  {{- $version := .Site.Params.sa11y.version | default $defaults.sa11y.version -}}
+  <script
+    id="_sa11y"
+    crossorigin="anonymous"
+    src="https://cdn.jsdelivr.net/combine/gh/ryersondmp/sa11y@{{ $version }}/dist/js/lang/en.umd.js,gh/ryersondmp/sa11y@{{ $version }}/dist/js/sa11y.umd.min.js"
+    defer
+  ></script>
+
+  <script>
+    document.getElementById("_sa11y").onload = () => {
+      Sa11y.Lang.addI18n(Sa11yLangEn.strings);
+      const sa11y = new Sa11y.Sa11y({
+        checkRoot: "main",
+        contrastIgnore: '.sr-only, [role="menu"] *, .codeblock-meta *, .toc *, .admonition *{{ with .Site.Params.sa11y.ignore }}, {{ . }}{{ end }}',
+      });
+      console.debug("[sa11y] initialized");
+    }
+  </script>
+{{- end -}}

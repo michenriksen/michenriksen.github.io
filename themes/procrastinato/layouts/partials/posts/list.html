@@ -1,0 +1,19 @@
+{{- $minForColumns := .minForColumns | default 2 -}}
+{{- $forceColumns := .forceColumns | default false -}}
+{{- $useColumns := or $forceColumns ( ge ( len .pages ) $minForColumns ) -}}
+<section class="not-prose mb-10 md:mb-14 lg:mb-20">
+  {{ with .year }}<h2 aria-label="Year {{ . }}" class="text-xl mb-4 font-semibold text-neutral-900 dark:text-white/90">{{ . }}</h2>{{ end }}
+
+
+  {{ if $useColumns -}}
+    <ol class="gap-x-6 gap-y-10 grid grid-cols-1 md:grid-cols-2">
+  {{ else -}}
+    <ol>
+  {{ end -}}
+    {{ range .pages -}}
+      <li>
+        {{ .Render "summary" }}
+      </li>
+    {{ end -}}
+  </ol>
+</section>

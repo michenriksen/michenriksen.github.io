@@ -1,0 +1,38 @@
+{{- $defaults := .Site.Data.procrastinato.defaults -}}
+{{- $sassOpts := dict
+  "transpiler" "dartsass"
+  "targetPath" "css/style.css"
+  "enableSourceMap" (not hugo.IsProduction)
+-}}
+{{- $style := resources.Get "css/gen.scss" | toCSS $sassOpts -}}
+{{- if hugo.IsProduction -}}
+  {{- $style = $style | minify | fingerprint -}}
+{{- end -}}
+{{- $loadKatex := or .Params.math .Site.Params.math -}}
+{{- $loadSa11y := and ( not hugo.IsProduction ) ( .Site.Params.sa11y.enabled | default $defaults.sa11y.enabled ) -}}
+<link rel="preload" href="/fonts/Atkinson-Hyperlegible-Regular-102a.woff2" as="font" type="font/woff2" crossorigin />
+<link
+  rel="stylesheet"
+  href="{{ $style.RelPermalink }}"
+  media="screen"
+  {{- if hugo.IsProduction }}integrity="{{ $style.Data.Integrity }}"{{ end }}
+/>
+{{ if $loadKatex -}}
+  {{- $katexVersion := .Site.Params.katex.version | default $defaults.katex.version -}}
+  {{- $katexIntegrity := .Site.Params.katex.styleIntegrity | default $defaults.katex.styleIntegrity -}}
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/katex@{{ $katexVersion }}/dist/katex.min.css"
+    integrity="{{ $katexIntegrity }}"
+    crossorigin="anonymous"
+  />
+{{- end -}}
+{{ if $loadSa11y -}}
+  {{- $version := .Site.Params.sa11y.version | default $defaults.sa11y.version -}}
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/ryersondmp/sa11y@{{ $version }}/dist/css/sa11y.min.css"
+    media="screen"
+    crossorigin="anonymous"
+  />
+{{- end -}}

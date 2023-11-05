@@ -1,0 +1,29 @@
+{{- $defaults := .Site.Data.procrastinato.defaults -}}
+{{- $blockLLM := .Site.Params.crawlers.blockLLM | default $defaults.crawlers.blockLLM -}}
+{{- $blockCC := or $blockLLM ( .Site.Params.crawlers.blockCommonCrawl | default $defaults.crawlers.blockCommonCrawl ) -}}
+{{ if $blockCC -}}
+# Block Common Crawl - https://commoncrawl.org/ccbot
+User-agent: CCBot
+Disallow: /
+
+{{ end -}}
+
+{{ if $blockLLM -}}
+# Block ChatGPT - https://platform.openai.com/docs/gptbot
+User-agent: GPTBot
+Disallow: /
+
+# Block ChatGPT Plugins - https://platform.openai.com/docs/plugins/bot
+User-agent: ChatGPT-User
+Disallow: /
+
+# Block Google Bard and Vertex AI - https://developers.google.com/search/docs/crawling-indexing/overview-google-crawlers
+User-agent: Google-Extended
+Disallow: /
+
+{{ end -}}
+
+User-agent: *
+Allow: /
+
+Sitemap: {{ absURL "sitemap.xml" }}

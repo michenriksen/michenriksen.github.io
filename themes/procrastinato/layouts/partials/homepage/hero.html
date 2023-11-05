@@ -1,0 +1,40 @@
+{{- $defaults := .Site.Data.procrastinato.defaults -}}
+{{- $showSocials := and ( $.Site.Params.homepage.showSocials | default $defaults.homepage.showSocials) $.Site.Params.social -}}
+<div class="not-prose pb-4 flex flex-col sm:flex-row space-x-3 space-y-3 sm:space-y-0 items-center sm:items-start">
+  {{- with .Site.Params.homepage.title -}}
+    <div class="text-center sm:text-left sm:basis-3/4">
+      <h1 class="text-4xl mb-4 font-bold tracking-tight text-neutral-800 dark:text-white/90">{{ . | safeHTML }}</h1>
+
+      {{- with $.Site.Params.homepage.subtitle -}}
+        <p class="text-2xl mb-4 text-neutral-800 dark:text-white/90">{{ . | safeHTML }}</p>
+      {{- end -}}
+
+      {{- if $showSocials -}}
+        {{- $socials := $.Site.Data.socials -}}
+        <ul aria-label="Connect with me elsewhere" class="flex flex-row space-x-4 items-center">
+          {{ range $name, $url := $.Site.Params.social -}}
+            {{- $title := $name -}}
+            {{- with index $socials $name -}}{{ $title = .name }}{{- end -}}
+            <li class="no-flex">
+              <a
+                href="{{ $url }}"
+                title="{{ $title }}"
+                class="block pb-1 box-border border-b-2 border-transparent hover:border-sky-400 dark:hover:border-white/70"
+                >{{ partial "svg/socials.html" ( dict "name" $name ) }}</a
+              >
+            </li>
+          {{ end -}}
+        </ul>
+      {{- end -}}
+    </div>
+  {{- end -}}
+  {{- with .Site.Params.homepage.portrait }}
+    <div class="order-first sm:order-none sm:basis-1/4 sm:place-self-start">
+      <img
+        src="{{ . }}"
+        alt="{{ $.Site.Params.homepage.portraitAlt | default ( printf "Portrait of %s" $.Site.Author.name ) }}"
+        class="block w-32 sm:w-full mx-auto mb-10 rounded-md shadow-md"
+      />
+    </div>
+  {{- end -}}
+</div>

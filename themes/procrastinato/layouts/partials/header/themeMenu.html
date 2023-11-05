@@ -1,0 +1,51 @@
+<div class="flex items-center pl-3 relative">
+  <button
+    id="toggleThemeMenu"
+    type="button"
+    aria-expanded="false"
+    aria-label="Toggle theme menu"
+    class="hover:text-neutral-800 dark:hover:text-white/90"
+  >
+    <span aria-description="Currently using Light theme" class="inline-block dark:hidden">
+      {{ partial "svg/light.html" }}
+    </span>
+
+    <span aria-description="Currently using Dark theme" class="hidden dark:inline-block">
+      {{ partial "svg/dark.html" }}
+    </span>
+  </button>
+
+  <div
+    id="themeMenu"
+    class="hidden absolute top-10 right-0 bg-neutral-100 ring-1 ring-neutral-200 dark:ring-0 dark:bg-zinc-700 rounded-sm shadow-lg z-20"
+  >
+    <ul role="menu">
+      <li role="presentation" class="hover:bg-neutral-200 dark:hover:bg-white/10">
+        <button role="menuitem" id="lightThemeBtn" type="button" value="light" class="theme-menu-item">
+          <div>
+            {{ partial "svg/light.html" }}
+          </div>
+          <div>Light theme</div>
+        </button>
+      </li>
+
+      <li role="presentation" class="hover:bg-neutral-200 dark:hover:bg-white/10">
+        <button role="menuitem" id="darkThemeBtn" type="button" value="dark" class="theme-menu-item">
+          <div>
+            {{ partial "svg/dark.html" }}
+          </div>
+          <div>Dark theme</div>
+        </button>
+      </li>
+
+      <li role="presentation" class="hover:bg-neutral-200 dark:hover:bg-white/10">
+        <button role="menuitem" id="systemThemeBtn" type="button" value="system" class="theme-menu-item">
+          <div>
+            {{ partial "svg/system.html" }}
+          </div>
+          <div>System default</div>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>

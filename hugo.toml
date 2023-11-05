@@ -1,0 +1,119 @@
+baseURL = "https://michenriksen.com/"
+languageCode = "en-us"
+title = "Michael Henriksen"
+theme = "procrastinato"
+enableRobotsTXT = true
+titleCaseStyle = "firstupper"
+copyright = 'Copyright <span aria-hidden="true">&copy;</span> 2023, Michael Henriksen.'
+
+[frontmatter]
+  lastmod = ["lastmod", "modified"]
+
+[menu]
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    pageRef = "/about"
+    weight = 10
+
+  [[menu.main]]
+    identifier = "posts"
+    name = "Posts"
+    pageRef = "/posts"
+    weight = 10
+
+[params]
+  description = "Occasional posts from a security engineer on coding, side projects, life, and tech spelunking."
+
+  [params.author]
+    name = "Michael Henriksen"
+    email = "mchnrksn@gmail.com"
+
+  [params.layout]
+    centered = true
+
+  [params.homepage]
+    hero = true
+    title = "Hi, I'm Michael."
+    subtitle = "Here you'll find my occasional thoughts on engineering, life, and whatever holds my interest this week."
+    portrait = "/images/portrait.webp"
+    showSocials = true
+    showRecent = true
+    recentLimit = 4
+
+  [params.posts]
+    showReadingTime = true
+    showWordCount = true
+    fuzzyWordCount = true
+    showSummaries = true
+    showRelated = true
+    showTopics = true
+    showTags = true
+    showRSS = true
+
+  [params.social]
+    email = "mchnrksn@gmail.com"
+    github = "https://github.com/michenriksen"
+    gitlab = "https://gitlab.com/michenriksen"
+    mastodon = "https://chaos.social/@michenriksen"
+
+  [params.dates]
+    format = "Jan 02"
+    formatFull = "Jan 02, 2006"
+
+  [params.crawlers]
+    blockCommonCrawl = true
+    blockLLM = true
+
+[markup]
+  [markup.highlight]
+    lineNos = false
+    noClasses = false
+    tabWidth = 2
+    lineNumbersInTable = false
+
+  [markup.goldmark]
+    [markup.goldmark.parser.attribute]
+      block = true
+      title = true
+    [markup.goldmark.renderer]
+      unsafe = true
+      xhtml = true
+
+[taxonomies]
+  topic = "topics"
+  tag = "tags"
+  series = "series"
+
+[params.footer]
+    showSocials = false
+
+  [params.footer.creativeCommons]
+    enabled = true
+    license = "cc_by"
+    icons = true
+
+[privacy]
+  [privacy.vimeo]
+    disabled = false
+    simple = true
+
+  [privacy.twitter]
+    disabled = false
+    enableDNT = true
+    simple = true
+
+  [privacy.instagram]
+    disabled = false
+    simple = true
+
+  [privacy.youtube]
+    disabled = false
+    privacyEnhanced = true
+
+[services]
+  [services.instagram]
+    disableInlineCSS = true
+
+  [services.twitter]
+    disableInlineCSS = true

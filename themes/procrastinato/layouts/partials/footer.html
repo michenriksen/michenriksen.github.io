@@ -1,0 +1,109 @@
+{{- $defaults := .Site.Data.procrastinato.defaults -}}
+{{- $showCC := .Site.Params.footer.creativeCommons.enabled | default $defaults.footer.creativeCommons.enabled -}}
+{{- $showCCIcons := and $showCC ( .Site.Params.footer.creativeCommons.icons | default $defaults.footer.creativeCommons.icons ) -}}
+{{- $showCopyright := not ( eq .Site.Params.footer.creativeCommons.license "cc_0" ) -}}
+{{- $showSocials := and ( .Site.Params.footer.showSocials | default $defaults.footer.showSocials ) .Site.Params.social -}}
+<footer class="pt-4 lg:pt-8 pb-4 lg:pb-8 mt-4 lg:mt-8 text-sm border-neutral-300 dark:border-neutral-600 border-t">
+  {{ partial "hooks/footer/start.html" . }}
+
+
+  <div class="flex justify-between items-center mb-4 sm:hidden">
+    {{ if $showSocials -}}
+      {{- $socials := $.Site.Data.socials -}}
+      <div>
+        <ul aria-label="Connect with me elsewhere" class="flex flex-row space-x-3 items-center justify-between">
+          {{ range $name, $url := .Site.Params.social -}}
+            {{- $title := $name -}}
+            {{- with index $socials $name -}}{{ $title = .name }}{{- end -}}
+            <li class="no-flex">
+              <a
+                href="{{ $url }}"
+                title="{{ $title }}"
+                class="block pb-1 box-border border-b-2 border-transparent hover:border-sky-500 dark:hover:border-white/70"
+                >{{ partial "svg/socials.html" ( dict "name" $name ) }}</a
+              >
+            </li>
+          {{ end -}}
+        </ul>
+      </div>
+    {{ end -}}
+
+
+    <div>
+      <a href="#top">Back to top <span aria-hidden="true">&uarr;</span></a>
+    </div>
+  </div>
+
+  <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-between items-start">
+    <div class="flex flex-col space-y-4">
+      {{ if $showCopyright -}}
+        <div class="sm:basis-1/2">{{ .Site.Copyright | safeHTML }}</div>
+      {{ end -}}
+
+      {{ if .Site.Params.footer.showPoweredBy | default $defaults.footer.showPoweredBy -}}
+        <div>
+          Powered by <a href="https://gohugo.io/">Hugo</a> and the
+          <a
+            href="https://github.com/michenriksen/procrastinato"
+            title="Procrastinato v{{ .Site.Data.procrastinato.meta.version }}"
+            >Procrastinato theme</a
+          >.
+        </div>
+      {{ end -}}
+
+      {{ if $showCC -}}
+        {{- $license := index .Site.Data.licenses .Site.Params.footer.creativeCommons.license -}}
+
+
+        <div
+          xmlns:cc="https://creativecommons.org/ns#"
+          xmlns:dct="http://purl.org/dc/terms/"
+          about="https://creativecommons.org"
+        >
+          Content is available under
+          <a href="{{ $license.url }}" rel="license" class="inline-block" title="Creative Commons {{ $license.name }}"
+            >{{ $license.abbr }}</a
+          >
+          unless otherwise noted.
+          {{ if $showCCIcons -}}
+            <div
+              class="flex space-x-2 items-center mt-2 fill-neutral-400 hover:fill-neutral-600 dark:fill-white/70 dark:hover:fill-white/90 motion-safe:transition-colors"
+            >
+              <div class="flex-none cursor-help">{{ partial "svg/cc.html" }}</div>
+              {{ range $license.elements -}}
+                <div class="flex-none cursor-help">{{ partial ( printf "svg/cc-%s.html" . ) }}</div>
+              {{ end -}}
+            </div>
+          {{ end -}}
+        </div>
+      {{ end }}
+    </div>
+
+    <div class="flex flex-col space-y-4 hidden sm:block">
+      <div class="flex justify-end">
+        <a href="#top">Back to top <span aria-hidden="true">&uarr;</span></a>
+      </div>
+
+      {{ if $showSocials -}}
+        {{- $socials := $.Site.Data.socials -}}
+        <div class="flex justify-end">
+          <ul aria-label="Connect with me elsewhere" class="grid grid-cols-3 gap-x-3 gap-y-2">
+            {{ range $name, $url := $.Site.Params.social -}}
+              {{- $title := $name -}}
+              {{- with index $socials $name -}}{{ $title = .name }}{{- end -}}
+              <li class="no-flex">
+                <a
+                  href="{{ $url }}"
+                  title="{{ $title }}"
+                  class="block pb-1 box-border border-b-2 border-transparent hover:border-sky-500 dark:hover:border-white/70"
+                  >{{ partial "svg/socials.html" ( dict "name" $name ) }}</a
+                >
+              </li>
+            {{ end -}}
+          </ul>
+        </div>
+      {{ end -}}
+    </div>
+  </div>
+  {{ partial "hooks/footer/end.html" . }}
+</footer>

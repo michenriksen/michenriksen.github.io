@@ -1,0 +1,9 @@
+{{- $data := dict
+  "@type" "WebSite"
+  "url" .Site.BaseURL
+  "name" ( .Site.Title | plainify | htmlUnescape | title )
+-}}
+{{- with .Site.Params.homepage.subtitle -}}
+  {{ $data = merge $data ( dict "abstract" ( . | plainify | htmlUnescape ) ) }}
+{{- end -}}
+{{- return $data -}}

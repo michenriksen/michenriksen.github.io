@@ -1,0 +1,21 @@
+{{- $posts := first 10 .Pages -}}
+{{- $title := .Title | title -}}
+{{- if eq .Section "topics" -}}
+  {{- $title = printf "posts filed under %s" .Title | title -}}
+{{- else if eq .Section "tags" -}}
+  {{- $title = printf "posts tagged with #%s" .Title | title -}}
+{{- end -}}
+{{- $blog := dict
+  "@type" "Blog"
+  "@id" .Permalink
+  "mainEntityOfPage" .Permalink
+  "title" $title
+-}}
+{{- with $posts -}}
+  {{- $postSlice := slice -}}
+  {{- range $posts -}}
+    {{- $postSlice = $postSlice | append ( partial "jsonld/blogPost.html" . ) -}}
+  {{- end -}}
+  {{- $blog = merge $blog ( dict "blogPosts" $postSlice ) -}}
+{{- end -}}
+{{- return $blog -}}

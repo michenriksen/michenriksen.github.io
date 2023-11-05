@@ -1,0 +1,35 @@
+{{- $lang := or .Site.Language.LanguageCode .Site.Language.Lang -}}
+{{- $maxWidth := cond ( eq .Site.Params.layout.wide true ) "max-w-screen-lg" "max-w-screen-md" -}}
+{{- $defaults := .Site.Data.procrastinato.defaults -}}
+<!doctype html>
+<html lang="{{ $lang }}" dir="{{ .Site.Language.LanguageDirection | default "ltr" }}"{{ if eq .Site.Params.theme.force "dark" }} class="dark"{{ end }}>
+  <head>
+    {{ partial "head.html" . }}
+  </head>
+
+  <body
+    id="top"
+    class="bg-unresolvedproblem text-neutral-700 dark:bg-eerieblack dark:text-white/75 selection:bg-eerieblack selection:text-unresolvedproblem dark:selection:bg-unresolvedproblem dark:selection:text-eerieblack{{ if eq .Site.Params.theme.force "dark" }} dark{{ end }}"
+  >
+    {{ partial "hooks/body/start.html" . }}
+    {{ if .Site.Params.layout.centered | default $defaults.layout.centered -}}
+    <div class="{{ $maxWidth }} mx-auto px-4 md:px-8 lg:px-16 flex flex-col min-h-screen">
+    {{ else -}}
+    <div class="{{ $maxWidth }} mx-auto lg:mx-0 px-4 md:px-8 lg:px-16 flex flex-col min-h-screen">
+    {{ end -}}
+      {{ partial "header.html" . }}
+      <main class="container pt-8 lg:pt-16 max-w-none" id="main">
+        <article
+          class="prose prose-neutral max-w-none lg:prose-lg dark:prose-invert dark:text-white/75 dark:prose-headings:text-white/90 marker:text-neutral-600 dark:marker:text-white/70 relative"
+        >
+          {{ partial "hooks/content/start.html" . }}
+          {{- block "main" . }}{{- end }}
+          {{ partial "hooks/content/end.html" . }}
+        </article>
+      </main>
+      {{ partial "footer.html" . }}
+    </div>
+    {{ partial "scripts.html" . }}
+    {{ partial "hooks/body/end.html" . }}
+  </body>
+</html>

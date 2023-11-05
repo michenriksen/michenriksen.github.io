@@ -1,0 +1,12 @@
+{{- $defaults := .Site.Data.procrastinato.defaults -}}
+{{- $showCC := .Site.Params.footer.creativeCommons.enabled | default $defaults.footer.creativeCommons.enabled -}}
+{{- $showCopyright := and .Site.Copyright ( not ( eq .Site.Params.footer.creativeCommons.license "cc_0" ) ) -}}
+{{- $data := dict -}}
+{{- if $showCopyright -}}
+  {{ $data = merge $data ( dict "copyrightNotice" ( .Site.Copyright | plainify | htmlUnescape ) ) }}
+{{- end -}}
+{{- if $showCC -}}
+  {{- $license := index .Site.Data.licenses .Site.Params.footer.creativeCommons.license -}}
+  {{- $data = merge $data ( dict "license" $license.url ) -}}
+{{- end -}}
+{{- return $data -}}

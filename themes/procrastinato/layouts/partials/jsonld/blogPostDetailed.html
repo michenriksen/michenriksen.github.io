@@ -1,0 +1,23 @@
+{{- $defaults := .Site.Data.procrastinato.defaults -}}
+{{- $showTopics := and ( .Site.Params.posts.showTopics | default $defaults.posts.showTopics ) .Params.topics -}}
+{{- $showSummary := ( .Site.Params.posts.showSummaries | default $defaults.posts.showSummaries ) -}}
+{{- $post := partial "jsonld/blogPost" . -}}
+{{- $post = merge $post ( dict
+  "wordCount" .WordCount
+  "timeRequired" ( printf "PT%dM" .ReadingTime )
+  )
+-}}
+{{- if $showSummary -}}{{ $post = merge $post ( dict "abstract" ( .Summary | plainify | htmlUnescape ) ) }}{{- end -}}
+{{- if $showTopics -}}
+  {{- $topics := slice -}}
+  {{- range .GetTerms "topics" -}}
+    {{- $topics = $topics | append ( dict
+      "@type" "Thing"
+      "@id" .Permalink
+      "name" ( .LinkTitle | plainify | htmlUnescape )
+      )
+    -}}
+    {{- $post = merge $post ( dict "about" $topics ) -}}
+  {{- end -}}
+{{- end -}}
+{{- return $post -}}

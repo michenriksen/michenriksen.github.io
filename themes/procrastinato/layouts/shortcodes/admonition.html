@@ -1,0 +1,28 @@
+{{- $titleMap := dict "note" "Note" "info" "Info" "tip" "Tip" "warning" "Caution" "danger" "Danger" -}}
+{{- $type := .Get "type" | default "note" }}
+{{- $id := printf "%02d" .Ordinal }}
+<figure
+  role="note"
+  id="admonition-{{ $id }}"
+  aria-labelledby="admonition-caption-{{ $id }}"
+  class="admonition {{ $type }} {{ with .Get "class" }}.{{ end }}"
+>
+  <div class="flex space-x-2 items-center">
+    {{- with partial ( printf "svg/%s.html" $type ) }}
+      <div>{{ . | safeHTML }}</div>
+    {{ end -}}
+    <div>
+      <figcaption id="admonition-caption-{{ $id }}">
+        {{ if .Get "title" -}}
+          {{ .Get "title" }}
+        {{ else -}}
+          {{ index $titleMap $type }}
+        {{ end -}}
+      </figcaption>
+    </div>
+  </div>
+
+  <div class="prose lg:prose-lg marker:text-inherit pt-3">
+    {{ .Inner | markdownify }}
+  </div>
+</figure>

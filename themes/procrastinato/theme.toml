@@ -1,0 +1,21 @@
+name = "procrastinato"
+license = "MIT"
+licenselink = "https://github.com/michenriksen/procrastinato/blob/master/LICENSE"
+description = "Keeps it simple, loads quickly, ensures accessibility, prioritizes legibility, suitable for blogs with infrequent updates."
+homepage = "https://github.com/michenriksen/procrastinato"
+tags = [
+  "a11y",
+  "accessibility",
+  "blog",
+  "dark",
+  "legible",
+  "light",
+  "minimal",
+  "responsive",
+]
+features = []
+min_version = "0.117.0"
+
+[author]
+  name = "Michael Henriksen"
+  homepage = "https://michenriksen.com/"

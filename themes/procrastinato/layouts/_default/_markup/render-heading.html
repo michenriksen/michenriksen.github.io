@@ -1,0 +1,10 @@
+<h{{ .Level }} id="{{ .Anchor | safeURL }}" class="scroll-mt-8 relative">
+    {{ .Text | safeHTML }}
+    {{ with resources.Get "svg/link.svg" }}
+    <a href="#{{ $.Anchor | safeURL }}"
+        class="no-underline hidden md:inline-block opacity-50 hover:opacity-100 !text-inherit"
+        aria-hidden="true" title="Link to this heading" tabindex="-1">
+        {{ .Content | safeHTML }}
+    </a>
+    {{ end }}
+</h{{ .Level }}>

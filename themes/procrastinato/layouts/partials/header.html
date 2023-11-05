@@ -1,0 +1,96 @@
+{{- $defaults := .Site.Data.procrastinato.defaults -}}
+{{- $forcedTheme := strings.ContainsNonSpace ( .Site.Params.theme.force | default $defaults.theme.force ) -}}
+<header>
+  <a href="#main" class="skip-link sr-only focus:not-sr-only">Skip to main content</a>
+
+  {{ partial "hooks/header/start.html" . }}
+  <nav aria-label="Main">
+    <div class="mt-4 md:mt-8">
+      <div class="flex justify-between">
+        <!-- Brand -->
+        <div class="grow truncate pr-3">
+          <hgroup>
+            <h1
+              role="presentation"
+              class="font-semibold md:text-3xl text-2xl lowercase text-neutral-900 dark:text-white/90"
+            >
+              <a href="{{ .Site.Home.RelPermalink }}">{{ .Site.Title }}</a>
+            </h1>
+            {{- with .Site.Params.subtitle -}}
+              <small class="md:text-xl text-xl text-neutral-500 dark:text-white/50">
+                {{ . }}
+              </small>
+            {{- end -}}
+          </hgroup>
+        </div>
+
+        <!-- Primary menu -->
+        <ul role="menu" aria-label="Main menu" class="hidden md:flex items-center space-x-1 justify-end">
+          {{- $curPage := . -}}
+          {{- range .Site.Menus.main -}}
+            <li role="presentation">
+              <a
+                role="menuitem"
+                href="{{ .URL }}"
+                class="menu-item"
+                {{ if or ( $curPage.IsMenuCurrent .Menu . ) ( $curPage.HasMenuCurrent .Menu . ) -}}
+                  aria-current="page"
+                {{ end -}}
+                >{{ .Name }}</a
+              >
+            </li>
+          {{- end -}}
+        </ul>
+
+        <!-- Mobile hamburger menu toggle -->
+        <div class="md:hidden flex items-center">
+          <button
+            id="toggleMobileMenu"
+            type="button"
+            aria-controls="mobileMenu"
+            aria-expanded="false"
+            aria-label="Toggle main menu"
+            class="hover:text-neutral-800 dark:hover:text-white/90"
+          >
+            <svg
+              class="w-6 h-6"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+
+        {{ if not $forcedTheme -}}
+          {{ partial "header/themeMenu.html" . }}
+        {{ end -}}
+      </div>
+    </div>
+
+    <!-- Mobile menu toggled with hamburger menu -->
+    <div id="mobileMenu" class="hidden md:hidden dark:bg-white/10 shadow-lg">
+      {{- $currentPage := . -}}
+      <ul role="menu">
+        {{- range .Site.Menus.main -}}
+          <li role="presentation" class="border-t dark:border-white/20">
+            <a
+              role="menuitem"
+              href="{{ .URL }}"
+              class="menu-item mobile"
+              {{ if $curPage.IsMenuCurrent .Menu . -}}
+                aria-current="page"
+              {{ end -}}
+
+              >{{ .Name }}</a
+            >
+          </li>
+        {{- end -}}
+      </ul>
+    </div>
+  </nav>
+  {{ partial "hooks/header/end.html" . }}
+</header>

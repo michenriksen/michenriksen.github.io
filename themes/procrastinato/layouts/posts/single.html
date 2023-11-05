@@ -1,0 +1,95 @@
+{{ define "main" }}
+  {{- $defaults := .Site.Data.procrastinato.defaults -}}
+  {{- $dateFormat := .Site.Params.dates.formatFull | default $defaults.dates.formatFull -}}
+  {{- $showTopics := and ( .Site.Params.posts.showTopics | default $defaults.posts.showTopics ) ( .Param "topics" ) -}}
+  {{- $showTags := and ( .Site.Params.posts.showTags | default $defaults.posts.showTags ) ( .Param "tags" ) -}}
+  {{- $showRelated := and ( .Site.Params.posts.showRelated | default $defaults.posts.showRelated) ( .Site.RegularPages.Related . ) -}}
+  <header class="mb-10 text-neutral-600 dark:text-white/50 hover:text-inherit dark:hover:text-inherit">
+    <h1 class="!mb-2">{{ .Title }}</h1>
+    <div class="flex space-x-3 items-center">
+      <div>
+        <time aria-label="Published" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format $dateFormat }}</time>
+        {{ if lt ( .Date.AddDate 0 0 2 ) .Lastmod -}}
+          (updated <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Lastmod.Format $dateFormat }}</time>)
+        {{ end -}}
+      </div>
+      {{- if .Site.Params.posts.showWordCount | default $defaults.posts.showWordCount -}}
+        {{- $wordCount := cond ( .Site.Params.posts.fuzzyWordCount | default $defaults.posts.fuzzyWordCount) .FuzzyWordCount .WordCount -}}
+        <div aria-hidden="true" class="flex-none">&middot;</div>
+        <div>{{ $wordCount }} words</div>
+      {{- end -}}
+      {{- if .Site.Params.posts.showReadingTime | default $defaults.posts.showReadingTime -}}
+        <div aria-hidden="true" class="flex-none">&middot;</div>
+        <div>{{ .ReadingTime }} <abbr title="Minute" class="no-underline">min</abbr> read</div>
+      {{- end -}}
+    </div>
+  </header>
+
+  {{ if .Params.toc }}
+    <aside class="not-prose toc mb-10">
+      <details class="open:bg-neutral-200 dark:open:bg-white/10 open:px-4 open:py-6 rounded-sm" open>
+        <summary class="text-xl semi-bold cursor-pointer select-none mb-4">Table of Contents</summary>
+
+        {{ .TableOfContents }}
+      </details>
+    </aside>
+  {{ end }}
+
+  {{ .Content }}
+
+  {{- if or $showTopics $showTags $showRelated -}}
+    <aside
+      class="not-prose flex flex-col sm:flex-row space-y-8 sm:space-y-0 sm:space-x-8 border-t border-neutral-200 dark:border-neutral-700 pt-4 lg:pt-8 mt-20"
+    >
+      {{ if $showTopics -}}
+        <div>
+          <div class="flex space-x-1 items-center">
+            <div class="flex-none">{{ partial "svg/topic.html" }}</div>
+            <div>
+              <h3 class="font-semibold text-neutral-900 dark:text-white/90">{{ printf "filed under" | title }}</h3>
+            </div>
+          </div>
+
+          <ul class="leading-10 ml-6">
+            {{ range .GetTerms "topics" -}}
+              <li class="truncate"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+            {{ end -}}
+          </ul>
+        </div>
+      {{ end -}}
+
+      {{ if $showTags -}}
+        <div>
+          <div class="flex space-x-1 items-center">
+            <div class="flex-none">{{ partial "svg/tag.html" }}</div>
+            <div><h3 class="font-semibold text-neutral-900 dark:text-white/90">{{ printf "tagged" | title }}</h3></div>
+          </div>
+
+          <ul class="leading-10 ml-6">
+            {{ range .GetTerms "tags" -}}
+              <li class="truncate">
+                <a href="{{ .RelPermalink }}"><span aria-hidden="true">&num;</span>{{ .LinkTitle }}</a>
+              </li>
+            {{ end -}}
+          </ul>
+        </div>
+      {{ end -}}
+
+      {{ if $showRelated -}}
+        {{- $related := .Site.RegularPages.Related . | first 3 -}}
+        <div>
+          <div class="flex space-x-1 items-center">
+            <div class="flex-none">{{ partial "svg/post.html" }}</div>
+            <div><h3 class="font-semibold text-neutral-900 dark:text-white/90">{{ printf "related" | title }}</h3></div>
+          </div>
+
+          <ul class="leading-10 ml-6">
+            {{ range $related }}
+              <li class="truncate"><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+            {{ end }}
+          </ul>
+        </div>
+      {{ end -}}
+    </aside>
+  {{- end -}}
+{{ end }}
