@@ -24,6 +24,7 @@ copyright = 'Copyright <span aria-hidden="true">&copy;</span> 2023, Michael Henr
 
 [params]
   description = "Occasional posts from a security engineer on coding, side projects, life, and tech spelunking."
+  images = ["/images/portrait.webp"]
 
   [params.author]
     name = "Michael Henriksen"
