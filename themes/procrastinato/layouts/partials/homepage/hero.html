@@ -17,6 +17,7 @@
             {{- with index $socials $name -}}{{ $title = .name }}{{- end -}}
             <li class="no-flex">
               <a
+                {{ if eq $name "mastodon" }}rel="me"{{ end }}
                 href="{{ $url }}"
                 title="{{ $title }}"
                 class="block pb-1 box-border border-b-2 border-transparent hover:border-sky-400 dark:hover:border-white/70"
