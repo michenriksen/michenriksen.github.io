@@ -1,5 +1,5 @@
 {{- $description := or .Params.description .Site.Params.description }}
-{{- $title := or .Title .Site.Title -}}
+{{- $title := cond .IsHome .Site.Title .Title -}}
 {{- $author := partial "jsonld/author.html" . -}}
 {{- $license := partial "jsonld/license.html" . -}}
 {{- $data := dict
@@ -21,7 +21,7 @@
   )
   "accessibilityHazard" ( slice "none" )
   "url" .Permalink
-  "title" ( $title | plainify | htmlUnescape | title )
+  "headline" ( $title | plainify | htmlUnescape | title )
   "description" ( $description | plainify | htmlUnescape )
   "author" $author
 -}}
