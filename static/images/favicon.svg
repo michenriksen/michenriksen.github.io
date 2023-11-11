@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="1000" height="1000"><style>
+    #light-icon {
+      display: inline;
+    }
+    #dark-icon {
+      display: none;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #light-icon {
+        display: none;
+      }
+      #dark-icon {
+        display: inline;
+      }
+    }
+  </style><g id="light-icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="1000" height="1000"><rect width="1000" height="1000" rx="200" ry="200" fill="#f3f2ed"></rect><g transform="matrix(18.40942562592047,0,0,18.40942562592047,99.99998884283639,303.2400636918036)"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="43.456" height="21.376"><svg width="43.456" height="21.376" viewBox="0 0 43.456 21.376" xmlns="http://www.w3.org/2000/svg"><g id="svgGroup" stroke-linecap="round" fill-rule="evenodd" font-size="9pt" stroke="#262626" stroke-width="0.25mm" fill="#262626" style="stroke:#262626;stroke-width:0.25mm;fill:#262626"><path d="M 3.008 21.376 L 0 21.376 L 0 0 L 4.992 0 L 10.688 17.472 L 16.384 0 L 21.376 0 L 21.376 21.376 L 18.368 21.376 L 18.368 3.136 L 12.192 21.376 L 9.216 21.376 L 3.008 3.136 L 3.008 21.376 Z M 29.248 21.376 L 26.24 21.376 L 26.24 0 L 29.248 0 L 29.248 9.088 L 40.448 9.088 L 40.448 0 L 43.456 0 L 43.456 21.376 L 40.448 21.376 L 40.448 11.68 L 29.248 11.68 L 29.248 21.376 Z" vector-effect="non-scaling-stroke"></path></g></svg></svg></g></svg></g><g id="dark-icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="1000" height="1000"><rect width="1000" height="1000" rx="200" ry="200" fill="#1b1b1b"></rect><g transform="matrix(18.40942562592047,0,0,18.40942562592047,99.99998884283639,303.2400636918036)"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="43.456" height="21.376"><svg width="43.456" height="21.376" viewBox="0 0 43.456 21.376" xmlns="http://www.w3.org/2000/svg"><g id="svgGroup" stroke-linecap="round" fill-rule="evenodd" font-size="9pt" stroke="#e8e8e8" stroke-width="0.25mm" fill="#e8e8e8" style="stroke:#e8e8e8;stroke-width:0.25mm;fill:#e8e8e8"><path d="M 3.008 21.376 L 0 21.376 L 0 0 L 4.992 0 L 10.688 17.472 L 16.384 0 L 21.376 0 L 21.376 21.376 L 18.368 21.376 L 18.368 3.136 L 12.192 21.376 L 9.216 21.376 L 3.008 3.136 L 3.008 21.376 Z M 29.248 21.376 L 26.24 21.376 L 26.24 0 L 29.248 0 L 29.248 9.088 L 40.448 9.088 L 40.448 0 L 43.456 0 L 43.456 21.376 L 40.448 21.376 L 40.448 11.68 L 29.248 11.68 L 29.248 21.376 Z" vector-effect="non-scaling-stroke"></path></g></svg></svg></g></svg></g></svg>
