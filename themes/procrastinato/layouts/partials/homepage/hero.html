@@ -32,7 +32,7 @@
     <div class="order-first sm:order-none sm:basis-1/4 sm:place-self-start">
       <img
         src="{{ . }}"
-        alt="{{ $.Site.Params.homepage.portraitAlt | default ( printf "Portrait of %s" $.Site.Author.name ) }}"
+        alt="{{ $.Site.Params.homepage.portraitAlt | default ( printf "Portrait of %s" $.Site.Params.author.name ) }}"
         class="block w-32 sm:w-full mx-auto mb-10 rounded-md shadow-md"
       />
     </div>
