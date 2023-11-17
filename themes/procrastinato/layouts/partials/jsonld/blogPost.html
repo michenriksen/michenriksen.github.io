@@ -1,6 +1,9 @@
 {{- $defaults := .Site.Data.procrastinato.defaults -}}
 {{- $showTags := and ( .Site.Params.posts.showTags | default $defaults.posts.showTags ) .Params.tags -}}
 {{- $title := .Title | plainify | htmlUnescape | title -}}
+{{- $images := .Resources.ByType "image" -}}
+{{- $featured := $images.GetMatch "*feature*" -}}
+{{- if not $featured }}{{ $featured = $images.GetMatch "{*cover*,*thumbnail*}" }}{{ end -}}
 {{- $post := dict
   "@type" "BlogPosting"
   "@id" .Permalink
@@ -12,5 +15,21 @@
 {{- if $showTags -}}{{ $post = merge $post ( dict "keywords" ( sort .Params.tags ) ) }}{{- end -}}
 {{- if lt ( .Date.AddDate 0 0 2 ) .Lastmod -}}
   {{- $post = merge $post ( dict "dateModified" ( .Lastmod.Format "2006-01-02" ) ) -}}
+{{- end -}}
+{{- with $featured -}}
+  {{- $image := dict
+    "@type" "ImageObject"
+    "@id" .Permalink
+    "contentUrl" .Permalink
+    "height" .Height
+    "width" .Width
+  -}}
+  {{- with .Title -}}
+    {{- $image = merge $image ( dict "name" . ) -}}
+  {{- end -}}
+  {{- with .Params.alt -}}
+    {{- $image = merge $image ( dict "description" . ) -}}
+  {{- end -}}
+  {{- $post = merge $post ( dict "image" $image ) -}}
 {{- end -}}
 {{- return $post -}}
