@@ -4,6 +4,9 @@
   {{- $showTopics := and ( .Site.Params.posts.showTopics | default $defaults.posts.showTopics ) ( .Param "topics" ) -}}
   {{- $showTags := and ( .Site.Params.posts.showTags | default $defaults.posts.showTags ) ( .Param "tags" ) -}}
   {{- $showRelated := and ( .Site.Params.posts.showRelated | default $defaults.posts.showRelated) ( .Site.RegularPages.Related . ) -}}
+  {{- $images := .Resources.ByType "image" -}}
+  {{- $featured := $images.GetMatch "*feature*" -}}
+  {{- if not $featured }}{{ $featured = $images.GetMatch "{*cover*,*thumbnail*}" }}{{ end -}}
   <header class="mb-10 text-neutral-600 dark:text-white/50 hover:text-inherit dark:hover:text-inherit">
     <h1 class="!mb-2">{{ .Title }}</h1>
     <div class="flex space-x-3 items-center">
@@ -25,7 +28,7 @@
     </div>
   </header>
 
-  {{ with .Resources.Get "header" }}
+  {{ with $featured }}
     <figure>
       <img src="{{ .RelPermalink }}" class="w-full aspect-video rounded-md drop-shadow-lg" alt="{{ or .Params.alt .Title }}" loading="lazy" />
       {{ with .Title }}
