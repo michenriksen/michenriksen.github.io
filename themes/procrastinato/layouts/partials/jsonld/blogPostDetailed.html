@@ -1,6 +1,7 @@
 {{- $defaults := .Site.Data.procrastinato.defaults -}}
 {{- $showTopics := and ( .Site.Params.posts.showTopics | default $defaults.posts.showTopics ) .Params.topics -}}
 {{- $showSummary := ( .Site.Params.posts.showSummaries | default $defaults.posts.showSummaries ) -}}
+{{- $topicsMeta := .Site.Data.topicsMeta -}}
 {{- $post := partial "jsonld/blogPost" . -}}
 {{- $post = merge $post ( dict
   "wordCount" .WordCount
@@ -9,15 +10,17 @@
 -}}
 {{- if $showSummary -}}{{ $post = merge $post ( dict "abstract" ( .Summary | plainify | htmlUnescape ) ) }}{{- end -}}
 {{- if $showTopics -}}
-  {{- $topics := slice -}}
-  {{- range .GetTerms "topics" -}}
-    {{- $topics = $topics | append ( dict
+  {{- $topics := uniq ( sort ( .GetTerms "topics" | append ( .GetTerms "tags" ) ) "LinkTitle" ) -}}
+  {{- $abouts := slice -}}
+  {{- range $topics -}}
+    {{- $topic :=  dict
       "@type" "Thing"
       "@id" .Permalink
-      "name" ( .LinkTitle | plainify | htmlUnescape )
-      )
+      "name" ( .LinkTitle | plainify | title )
     -}}
-    {{- $post = merge $post ( dict "about" $topics ) -}}
+    {{- with index $topicsMeta .LinkTitle -}}{{ $topic = merge $topic . }}{{- end -}}
+    {{- $abouts = $abouts | append $topic -}}
   {{- end -}}
+  {{- $post = merge $post ( dict "about" $abouts ) -}}
 {{- end -}}
 {{- return $post -}}

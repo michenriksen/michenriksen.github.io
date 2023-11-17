@@ -1,16 +1,15 @@
-[golang]
-  "@type" = "ComputerLanguage"
-  name = "Go"
-  alternateName = "Golang"
-  description = "Go is an open source programming language that makes it simple to build secure, scalable systems."
+[procrastinato]
+  name = "Procrastinato"
+  description = "A theme for the Hugo static site generator."
   sameAs = [
-    "https://go.dev/",
-    "https://en.wikipedia.org/wiki/Go_(programming_language)",
-    "https://www.wikidata.org/wiki/Q37227"
+    "https://github.com/michenriksen/procrastinato"
   ]
-[programming]
-  name = "computer programming"
+[hugo]
+  "@type" = "SoftwareApplication"
+  name = "Hugo"
+  description = "The world’s fastest framework for building websites."
   sameAs = [
-    "https://en.wikipedia.org/wiki/Computer_programming",
-    "https://www.wikidata.org/wiki/Q80006"
+    "https://en.wikipedia.org/wiki/Hugo_(software)",
+    "https://www.wikidata.org/wiki/Q24415127",
+    "https://gohugo.io"
   ]
