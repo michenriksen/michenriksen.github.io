@@ -108,6 +108,10 @@
         @apply relative top-px;
       }
     }
+
+    img {
+      @apply dark:brightness-75 dark:contrast-125;
+    }
   }
 
   footer {
