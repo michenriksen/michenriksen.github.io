@@ -1,8 +1,8 @@
 {{- $author := dict
   "@type" "Person"
-  "name" .Site.Author.name
+  "name" .Site.Params.author.name
 -}}
-{{- with .Site.Author.email -}}{{ $author = merge $author ( dict "email" . ) }}{{- end -}}
+{{- with .Site.Params.author.email -}}{{ $author = merge $author ( dict "email" . ) }}{{- end -}}
 {{- with .Site.Params.homepage.portrait -}}
   {{ $author = merge $author ( dict "image" ( absURL . ) ) -}}
 {{- end -}}
