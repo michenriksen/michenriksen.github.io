@@ -25,6 +25,17 @@
     </div>
   </header>
 
+  {{ with .Resources.Get "header" }}
+    <figure>
+      <img src="{{ .RelPermalink }}" class="w-full aspect-video rounded-md drop-shadow-lg" alt="{{ or .Params.alt .Title }}" loading="lazy" />
+      {{ with .Title }}
+        <figcaption class="text-neutral-600 dark:text-white/50 text-sm text-center">
+          {{ . }}
+        </figcaption>
+      {{ end }}
+    </figure>
+  {{ end }}
+
   {{ if .Params.toc }}
     <aside class="not-prose toc mb-10">
       <details class="open:bg-neutral-200 dark:open:bg-white/10 open:px-4 open:py-6 rounded-sm" open>
