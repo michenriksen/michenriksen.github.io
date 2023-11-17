@@ -65,7 +65,7 @@
           </div>
 
           <ul class="leading-10 ml-6">
-            {{ range .GetTerms "topics" -}}
+            {{ range sort ( .GetTerms "topics" ) "LinkTitle" -}}
               <li class="truncate"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
             {{ end -}}
           </ul>
@@ -80,7 +80,7 @@
           </div>
 
           <ul class="leading-10 ml-6">
-            {{ range .GetTerms "tags" -}}
+            {{ range sort (.GetTerms "tags") "LinkTitle" -}}
               <li class="truncate">
                 <a href="{{ .RelPermalink }}"><span aria-hidden="true">&num;</span>{{ .LinkTitle }}</a>
               </li>
