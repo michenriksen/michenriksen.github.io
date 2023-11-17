@@ -44,7 +44,7 @@ copyright = 'Copyright <span aria-hidden="true">&copy;</span> 2023, Michael Henr
 
   [params.posts]
     showReadingTime = true
-    showWordCount = true
+    showWordCount = false
     fuzzyWordCount = true
     showSummaries = true
     showRelated = true
