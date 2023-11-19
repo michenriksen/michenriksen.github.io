@@ -1,0 +1,78 @@
+---
+golang:
+  "@type": ComputerLanguage
+  name: Go
+  alternateName: Golang
+  description: >-
+    Go is an open source programming language that makes it simple to build secure, scalable systems.
+  url: "https://go.dev/"
+  sameAs:
+    - "https://en.wikipedia.org/wiki/Go_(programming_language)"
+    - "https://www.wikidata.org/wiki/Q37227"
+  hasPart:
+    "@type": SoftwareSourceCode
+    codeRepository: "https://github.com/golang/go"
+    codeSampleType: full
+    programmingLanguage: Go
+    license: "https://github.com/golang/go/blob/master/LICENSE"
+programming:
+  name: Computer programming
+  description: >-
+    The process of designing and building an executable computer program to accomplish a specific computing
+    result or to perform a specific task.
+  sameAs:
+    - "https://en.wikipedia.org/wiki/Computer_programming"
+    - "https://www.wikidata.org/wiki/Q80006"
+tmux:
+  "@type": SoftwareApplication
+  name: tmux
+  description: >-
+    An open-source terminal multiplexer for Unix-like operating systems, allowing multiple simultaneous
+    terminal sessions in a single window.
+  url: "https://tmux.github.io/"
+  sameAs:
+    - "https://en.wikipedia.org/wiki/Tmux"
+    - "https://www.wikidata.org/wiki/Q1935361"
+  hasPart:
+    "@type": SoftwareSourceCode
+    codeRepository: "https://github.com/tmux/tmux"
+    codeSampleType: full
+    programmingLanguage: C
+alacritty:
+  "@type": SoftwareApplication
+  name: Alacritty
+  description: >-
+    An open-source, cross-platform, GPU-accelerated terminal emulator, focused on performance and simplicity.
+  url: "https://alacritty.org/"
+  sameAs:
+    - "https://en.wikipedia.org/wiki/Alacritty"
+    - "https://www.wikidata.org/wiki/Q94997987"
+  hasPart:
+    "@type": SoftwareSourceCode
+    codeRepository: "https://github.com/alacritty/alacritty"
+    codeSampleType: full
+    programmingLanguage: Rust
+    license:
+      - "https://github.com/alacritty/alacritty/blob/master/LICENSE-APACHE"
+      - "https://github.com/alacritty/alacritty/blob/master/LICENSE-MIT"
+neovim:
+  "@type": SoftwareApplication
+  name: Neovim
+  description: >-
+    An open-source text editor based on Vim, focused on improving extensibility and maintainability.
+  url: "https://neovim.io/"
+  sameAs:
+    - "https://en.wikipedia.org/wiki/Neovim"
+    - "https://www.wikidata.org/wiki/Q28975246"
+  hasPart:
+    "@type": SoftwareSourceCode
+    codeRepository: "https://github.com/neovim/neovim"
+    codeSampleType: full
+    programmingLanguage:
+      - Vim Script
+      - C
+      - Lua
+    license: "https://github.com/neovim/neovim/blob/master/LICENSE.txt"
+dotfiles:
+  name: dotfiles
+  description: A collection of configuration files for various programs.
