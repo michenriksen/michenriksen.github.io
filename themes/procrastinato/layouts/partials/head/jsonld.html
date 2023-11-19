@@ -8,6 +8,9 @@
 {{- else if eq .RelPermalink "/about/" -}}
   {{- $data = merge $data ( dict "@type" "AboutPage" ) -}}
 {{- end -}}
+{{- with .Resources.GetMatch "*.jsonld" -}}
+  {{- $data = merge $data ( unmarshal .Content ) -}}
+{{- end -}}
 <script type="application/ld+json">
   {{ jsonify (dict "indent" "  ") $data | safeJS }}
 </script>
