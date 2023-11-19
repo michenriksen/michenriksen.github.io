@@ -2,6 +2,7 @@
   {{- $defaults := .Site.Data.procrastinato.defaults -}}
   {{- $rss := .OutputFormats.Get "rss" -}}
   {{- $showRSS := and (.Site.Params.posts.showRSS | default $defaults.posts.showRSS ) $rss -}}
+  {{- $topicMeta := index .Site.Data.topicsMeta .Title -}}
   <div class="not-prose">
     <div class="flex items-center space-x-2 pb-7">
       <div>
@@ -30,6 +31,30 @@
       </div>
     </div>
   </div>
+
+  {{ with $topicMeta -}}
+    <dl
+      role="note"
+      id="admonition-topic"
+      aria-labelledby="admonition-caption-topic"
+      class="admonition info"
+    >
+      <div class="flex space-x-2 items-center">
+        <div>{{ partial "svg/info.html" }}</div>
+        <dt class="font-semibold italic" id="admonition-caption-topic">{{ .name | title }}</dt>
+      </div>
+
+      <div class="prose lg:prose-lg marker:text-inherit pt-3">
+        <dd class="italic">
+          {{ .description }}
+          {{ with .url -}}
+            {{- $url := urls.Parse . -}}
+            <br /><a href="{{ . }}">{{ $url.Hostname }}</a>
+          {{ end -}}
+        </dd>
+      </div>
+    </dl>
+  {{ end -}}
 
   {{ .Content }}
 
