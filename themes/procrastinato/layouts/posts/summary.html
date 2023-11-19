@@ -10,7 +10,7 @@
     </h3>
     <div class="flex items-center space-x-2 text-neutral-700 dark:text-white/70">
       <div><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format $dateFormat }}</time></div>
-      {{- if .Site.Params.posts.showWordCount | default $defaults.posts.showWordCound -}}
+      {{- if .Site.Params.posts.showWordCount | default $defaults.posts.showWordCount -}}
         {{- $wordCount := cond ( .Site.Params.posts.fuzzyWordCount | default $defaults.posts.fuzzyWordCount ) .FuzzyWordCount .WordCount -}}
         <div aria-hidden="true" class="flex-none">&middot;</div>
         <div>{{ $wordCount }} words</div>
