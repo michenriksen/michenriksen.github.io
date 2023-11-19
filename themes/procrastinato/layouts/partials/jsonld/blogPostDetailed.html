@@ -8,7 +8,10 @@
   "timeRequired" ( printf "PT%dM" .ReadingTime )
   )
 -}}
-{{- if $showSummary -}}{{ $post = merge $post ( dict "abstract" ( .Summary | plainify | htmlUnescape ) ) }}{{- end -}}
+{{- if $showSummary -}}
+  {{- $summary := trim ( .Summary | plainify | htmlUnescape ) "\n\r" -}}
+  {{- $post = merge $post ( dict "abstract" $summary ) -}}
+{{- end -}}
 {{- if $showTopics -}}
   {{- $topics := uniq ( sort ( .GetTerms "topics" | append ( .GetTerms "tags" ) ) "LinkTitle" ) -}}
   {{- $abouts := slice -}}

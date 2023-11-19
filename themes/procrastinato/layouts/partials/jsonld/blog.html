@@ -5,12 +5,18 @@
 {{- else if eq .Section "tags" -}}
   {{- $title = printf "posts tagged with #%s" .Title | title -}}
 {{- end -}}
+{{- $topicMeta := index .Site.Data.topicsMeta .Title -}}
 {{- $blog := dict
   "@type" "Blog"
   "@id" .Permalink
   "mainEntityOfPage" .Permalink
-  "title" $title
+  "headline" $title
 -}}
+{{- with $topicMeta -}}
+  {{- $about := merge ( dict "@type" "Thing" ) $topicMeta -}}
+  {{- $about = merge $about $topicMeta -}}
+  {{- $blog = merge $blog ( dict "about" $about ) -}}
+{{- end -}}
 {{- with $posts -}}
   {{- $postSlice := slice -}}
   {{- range $posts -}}
