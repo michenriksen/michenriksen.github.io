@@ -1566,6 +1566,10 @@ mark {
   scroll-margin-top: 2rem;
 }
 
+.grid-flow-row {
+  grid-auto-flow: row;
+}
+
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
@@ -1600,6 +1604,10 @@ mark {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.justify-stretch {
+  justify-content: stretch;
 }
 
 .gap-x-3 {
@@ -3251,6 +3259,10 @@ mark {
 
   .sm\:basis-3\/4 {
     flex-basis: 75%;
+  }
+
+  .sm\:grid-flow-col {
+    grid-auto-flow: column;
   }
 
   .sm\:flex-row {

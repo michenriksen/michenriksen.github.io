@@ -53,18 +53,12 @@
 
   {{- if or $showTopics $showTags $showRelated -}}
     <aside
-      class="not-prose flex flex-col sm:flex-row space-y-8 sm:space-y-0 sm:space-x-8 border-t border-neutral-200 dark:border-neutral-700 pt-4 lg:pt-8 mt-20"
+      class="not-prose grid sm:grid-flow-col justify-stretch grid-flow-row space-y-8 sm:space-y-0 sm:space-x-4 border-t border-neutral-200 dark:border-neutral-700 pt-4 lg:pt-8 mt-20"
     >
       {{ if $showTopics -}}
         <div>
-          <div class="flex space-x-1 items-center">
-            <div class="flex-none">{{ partial "svg/topic.html" }}</div>
-            <div>
-              <h3 class="font-semibold text-neutral-900 dark:text-white/90">{{ printf "filed under" | title }}</h3>
-            </div>
-          </div>
-
-          <ul class="leading-10 ml-6">
+          <h3 class="font-semibold text-neutral-900 dark:text-white/90">{{ printf "filed under" | title }}</h3>
+          <ul class="leading-10">
             {{ range sort ( .GetTerms "topics" ) "LinkTitle" -}}
               <li class="truncate"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
             {{ end -}}
@@ -74,12 +68,8 @@
 
       {{ if $showTags -}}
         <div>
-          <div class="flex space-x-1 items-center">
-            <div class="flex-none">{{ partial "svg/tag.html" }}</div>
-            <div><h3 class="font-semibold text-neutral-900 dark:text-white/90">{{ printf "tagged" | title }}</h3></div>
-          </div>
-
-          <ul class="leading-10 ml-6">
+          <h3 class="font-semibold text-neutral-900 dark:text-white/90">{{ printf "tagged" | title }}</h3>
+          <ul class="leading-10">
             {{ range sort (.GetTerms "tags") "LinkTitle" -}}
               <li class="truncate">
                 <a href="{{ .RelPermalink }}"><span aria-hidden="true">&num;</span>{{ .LinkTitle }}</a>
@@ -92,11 +82,7 @@
       {{ if $showRelated -}}
         {{- $related := .Site.RegularPages.Related . | first 3 -}}
         <div>
-          <div class="flex space-x-1 items-center">
-            <div class="flex-none">{{ partial "svg/post.html" }}</div>
-            <div><h3 class="font-semibold text-neutral-900 dark:text-white/90">{{ printf "related" | title }}</h3></div>
-          </div>
-
+          <h3 class="font-semibold text-neutral-900 dark:text-white/90">{{ printf "related" | title }}</h3>
           <ul class="leading-10 ml-6">
             {{ range $related }}
               <li class="truncate"><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
