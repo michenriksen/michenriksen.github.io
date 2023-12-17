@@ -1,70 +1,11 @@
 ---
 default: true
+MD002: false
 MD003:
   style: "atx"
 MD004:
   style: "dash"
-MD002: false
 MD013:
   line_length: 120
-MD014: false
-MD044:
-  names:
-    - API
-    - Allacritty
-    - Bash
-    - CLI
-    - ChatGPT
-    - DevOps
-    - Docker
-    - Facebook
-    - GDK
-    - Geo
-    - Git
-    - GitHub
-    - GitLab
-    - Gitleaks
-    - Gmail
-    - Google
-    - Gzip
-    - Hugo
-    - ID
-    - JSON
-    - JavaScript
-    - Kubernetes
-    - LDAP
-    - LLM
-    - Let's Encrypt
-    - Markdown
-    - Mastodon
-    - Microsoft
-    - NGINX
-    - Neovim
-    - OAuth
-    - OAuth 2
-    - OS
-    - OpenID
-    - OpenShift
-    - PostgreSQL
-    - Procrastinato
-    - Prometheus
-    - Python
-    - Redis
-    - Ruby
-    - SAML
-    - SMTP
-    - SSH
-    - Slack
-    - TOML
-    - Twitter
-    - TypeScript
-    - URL
-    - UUID
-    - YAML
-    - Zsh
-    - command-line
-    - macOS
-    - markdownlint
-    - tmux
   code_blocks: false
-  html_elements: false
+MD014: false

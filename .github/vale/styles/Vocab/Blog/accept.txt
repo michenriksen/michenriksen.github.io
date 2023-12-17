@@ -1,0 +1,8 @@
+(?i)not
+Alacritty
+Neovim
+debounces?
+gokiburi
+terminfo
+tmux
+watchexec

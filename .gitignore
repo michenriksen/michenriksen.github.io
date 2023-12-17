@@ -99,3 +99,7 @@ tags
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,linux,vim,visualstudiocode,hugo
+
+/.github/vale/styles/Google
+/.github/vale/styles/proselint
+
