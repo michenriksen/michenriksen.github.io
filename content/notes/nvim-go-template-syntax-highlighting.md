@@ -1,5 +1,5 @@
 ---
-title: highlight syntax in Go templates
+title: Highlight syntax in Go templates
 date: 2024-10-27
 categories: [Neovim, Golang]
 ---
@@ -77,6 +77,11 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   end,
 })
 ```
+
+{{< admonition >}}
+The highlighting of Go template code doesn't always work as the main language highlighting takes precedence under some
+circumstances. I would love to know if anyone has a fix for this!
+{{< /admonition >}}
 
 [template]: https://pkg.go.dev/text/template
 [autocmd]: https://neovim.io/doc/user/autocmd.html
