@@ -1,10 +1,18 @@
 baseURL = "https://michenriksen.com/"
 languageCode = "en-us"
 title = "Michael Henriksen"
-theme = "procrastinato"
 enableRobotsTXT = true
 titleCaseStyle = "firstupper"
-copyright = 'Copyright <span aria-hidden="true">&copy;</span> 2023, Michael Henriksen.'
+copyright = 'Michael Henriksen'
+
+[module]
+  [[module.imports]]
+    path = "github.com/michenriksen/hugo-theme-til"
+
+[outputs]
+  home = ['html']
+  section = ['html', 'rss', 'json']
+  page = ['html']
 
 [frontmatter]
   lastmod = ["lastmod", "modified"]
@@ -20,7 +28,29 @@ copyright = 'Copyright <span aria-hidden="true">&copy;</span> 2023, Michael Henr
     identifier = "posts"
     name = "Posts"
     pageRef = "/posts"
-    weight = 10
+    weight = 20
+
+  [[menu.main]]
+    identifier = "notes"
+    name = "Notes"
+    pageRef = "/notes"
+    weight = 30
+
+  [[menu.main]]
+    identifier = "graph"
+    name = "Graph"
+    pageRef = "/graph"
+    weight = 40
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+    style = 'tokyonight-night'
+
+  [markup.goldmark]
+    [markup.goldmark.parser]
+      [markup.goldmark.parser.attribute]
+        block = true
 
 [params]
   description = "Occasional posts from a security engineer on coding, side projects, life, and tech spelunking."
@@ -29,69 +59,12 @@ copyright = 'Copyright <span aria-hidden="true">&copy;</span> 2023, Michael Henr
     name = "Michael Henriksen"
     email = "mchnrksn@gmail.com"
 
-  [params.layout]
-    centered = true
+  [params.footer]
+    creativeCommonsLicense = 'by_sa'
 
-  [params.homepage]
-    hero = true
-    title = "Hi, I'm Michael."
-    subtitle = "Here you'll find my occasional thoughts on engineering, life, and whatever holds my interest this week."
-    portrait = "/images/portrait.webp"
-    showSocials = true
-    showRecent = true
-    recentLimit = 4
-
-  [params.posts]
-    showReadingTime = true
-    showWordCount = false
-    fuzzyWordCount = true
-    showSummaries = true
-    showRelated = true
-    showTopics = true
-    showTags = true
-    showRSS = true
-
-  [params.social]
-    email = "mailto:mchnrksn@gmail.com"
-    github = "https://github.com/michenriksen"
-    gitlab = "https://gitlab.com/michenriksen"
-    mastodon = "https://chaos.social/@michenriksen"
-
-  [params.dates]
-    format = "Jan 02"
-    formatFull = "Jan 02, 2006"
-
-  [params.crawlers]
-    blockCommonCrawl = true
-    blockLLM = true
-
-[markup]
-  [markup.highlight]
-    lineNos = false
-    noClasses = false
-    tabWidth = 2
-    lineNumbersInTable = false
-
-  [markup.goldmark]
-    [markup.goldmark.parser.attribute]
-      block = true
-      title = true
-    [markup.goldmark.renderer]
-      unsafe = true
-      xhtml = true
-
-[taxonomies]
-  topic = "topics"
-  tag = "tags"
-  series = "series"
-
-[params.footer]
-    showSocials = false
-
-  [params.footer.creativeCommons]
-    enabled = true
-    license = "cc_by"
-    icons = true
+  [params.robotstxt]
+    blockCC = true
+    blockAI = true
 
 [privacy]
   [privacy.vimeo]
