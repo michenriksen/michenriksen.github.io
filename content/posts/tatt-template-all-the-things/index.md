@@ -2,31 +2,31 @@
 title: "Templating all the things"
 date: "2024-05-22"
 locale: "en_US"
-tags: ["go", "tool", "open-source"]
+categories: ["golang", "tool", "open-source"]
 ---
 
 I created and released a simple CLI tool to render Go templates using data from YAML, JSON, or TOML files.
 {.lead}
 <!--more-->
 
-Lately, I've frequently used [Go's text/template](https://pkg.go.dev/text/template) package for small, one-off tasks 
+Lately, I've frequently used [Go's text/template](https://pkg.go.dev/text/template) package for small, one-off tasks
 where I needed to generate specific data formats from simple data.
 
-Go's templating system offers a robust way to generate textual output, but it always requires some glue code to parse 
+Go's templating system offers a robust way to generate textual output, but it always requires some glue code to parse
 the templates and render them with dynamic data.
 
 To simplify this process, I created a command-line tool called {{% sidenote "**tatt.**" %}}Acronym for Template All The Things.{{% /sidenote %}} With tatt, you only need to write the template and provide the data in a parsable format. It's available as open-source under the MIT license at [https://github.com/michenriksen/tatt](https://github.com/michenriksen/tatt).
 
 ## Usage example: Generating Semgrep rules
 
-To demonstrate how to use **tatt**, I'll share a recent real-world task I solved with it. I needed to create a 
-collection of [Semgrep](https://semgrep.dev/) rules to detect the usage of clients from the [JavaScript AWS SDK](https://github.com/aws/aws-sdk-js). 
+To demonstrate how to use **tatt**, I'll share a recent real-world task I solved with it. I needed to create a
+collection of [Semgrep](https://semgrep.dev/) rules to detect the usage of clients from the [JavaScript AWS SDK](https://github.com/aws/aws-sdk-js).
 
 The SDK has a large number of clients, and Semgrep rules are defined in YAML, making this a perfect task for tatt.
 
 ### Step 1: Defining the template
 
-First thing is to define a template that loops over a list of objects containing client information to create a Semgrep 
+First thing is to define a template that loops over a list of objects containing client information to create a Semgrep
 rule for each client in the SDK:
 
 ```go-template {linenos=true}
@@ -44,7 +44,7 @@ rules:
               ...
       - pattern-either:
           - pattern: new $IMPORT.{{.Client}}(...)
-          - pattern: new $CLIENT(...) 
+          - pattern: new $CLIENT(...)
     message: AWS {{.Client}} detected
     severity: INFO
     metadata:
@@ -55,7 +55,7 @@ rules:
         - {{.}}
         {{- end }}
         {{- end }}
-      lang: javascript 
+      lang: javascript
     languages:
       - javascript
       - typescript
@@ -70,8 +70,8 @@ Based on the template, here are the data requirements for each client:
 
 ## Step 2: Extracting the client data
 
-As mentioned, the AWS SDK contains many clients, so we can use `grep` and `awk` to gather most of the client data. 
-After cloning the [AWS SDK repository](https://github.com/aws/aws-sdk-js), it's fairly easy to extract the raw data we 
+As mentioned, the AWS SDK contains many clients, so we can use `grep` and `awk` to gather most of the client data.
+After cloning the [AWS SDK repository](https://github.com/aws/aws-sdk-js), it's fairly easy to extract the raw data we
 need:
 
 ```bash-session
@@ -96,7 +96,7 @@ workspacesthinclient.js:AWS.WorkSpacesThinClient =
 workspacesweb.js:AWS.WorkSpacesWeb =
 xray.js:AWS.XRay =
 ```
-The `grep` command extracts all client class declarations along with the files where they are found. We can then use 
+The `grep` command extracts all client class declarations along with the files where they are found. We can then use
 `sed` and `awk` to process this data into a list of client information in YAML format:
 
 ```bash-session
@@ -214,4 +214,4 @@ rules:
 
 tatt prints the rendered template to standard out, but this can of course be redirected to a file if needed.
 
-For more information and installation instructions, see the [project README](https://github.com/michenriksen/tatt). 
+For more information and installation instructions, see the [project README](https://github.com/michenriksen/tatt).

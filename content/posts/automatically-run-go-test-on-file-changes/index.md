@@ -2,8 +2,7 @@
 title: "Quick tip: Automatic test runs when files change"
 date: "2023-12-17"
 locale: "en_US"
-tags: ["go", "testing", "quick-tip"]
-topics: ["programming"]
+categories: ["programming", "golang", "testing", "quick-tip"]
 ---
 
 How to use watchexec to get instant feedback from your tests when you change a file in your Go project.

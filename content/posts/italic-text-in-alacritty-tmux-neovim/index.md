@@ -1,8 +1,7 @@
 ---
 title: "Italic text in Alacritty, tmux, and Neovim"
 date: "2023-11-17"
-tags: ["alacritty", "tmux", "neovim"]
-topics: ["programming", "dotfiles"]
+categories: ["programming", "dotfiles"]
 locale: "en-US"
 resources:
   - src: cover-code-preview.png
