@@ -2,3 +2,5 @@ github.com/michenriksen/hugo-theme-til v0.0.0-20241027141212-93479f142ec8 h1:8I4
 github.com/michenriksen/hugo-theme-til v0.0.0-20241027141212-93479f142ec8/go.mod h1:t9bPWV70WG1Xq6XNR15QJXvLN4XECyFZDBc44ixKg1s=
 github.com/michenriksen/hugo-theme-til v0.0.0-20241027144536-883e830c5ac4 h1:Pygqj2LPbAOkUkthUvzpvGj+7KQ7Mmt45UWdnoraHR0=
 github.com/michenriksen/hugo-theme-til v0.0.0-20241027144536-883e830c5ac4/go.mod h1:t9bPWV70WG1Xq6XNR15QJXvLN4XECyFZDBc44ixKg1s=
+github.com/michenriksen/hugo-theme-til v0.2.0 h1:XF+/8jbixz3gC6VpkO9ZUWolNlUQY8wC93qcbwUbcZQ=
+github.com/michenriksen/hugo-theme-til v0.2.0/go.mod h1:t9bPWV70WG1Xq6XNR15QJXvLN4XECyFZDBc44ixKg1s=
