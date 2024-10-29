@@ -10,8 +10,8 @@ the blog itself, right?
 
 My old blog was built with Jekyll, but since my world is all about Go now, I decided to use Hugo this time.
 
-I started out thinking *"this time, I'll {{% sidenote "keep it simple" %}}Narrator:
-he didn't keep it simple...{{% /sidenote %}} and focus on actual writing"* so naturally, I had to build my own theme
+I started out thinking *"this time, I'll {{< sidenote "keep it simple" >}}Narrator:
+he didn't keep it simple...{{< /sidenote >}} and focus on actual writing"* so naturally, I had to build my own theme
 before I could start writing.
 
 At least I think the theme came out pretty decent. I created the theme with a particular focus on legibility and

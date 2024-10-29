@@ -37,7 +37,7 @@ The command is a bit of a mouthful, so I can recommend setting up an alias for i
 alias autotest="watchexec -c clear -o do-nothing -d 100ms --exts go 'pkg=\".\${WATCHEXEC_COMMON_PATH/\$PWD/}/...\"; echo \"running tests for \$pkg\"; go test \"\$pkg\"'"
 ```
 
-{{% admonition title="Fancy web UI with gokiburi" %}}
+{{< admonition type="tip" title="Fancy web UI with gokiburi" >}}
 I guess I can't mention automatic test runs without also mentioning a project of mine called [gokiburi]. It watches for
 file changes similarly to watchexec, and presents the results in a spiffy web UI with coverage view, browser
 notifications, sound notifications, and more.
@@ -45,6 +45,6 @@ notifications, sound notifications, and more.
 [Read more on GitHub][gokiburi].
 
 [gokiburi]: https://github.com/michenriksen/gokiburi
-{{% /admonition %}}
+{{< /admonition >}}
 
 [watchexec]: https://github.com/watchexec/watchexec

@@ -13,10 +13,10 @@ and Neovim on macOS.
 {.lead}
 <!--more-->
 
-{{% admonition %}}
+{{< admonition >}}
 I originally published this guide in a [GitHub Gist](https://gist.github.com/michenriksen/a3fd9e4104548c960696748d994309a3),
 but I decided to consolidate it here for better visibility and easier reference.
-{{% /admonition %}}
+{{< /admonition >}}
 
 After living without italicized comments and fancy underlines under misspelled words for way too long, I finally
 found a way to get them working in Alacritty, tmux, and Neovim on macOS. It seems that many people struggle with this
@@ -68,11 +68,11 @@ set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{25
 set -as terminal-overrides ',alacritty:RGB' # true-color support
 ```
 
-{{% admonition type="info" title="Heads-up" %}}
+{{< admonition title="Heads-up" >}}
 if you are using the [tmux-sensible](https://github.com/tmux-plugins/tmux-sensible) plugin, be aware that it overrides
 the `default-terminal`  setting to `screen-256color`, so be sure to add the preceding lines **after** the line that
 loads the plugin.
-{{% /admonition %}}
+{{< /admonition >}}
 
 Make sure tmux picks up the new configuration by restarting the server:
 

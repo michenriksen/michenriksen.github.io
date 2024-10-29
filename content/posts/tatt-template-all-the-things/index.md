@@ -15,7 +15,7 @@ where I needed to generate specific data formats from simple data.
 Go's templating system offers a robust way to generate textual output, but it always requires some glue code to parse
 the templates and render them with dynamic data.
 
-To simplify this process, I created a command-line tool called {{% sidenote "**tatt.**" %}}Acronym for Template All The Things.{{% /sidenote %}} With tatt, you only need to write the template and provide the data in a parsable format. It's available as open-source under the MIT license at [https://github.com/michenriksen/tatt](https://github.com/michenriksen/tatt).
+To simplify this process, I created a command-line tool called {{< sidenote "tatt." >}}Acronym for Template All The Things.{{< /sidenote >}} With tatt, you only need to write the template and provide the data in a parsable format. It's available as open-source under the MIT license at [https://github.com/michenriksen/tatt](https://github.com/michenriksen/tatt).
 
 ## Usage example: Generating Semgrep rules
 
