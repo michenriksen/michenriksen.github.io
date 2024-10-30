@@ -1,7 +1,7 @@
 ---
 title: Private Go modules in GitLab CI/CD
 date: 2024-10-30
-categories: [Golang, Gitlab, CI/CD]
+categories: [Golang, Gitlab, 'CICD']
 ---
 
 This took way too long for me to figure out, so here's how to install private Go modules in [GitLab CI/CD] pipeline
