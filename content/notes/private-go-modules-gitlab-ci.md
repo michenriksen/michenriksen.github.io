@@ -1,5 +1,5 @@
 ---
-title: Private Go modules in GitLab CI
+title: Private Go modules in GitLab CI/CD
 date: 2024-10-30
 categories: [Golang, Gitlab, CI/CD]
 ---
