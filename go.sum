@@ -4,3 +4,5 @@ github.com/michenriksen/hugo-theme-til v0.0.0-20241027144536-883e830c5ac4 h1:Pyg
 github.com/michenriksen/hugo-theme-til v0.0.0-20241027144536-883e830c5ac4/go.mod h1:t9bPWV70WG1Xq6XNR15QJXvLN4XECyFZDBc44ixKg1s=
 github.com/michenriksen/hugo-theme-til v0.2.0 h1:XF+/8jbixz3gC6VpkO9ZUWolNlUQY8wC93qcbwUbcZQ=
 github.com/michenriksen/hugo-theme-til v0.2.0/go.mod h1:t9bPWV70WG1Xq6XNR15QJXvLN4XECyFZDBc44ixKg1s=
+github.com/michenriksen/hugo-theme-til v0.3.0 h1:QYmYNnwhKvzPmTO8By0zTiAezbGzNoN34Y7HOMdqurI=
+github.com/michenriksen/hugo-theme-til v0.3.0/go.mod h1:t9bPWV70WG1Xq6XNR15QJXvLN4XECyFZDBc44ixKg1s=
