@@ -1,6 +1,7 @@
 ---
 title: "Weeknotes 2024 w45: you can only watch"
 date: "2024-11-10"
+summary: "Michael's weeknotes for November 4-10, 2024."
 categories: ["weeknotes"]
 ---
 
