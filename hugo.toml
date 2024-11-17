@@ -36,11 +36,11 @@ copyright = 'Michael Henriksen'
     pageRef = "/notes"
     weight = 30
 
-  # [[menu.main]]
-  #   identifier = "graph"
-  #   name = "Graph"
-  #   pageRef = "/graph"
-  #   weight = 40
+  [[menu.main]]
+    identifier = "graph"
+    name = "Graph"
+    pageRef = "/graph"
+    weight = 40
 
 [markup]
   [markup.highlight]
