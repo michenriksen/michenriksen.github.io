@@ -1,6 +1,7 @@
 ---
 title: S.T.A.L.K.E.R 2 mods I play with
 date: 2024-12-04
+lastmod: 2024-12-06
 categories: [gaming]
 ---
 
@@ -18,6 +19,8 @@ of this mod makes damage to humans more realistic. And it goes both ways, so NPC
 you, which is only fair.
 - [Equalized Aim Sensitivity X-Y]: Adjusts mouse sensitivity to ensure equal scaling for both X (horizontal) and Y
 (vertical) axes.
+- [Empty Hands Zoom]: Increases empty hand zoom by +50%, +100%, or +150% to work as a primitive substitute for the
+[binoculars] in the previous games.
 
 
 [S.T.A.L.K.E.R. 2: Heart of Chornobyl]: https://www.stalker2.com/
@@ -26,3 +29,5 @@ you, which is only fair.
 [Axxii's Stealth Mod]: https://www.nexusmods.com/stalker2heartofchornobyl/mods/100
 [Realistic Damage]: https://www.nexusmods.com/stalker2heartofchornobyl/mods/89
 [Equalized Aim Sensitivity X-Y]: https://www.nexusmods.com/stalker2heartofchornobyl/mods/57
+[Empty Hands Zoom]: https://www.nexusmods.com/stalker2heartofchornobyl/mods/293
+[binoculars]: https://stalker.fandom.com/wiki/Binoculars
